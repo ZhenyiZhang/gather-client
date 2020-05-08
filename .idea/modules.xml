@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/gather.iml" filepath="$PROJECT_DIR$/.idea/gather.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../gather1/.idea/gather.iml" filepath="$PROJECT_DIR$/../gather1/.idea/gather.iml" />
     </modules>
   </component>
 </project>

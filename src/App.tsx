@@ -1,13 +1,18 @@
 import React from 'react';
 import './App.css';
-import Login from "./components/account/login";
+import {Route} from "react-router-dom";
+import { withCookies } from 'react-cookie';
+import HomeContainer from './components/homeContainer/homeContainer'
 
-function App() {
-  return (
-    <div className="App">
-      <Login/>
-    </div>
-  );
+function App(props: any) {
+    return (
+        <div className="App">
+            <Route
+                path="/"
+                render={() => (<HomeContainer cookies={props.cookies}/>)}>
+            </Route>
+        </div>
+    );
 }
 
-export default App;
+export default withCookies(App);

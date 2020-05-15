@@ -1,0 +1,94 @@
+import React from 'react';
+import {Component} from 'react';
+import newEventInstance from '../../apisInstances/newEvent'
+import eventInterface from './interface/event.interface';
+import { Button, Form, FormGroup, Label, Input, Col} from 'reactstrap';
+import {Redirect} from "react-router-dom";
+import DatePicker from 'react-datepicker';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'react-datepicker/dist/react-datepicker.css';
+import './newEvent.css';
+interface Props {
+    AccessToken: string
+}
+
+class NewEvent extends Component<Props> {
+    state = {
+        name: '',
+        start: new Date(),
+        end: new Date(),
+        repeat: '',
+        description: '',
+        warning: null
+    }
+    submitEvent = () => {
+        const {warning, ...others} = this.state;
+        const event: eventInterface = others;
+        newEventInstance.post('', event,
+            {headers:{Authorization: 'Bearer ' + this.props.AccessToken}})
+            .then(() => {
+                this.setState({warning : (<Redirect to={'/main'} exact/>)})
+            })
+            .catch(error => {this.setState({warning: error.response.statusText})})
+    }
+    render() {
+        return (
+            <Form >
+                <h1>New Event</h1>
+                <FormGroup className="FormGroupDate" row>
+                    <Label sm={2}>Select Start Time</Label>
+                    <DatePicker className="form-control"
+                                selected={this.state.start}
+                                onChange={date => this.setState({start: date})}
+                                showTimeSelect
+                                timeFormat="HH:mm"
+                                timeIntervals={15}
+                                timeCaption="time"
+                                dateFormat="MMMM d, yyyy h:mm aa"
+                    />
+                    <Label sm={2}>Select End Time</Label>
+                    <DatePicker className="form-control"
+                                selected={this.state.end}
+                                onChange={date => this.setState({end: date})}
+                                showTimeSelect
+                                timeFormat="HH:mm"
+                                timeIntervals={15}
+                                timeCaption="time"
+                                dateFormat="MMMM d, yyyy h:mm aa"
+                    />
+                </FormGroup>
+                <FormGroup className="FormGroup" row>
+                    <Label sm={2}>Event Name</Label>
+                    <Col sm={10}>
+                        <Input type="text" name="name" id="name" placeholder="name"
+                               onChange={event => this.setState({name: event.target.value})}/>
+                    </Col>
+                </FormGroup>
+                <FormGroup className="FormGroup" row>
+                    <Label for="examplePassword" sm={2}>Description</Label>
+                    <Col sm={10}>
+                        <Input type="textarea" name="description" id="description" placeholder="description"
+                               onChange={event => this.setState({description: event.target.value})}/>
+                    </Col>
+                </FormGroup>
+                <FormGroup className="FormGroup" row>
+                    <Label sm={2}>Repeat</Label>
+                    <Col sm={10}>
+                        <Input type="select" name="repeat" id="repeat"
+                               onChange={event => this.setState({repeat: event.target.value})}>
+                            <option>None</option>
+                            <option>Weekly</option>
+                            <option>Monthly</option>
+                            <option>Daily</option>
+                            <option>Yearly</option>
+                        </Input>
+                    </Col>
+                </FormGroup>
+                <Button className="submitButton" onClick={this.submitEvent}>Submit</Button>
+                <p className="warning">{this.state.warning}</p>
+            </Form>
+        );
+    }
+}
+
+export default NewEvent;

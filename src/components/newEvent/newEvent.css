@@ -1,0 +1,40 @@
+.submitButton {
+    background-color: #4CAF50;
+}
+
+.submitButton :focus {
+    background-color: red;
+}
+
+.FormGroup Label {
+    font-family: 'Roboto', sans-serif;
+    font-weight:bold;
+    font-size: 18px;
+}
+
+.FormGroupDate Label {
+    font-family: 'Roboto', sans-serif;
+    font-weight:bold;
+    font-size: 18px;
+}
+
+.FormGroupDate .form-control{
+    margin-left: 15px;
+}
+
+h1 {
+    font-family: 'Roboto', sans-serif;
+    font-weight:bold;
+}
+
+.warning {
+    color: red
+}
+
+Form {
+    margin-top: 20%;
+    margin-left: 15%;
+    margin-right: 15%;
+    padding: 20px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}

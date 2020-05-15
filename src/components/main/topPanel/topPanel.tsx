@@ -2,9 +2,10 @@ import React from 'react';
 import {Component }from 'react';
 import {connect} from 'react-redux';
 import {Dispatch} from 'redux';
+import {Link} from 'react-router-dom';
+import getProfileAction from './actions/getProfileAction';
 import getProfileInstance from '../../../apisInstances/getProfile';
-import OrganizationStateInterface from '../../../store/interface/OrganizationState.interface'
-import getProfileAction from './actions/getProfileAction'
+import OrganizationStateInterface from '../../../store/interface/OrganizationState.interface';
 
 
 interface Props {
@@ -16,13 +17,15 @@ interface Props {
 }
 
 class TopPanel extends Component<Props> {
+
     componentDidMount(): void {
-        getProfileInstance.get('', {
-            headers:{Authorization: 'Bearer ' + this.props.AccessToken}})
+        getProfileInstance.get('',
+            {headers:{Authorization: 'Bearer ' + this.props.AccessToken}})
             .then(res => {
-                const profile: OrganizationStateInterface = res.data;
-                this.props.getProfileDispatch(profile);
-            });
+                    const profile: OrganizationStateInterface = res.data;
+                    this.props.getProfileDispatch(profile);
+                }
+            );
     }
 
     render() {
@@ -30,6 +33,7 @@ class TopPanel extends Component<Props> {
             <div>
                 <p>{this.props.organizationName}</p>
                 <p>{this.props.description}</p>
+                <Link to="/newEvent">New Event</Link>
             </div>
         );
     }

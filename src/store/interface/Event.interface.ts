@@ -5,4 +5,5 @@ export default interface Event{
     Organization: string,
     start: Date,
     end: Date
+    _id: string
 };

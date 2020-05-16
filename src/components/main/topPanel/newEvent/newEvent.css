@@ -9,32 +9,38 @@
 .FormGroup Label {
     font-family: 'Roboto', sans-serif;
     font-weight:bold;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .FormGroupDate Label {
     font-family: 'Roboto', sans-serif;
     font-weight:bold;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .FormGroupDate .form-control{
     margin-left: 15px;
 }
 
-h1 {
-    font-family: 'Roboto', sans-serif;
-    font-weight:bold;
-}
-
 .warning {
     color: red
 }
 
-Form {
-    margin-top: 20%;
-    margin-left: 15%;
-    margin-right: 15%;
+.CusModal {
+    max-width: 1600px;
+    width: 70%;
+    height: 100%;
     padding: 20px;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+/* On screens that are 600px or less, set the background color to olive */
+@media screen and (max-width: 600px) {
+    .CusModal {
+        width: 100%;
+    }
+}
+@media screen and (min-width: 601px) and (max-width: 1199px) {
+    .CusModal {
+        width: 90%;
+    }
 }

@@ -2,7 +2,8 @@ import React from 'react';
 import {Component } from 'react';
 import eventInterface from '../../../store/interface/Event.interface';
 import OrganizationStateInterface from '../../../store/interface/OrganizationState.interface'
-import EventClickPopUp from '../eventClickPopUp/eventClickPopUp'
+import EventClickPopUp from './eventClickPopUp/eventClickPopUp'
+import getProfileInstance from '../../../apisInstances/getProfile';
 import './eventsPanel.css'
 
 /*Redux*/
@@ -11,16 +12,20 @@ import {connect} from 'react-redux';
 /*time format set up*/
 import { Calendar } from 'react-big-calendar'
 import Localizer from './localizer/localizer'
+import {Dispatch} from "redux";
+import getProfileAction from "../topPanel/actions/getProfileAction";
 
 /*component*/
 interface Props {
     events: eventInterface[],
-    AccessToken: string
+    AccessToken: string,
+    getProfileDispatch: (organizationData: OrganizationStateInterface) => void
 }
 
 class EventsPanel extends Component<Props> {
     state = {
         popUp: false,
+        refresh: false,
         popUpEvent: {
             name: '',
             description: '',
@@ -38,7 +43,16 @@ class EventsPanel extends Component<Props> {
         });
     };
 
-    popUpHandler = () => {
+    refreshHandler = () => {
+        getProfileInstance.get('',
+            {headers:{Authorization: 'Bearer ' + this.props.AccessToken}})
+            .then(res => {
+                    const profile: OrganizationStateInterface = res.data;
+                    this.props.getProfileDispatch(profile);})
+            .catch(() => {alert('failed to access user profile')});
+    };
+
+    popUpToggle = () => {
         this.setState({
             popUp: !this.state.popUp
         })
@@ -68,7 +82,9 @@ class EventsPanel extends Component<Props> {
                 <EventClickPopUp
                     event={this.state.popUpEvent}
                     popUp={this.state.popUp}
-                    popUpHandler={this.popUpHandler}
+                    popUpToggle={this.popUpToggle}
+                    refreshHandler={this.refreshHandler}
+                    AccessToken={this.props.AccessToken}
                 />
             </div>
         );
@@ -81,4 +97,13 @@ const mapStateToProps = (state: OrganizationStateInterface) => {
     };
 };
 
-export default connect(mapStateToProps)(EventsPanel);
+const mapDispatchToProps = (dispatch: Dispatch) => {
+    return{
+        getProfileDispatch: (organizationData: OrganizationStateInterface) => {
+            const action: getProfileAction = {type: 'getProfile', organization: organizationData};
+            dispatch(action);
+        },
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EventsPanel);

@@ -6,7 +6,7 @@ const initialState: OrganizationStateInterface = {
     organizationName: '',
     events: [],
     _id: ''
-}
+};
 
 const OrganizationReducer = (state = initialState, action: any) => {
     switch (action.type) {
@@ -16,6 +16,6 @@ const OrganizationReducer = (state = initialState, action: any) => {
             }
     }
     return state
-}
+};
 
 export default OrganizationReducer;

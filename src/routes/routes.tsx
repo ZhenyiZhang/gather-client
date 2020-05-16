@@ -7,7 +7,7 @@ import {
 import Login from "../components/account/login";
 import SignUp from "../components/account/signUp";
 import Main from "../components/main/main"
-import NewEvent from '../components/newEvent/newEvent';
+import NewEvent from '../components/main/topPanel/newEvent/newEvent';
 
 const Routes = (props: any) => {
     return(
@@ -21,9 +21,6 @@ const Routes = (props: any) => {
                     </Route>
                     <Route path="/main" exact>
                         <Main cookies={props.cookies}/>
-                    </Route>
-                    <Route path="/newEvent">
-                        <NewEvent AccessToken={props.cookies.get('AccessToken')}/>
                     </Route>
                     <Redirect from="/" to="login"/>
                 </Switch>

@@ -9,8 +9,6 @@ interface Props {
 }
 class Home extends Component<Props> {
     render() {
-        const {cookies} = this.props;
-        cookies.set('name', 'ross', {path: '/'});
         return (<Routes cookies={this.props.cookies}/>);
     }
 }

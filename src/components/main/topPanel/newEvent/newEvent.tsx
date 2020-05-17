@@ -2,7 +2,7 @@ import React from 'react';
 import {Component} from 'react';
 import newEventInstance from '../../../../apisInstances/newEvent'
 import eventInterface from './interface/event.interface';
-import {Button, Form, FormGroup, Label, Input, Col, Modal, ModalBody, ModalFooter} from 'reactstrap';
+import {Button, FormGroup, Label, Input, Col, Modal, ModalBody, ModalFooter} from 'reactstrap';
 import {Redirect} from "react-router-dom";
 import DatePicker from 'react-datepicker';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -31,7 +31,8 @@ class NewEvent extends Component<Props> {
         newEventInstance.post('', event,
             {headers:{Authorization: 'Bearer ' + this.props.AccessToken}})
             .then(() => {
-                this.setState({warning : (<Redirect to={'/main'} exact/>)})
+                this.setState({warning : (<Redirect to={'/main'} exact/>)});
+                this.props.newEventHandler();
             })
             .catch(error => {this.setState({warning: error.response.statusText})})
     };

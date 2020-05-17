@@ -36,6 +36,12 @@ class TopPanel extends Component<Props> {
 
     newEventHandler = () => {
         this.setState({newEvent: !this.state.newEvent});
+        getProfileInstance.get('',
+            {headers:{Authorization: 'Bearer ' + this.props.AccessToken}})
+            .then(res => {
+                const profile: OrganizationStateInterface = res.data;
+                this.props.getProfileDispatch(profile);})
+            .catch(() => {alert('failed to access user profile')});
     };
 
     render() {

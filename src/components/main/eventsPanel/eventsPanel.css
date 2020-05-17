@@ -515,9 +515,9 @@ button.rbc-input::-moz-focus-inner {
     pointer-events: none; }
 
 .Calendar {
-    width: 70%;
+    width: 80%;
     margin: auto;
-    height: 600px;
+    height: 800px;
 }
 
 /* On screens that are 600px or less, set the background color to olive */

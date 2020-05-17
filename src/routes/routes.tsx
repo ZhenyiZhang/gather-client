@@ -7,7 +7,6 @@ import {
 import Login from "../components/account/login";
 import SignUp from "../components/account/signUp";
 import Main from "../components/main/main"
-import NewEvent from '../components/main/topPanel/newEvent/newEvent';
 
 const Routes = (props: any) => {
     return(

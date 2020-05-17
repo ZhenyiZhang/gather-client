@@ -77,6 +77,7 @@ class EventsPanel extends Component<Props> {
                     localizer={Localizer}
                     startAccessor="startDate"
                     endAccessor="endDate"
+                    step={60}
                     onSelectEvent={event => {this.eventOnClickHandler(event)}}
                 />
                 <EventClickPopUp

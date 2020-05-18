@@ -20,7 +20,9 @@ class NewEvent extends Component<Props> {
         name: '',
         start: new Date(),
         end: new Date(),
-        repeat: '',
+        repeatEnds: new Date(),
+        repeatNeverEnds: false,
+        repeat: 'None',
         description: '',
         warning: null,
     };
@@ -85,11 +87,20 @@ class NewEvent extends Component<Props> {
                                 <option>None</option>
                                 <option>Weekly</option>
                                 <option>Monthly</option>
+                                <option>Biweekly</option>
                                 <option>Daily</option>
                                 <option>Yearly</option>
                             </Input>
                         </Col>
                     </FormGroup>
+                    {this.state.repeat !== 'None' ? <FormGroup className="FormGroupDate" row>
+                        <Label sm={2}>Select Repeat End Time</Label>
+                        <DatePicker className="form-control"
+                                    selected={this.state.repeatEnds}
+                                    onChange={date => this.setState({repeatEnds: date})}
+                                    dateFormat="yyyy/MM/dd"
+                        />
+                    </FormGroup> : null}
                     <ModalFooter>
                         <Button className="submitButton" onClick={this.submitEvent}>Submit</Button>
                         <Button color="secondary" onClick={this.props.newEventHandler}>Cancel</Button>

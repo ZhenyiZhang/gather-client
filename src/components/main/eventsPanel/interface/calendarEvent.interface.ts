@@ -1,11 +1,11 @@
-export default interface Event{
+export default interface CalendarEvent {
     repeat: string,
     name: string,
     description: string,
     Organization: string,
-    start: Date,
-    end: Date,
+    startDate: Date,
+    endDate: Date,
     repeatEnds: Date,
     repeatNeverEnds: boolean,
     _id: string
-};
+}

@@ -1,6 +1,8 @@
 import React from 'react';
 import {Component } from 'react';
 import eventInterface from '../../../store/interface/Event.interface';
+import CalendarEvent from "./interface/calendarEvent.interface";
+import EventGenerator from "./functions/eventGenerator";
 import OrganizationStateInterface from '../../../store/interface/OrganizationState.interface'
 import EventClickPopUp from './eventClickPopUp/eventClickPopUp'
 import getProfileInstance from '../../../apisInstances/getProfile';
@@ -24,19 +26,30 @@ interface Props {
 
 class EventsPanel extends Component<Props> {
     state = {
+        /*control whether event is clicked or not*/
         popUp: false,
+        /*controller for refreshing page*/
         refresh: false,
+        /*content in the pop up modal*/
         popUpEvent: {
             name: '',
             description: '',
             start: new Date(),
             end: new Date(),
             repeat: '',
+            repeatEnds: new Date(),
+            repeatNeverEnds: false,
             _id: '',
-            Organization: ''}
+            Organization: ''},
     };
 
-    eventOnClickHandler = (event: eventInterface) => {
+
+    eventOnClickHandler = (calendarEvent: CalendarEvent) => {
+        const event: eventInterface = {
+            start: calendarEvent.startDate,
+            end: calendarEvent.endDate,
+            ...calendarEvent
+        };
         this.setState({
             popUpEvent: event,
             popUp: !this.state.popUp
@@ -47,8 +60,8 @@ class EventsPanel extends Component<Props> {
         getProfileInstance.get('',
             {headers:{Authorization: 'Bearer ' + this.props.AccessToken}})
             .then(res => {
-                    const profile: OrganizationStateInterface = res.data;
-                    this.props.getProfileDispatch(profile);})
+                const profile: OrganizationStateInterface = res.data;
+                this.props.getProfileDispatch(profile);})
             .catch(() => {alert('failed to access user profile')});
     };
 
@@ -59,21 +72,15 @@ class EventsPanel extends Component<Props> {
     };
 
     render() {
-
-        const events = this.props.events.map(event => {
-            return {
-                title: event.name,
-                startDate: new Date(event.start),
-                endDate: new Date(event.end),
-                ...event
-            }
-        });
-
+        /*events list in the display range*/
+        const eventsList = EventGenerator(this.props.events);
+        eventsList.shift();
         return(
             <div>
                 <Calendar
                     className="Calendar"
-                    events={events}
+                    titleAccessor="name"
+                    events={eventsList}
                     localizer={Localizer}
                     startAccessor="startDate"
                     endAccessor="endDate"

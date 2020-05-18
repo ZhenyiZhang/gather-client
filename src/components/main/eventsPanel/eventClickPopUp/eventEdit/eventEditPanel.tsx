@@ -20,8 +20,10 @@ class EventEditPanel extends Component<Props> {
         repeat: this.props.event.repeat,
         name: this.props.event.name,
         description: this.props.event.description,
+        repeatEnds: this.props.event.repeatEnds,
         start: new Date(this.props.event.start),
         end: new Date(this.props.event.end),
+        repeatNeverEnds: this.props.event.repeatNeverEnds,
         warning: '',
     };
 
@@ -30,6 +32,8 @@ class EventEditPanel extends Component<Props> {
             repeat: this.state.repeat,
             name: this.state.name,
             description: this.state.description,
+            repeatEnds: this.state.repeatEnds,
+            repeatNeverEnds: this.state.repeatNeverEnds,
             start: this.state.start,
             end: this.state.end,
         };
@@ -87,16 +91,25 @@ class EventEditPanel extends Component<Props> {
                     <FormGroup className="FormGroup" row>
                         <Label sm={2}>Repeat</Label>
                         <Col sm={10}>
-                            <Input type="select" name="repeat" id="repeat" value={this.props.event.repeat}
+                            <Input type="select" name="repeat" id="repeat" value={this.state.repeat}
                                    onChange={event => this.setState({repeat: event.target.value})}>
                                 <option>None</option>
                                 <option>Weekly</option>
                                 <option>Monthly</option>
+                                <option>Biweekly</option>
                                 <option>Daily</option>
                                 <option>Yearly</option>
                             </Input>
                         </Col>
                     </FormGroup>
+                    {this.state.repeat !== 'None' ? <FormGroup className="FormGroupDate" row>
+                        <Label sm={2}>Select Repeat End Time</Label>
+                        <DatePicker className="form-control"
+                                    selected={new Date()}
+                                    onChange={date => this.setState({repeatEnds: date})}
+                                    dateFormat="yyyy/MM/dd"
+                        />
+                    </FormGroup> : null}
                     <p className="warning">{this.state.warning}</p>
                 </ModalBody>
                 <ModalFooter>

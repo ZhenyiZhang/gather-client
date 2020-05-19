@@ -23,42 +23,40 @@ const EventGenerator = (events: eventInterface[]): CalendarEvent[] => {
             });
         }
         else {
-            /*cases when events have repeat end time */
-            if(!event.repeatNeverEnds) {
-                let dateStartCount = new Date(event.start);
-                let dateEndCount = new Date(event.end);
-                while (dateStartCount < new Date(event.repeatEnds)) {
-                    eventsFullList.push({
-                        startDate: new Date(dateStartCount),
-                        endDate: new Date(dateEndCount),
-                        ...event
-                    });
-                    switch (event.repeat) {
-                        case 'Monthly':
-                            dateStartCount.setMonth(dateStartCount.getMonth() + 1);
-                            dateEndCount.setMonth(dateEndCount.getMonth() + 1);
-                            break;
-                        case 'Weekly':
-                            dateStartCount.setDate(dateStartCount.getDate() + 7);
-                            dateEndCount.setDate(dateEndCount.getDate() + 7);
-                            break;
-                        case 'Biweekly':
-                            dateStartCount.setDate(dateStartCount.getDate() + 14);
-                            dateEndCount.setDate(dateEndCount.getDate() + 14);
-                            break;
-                        case 'Yearly':
-                            dateStartCount.setFullYear(dateStartCount.getFullYear() + 1);
-                            dateEndCount.setFullYear(dateEndCount.getFullYear() + 1);
-                            break;
-                        case 'Daily':
-                            dateStartCount.setDate(dateStartCount.getDate() + 1);
-                            dateEndCount.setDate(dateEndCount.getDate() + 1);
-                            break;
-                    }
+            let dateStartCount = new Date(event.start);
+            let dateEndCount = new Date(event.end);
+            while (dateStartCount < new Date(event.repeatEnds)) {
+                eventsFullList.push({
+                    startDate: new Date(dateStartCount),
+                    endDate: new Date(dateEndCount),
+                    ...event
+                });
+                switch (event.repeat) {
+                    case 'Monthly':
+                        dateStartCount.setMonth(dateStartCount.getMonth() + 1);
+                        dateEndCount.setMonth(dateEndCount.getMonth() + 1);
+                        break;
+                    case 'Weekly':
+                        dateStartCount.setDate(dateStartCount.getDate() + 7);
+                        dateEndCount.setDate(dateEndCount.getDate() + 7);
+                        break;
+                    case 'Biweekly':
+                        dateStartCount.setDate(dateStartCount.getDate() + 14);
+                        dateEndCount.setDate(dateEndCount.getDate() + 14);
+                        break;
+                    case 'Yearly':
+                        dateStartCount.setFullYear(dateStartCount.getFullYear() + 1);
+                        dateEndCount.setFullYear(dateEndCount.getFullYear() + 1);
+                        break;
+                    case 'Daily':
+                        dateStartCount.setDate(dateStartCount.getDate() + 1);
+                        dateEndCount.setDate(dateEndCount.getDate() + 1);
+                        break;
                 }
             }
         }
     });
+    eventsFullList.shift();
     return eventsFullList;
 };
 

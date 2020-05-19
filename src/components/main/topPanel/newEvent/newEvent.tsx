@@ -3,6 +3,7 @@ import {Component} from 'react';
 import newEventInstance from '../../../../apisInstances/newEvent'
 import eventInterface from './interface/event.interface';
 import {Button, FormGroup, Label, Input, Col, Modal, ModalBody, ModalFooter} from 'reactstrap';
+import Switch from "react-switch";
 import {Redirect} from "react-router-dom";
 import DatePicker from 'react-datepicker';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -100,6 +101,9 @@ class NewEvent extends Component<Props> {
                                     onChange={date => this.setState({repeatEnds: date})}
                                     dateFormat="yyyy/MM/dd"
                         />
+                        <Switch
+                            onChange={(event: boolean) => this.setState({repeatNeverEnds: event})}
+                            checked={this.state.repeatNeverEnds}/>
                     </FormGroup> : null}
                     <ModalFooter>
                         <Button className="submitButton" onClick={this.submitEvent}>Submit</Button>

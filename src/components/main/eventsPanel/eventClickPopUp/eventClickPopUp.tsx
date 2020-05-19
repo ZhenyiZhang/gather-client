@@ -25,6 +25,10 @@ class EventClickPopUp extends Component<Props> {
         this.setState({ editing: !this.state.editing });
     };
 
+    refreshHandler = () => {
+        this.props.refreshHandler();
+    };
+
     deleteEventHandler = () => {
         deleteEventInstance.delete(this.props.event._id,
             {headers:{Authorization: 'Bearer ' + this.props.AccessToken}})
@@ -54,7 +58,7 @@ class EventClickPopUp extends Component<Props> {
                 </ModalFooter>
                 <EventEditPanel
                     AccessToken={this.props.AccessToken}
-                    refreshHandler={this.props.refreshHandler}
+                    refreshHandler={this.refreshHandler}
                     editing={this.state.editing} event={this.props.event}
                     editingToggle={this.editingToggle}
                     popUpToggle={this.props.popUpToggle}/>

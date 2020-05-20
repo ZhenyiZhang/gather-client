@@ -1,7 +1,7 @@
 import eventInterface from "../../../../store/interface/Event.interface";
 import CalendarEvent from "../interface/calendarEvent.interface";
 
-const EventGenerator = (events: eventInterface[]): CalendarEvent[] => {
+const EventsGenerator = (events: eventInterface[], rangeStart: Date, rangeEnd: Date): CalendarEvent[] => {
     let eventsFullList = [{
         name: '',
         startDate: new Date(),
@@ -22,7 +22,7 @@ const EventGenerator = (events: eventInterface[]): CalendarEvent[] => {
                 ...event
             });
         }
-        else {
+        if (!event.repeatNeverEnds && event.repeat !== 'None'){
             let dateStartCount = new Date(event.start);
             let dateEndCount = new Date(event.end);
             while (dateStartCount < new Date(event.repeatEnds)) {
@@ -55,9 +55,94 @@ const EventGenerator = (events: eventInterface[]): CalendarEvent[] => {
                 }
             }
         }
+        if (event.repeatNeverEnds){
+            if(new Date(event.start) > rangeEnd) return;
+            let eventStartCount = new Date(event.start);
+            let eventEndCount = new Date(event.end);
+            if(event.repeat === 'Monthly') {
+                while (eventStartCount < rangeStart) {
+                    eventStartCount.setMonth(eventStartCount.getMonth() + 1);
+                    eventEndCount.setMonth(eventEndCount.getMonth() + 1);
+                }
+                while (eventEndCount < rangeEnd && eventStartCount > rangeStart) {
+                    eventsFullList.push({
+                            startDate: eventStartCount,
+                            endDate: eventEndCount,
+                            ...event
+                        }
+                    );
+                    eventStartCount.setMonth(eventStartCount.getMonth() + 1);
+                    eventEndCount.setMonth(eventEndCount.getMonth() + 1);
+                }
+            }
+            if(event.repeat === 'Weekly') {
+                while (eventStartCount < rangeStart) {
+                    eventStartCount.setDate(eventStartCount.getDate() + 7);
+                    eventEndCount.setDate(eventEndCount.getDate() + 7);
+                }
+                while (eventEndCount < rangeEnd && eventStartCount > rangeStart) {
+                    eventsFullList.push({
+                            startDate: new Date(eventStartCount),
+                            endDate: new Date(eventEndCount),
+                            ...event
+                        }
+                    );
+                    eventStartCount.setDate(eventStartCount.getDate() + 7);
+                    eventEndCount.setDate(eventEndCount.getDate() + 7);
+                }
+            }
+            if(event.repeat === 'Yearly') {
+                while (eventStartCount < rangeStart) {
+                    eventStartCount.setFullYear(eventStartCount.getFullYear() + 1);
+                    eventEndCount.setFullYear(eventEndCount.getFullYear() + 1);
+                }
+                while (eventEndCount < rangeEnd && eventStartCount > rangeStart) {
+                    eventsFullList.push({
+                            startDate: new Date(eventStartCount),
+                            endDate: new Date(eventEndCount),
+                            ...event
+                        }
+                    );
+                    eventStartCount.setFullYear(eventStartCount.getFullYear() + 1);
+                    eventEndCount.setFullYear(eventEndCount.getFullYear() + 1);
+                }
+            }
+            if(event.repeat === 'Biweekly') {
+                while (eventStartCount < rangeStart) {
+                    eventStartCount.setDate(eventStartCount.getDate() + 14);
+                    eventEndCount.setDate(eventEndCount.getDate() + 14);
+                }
+                while (eventEndCount < rangeEnd && eventStartCount > rangeStart) {
+                    eventsFullList.push({
+                            startDate: new Date(eventStartCount),
+                            endDate: new Date(eventEndCount),
+                            ...event
+                        }
+                    );
+                    eventStartCount.setDate(eventStartCount.getDate() + 14);
+                    eventEndCount.setDate(eventEndCount.getDate() + 14);
+                }
+            }
+            if(event.repeat === 'Daily') {
+                while (eventStartCount < rangeStart) {
+                    eventStartCount.setDate(eventStartCount.getDate() + 1);
+                    eventEndCount.setDate(eventEndCount.getDate() + 1);
+                }
+                while (eventEndCount < rangeEnd && eventStartCount > rangeStart) {
+                    eventsFullList.push({
+                            startDate: new Date(eventStartCount),
+                            endDate: new Date(eventEndCount),
+                            ...event
+                        }
+                    );
+                    eventStartCount.setDate(eventStartCount.getDate() + 1);
+                    eventEndCount.setDate(eventEndCount.getDate() + 1);
+                }
+            }
+        }
     });
     eventsFullList.shift();
     return eventsFullList;
 };
 
-export default EventGenerator;
+export default EventsGenerator;

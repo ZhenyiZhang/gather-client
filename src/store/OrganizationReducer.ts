@@ -15,7 +15,7 @@ const OrganizationReducer = (state = initialState, action: any) => {
                 ...action.organization
             }
     }
-    return state
+    return state;
 };
 
 export default OrganizationReducer;

@@ -1,3 +1,12 @@
 .topPanel {
     margin-bottom: 10px;
 }
+
+.header {
+    text-align: left;
+}
+
+.NavBarBrand {
+    font-size: 23px
+}
+

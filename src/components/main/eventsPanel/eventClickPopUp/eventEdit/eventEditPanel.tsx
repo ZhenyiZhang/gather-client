@@ -4,6 +4,7 @@ import updateEventInstance from '../../../../../apisInstances/updateEvent'
 import EventInterface from '../../../../../store/interface/Event.interface';
 import NewEvent from '../../../topPanel/newEvent/interface/event.interface'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input, Col } from 'reactstrap';
+import Switch from "react-switch";
 import DatePicker from "react-datepicker";
 
 interface Props {
@@ -20,13 +21,12 @@ class EventEditPanel extends Component<Props> {
         repeat: this.props.event.repeat,
         name: this.props.event.name,
         description: this.props.event.description,
-        repeatEnds: this.props.event.repeatEnds,
+        repeatEnds: new Date(this.props.event.repeatEnds),
         start: new Date(this.props.event.start),
         end: new Date(this.props.event.end),
         repeatNeverEnds: this.props.event.repeatNeverEnds,
         warning: '',
     };
-
     submitHandler = () => {
         const updateData: NewEvent = {
             repeat: this.state.repeat,
@@ -102,14 +102,23 @@ class EventEditPanel extends Component<Props> {
                             </Input>
                         </Col>
                     </FormGroup>
-                    {this.state.repeat !== 'None' ? <FormGroup className="FormGroupDate" row>
-                        <Label sm={2}>Select Repeat End Time</Label>
-                        <DatePicker className="form-control"
-                                    selected={new Date()}
-                                    onChange={date => this.setState({repeatEnds: date})}
-                                    dateFormat="yyyy/MM/dd"
-                        />
-                    </FormGroup> : null}
+                    {this.state.repeat !== 'None' ?
+                        <FormGroup className="FormGroupDate" row>
+                            {this.state.repeatNeverEnds? null : (
+                                <div>
+                                    <Label sm={2}>Select Repeat End Time</Label>
+                                    <DatePicker className="form-control"
+                                                selected={this.state.repeatEnds}
+                                                onChange={date => this.setState({repeatEnds: date})}
+                                                dateFormat="yyyy/MM/dd"
+                                    />
+                                </div>
+                            )}
+                            <Label sm={2}>Never Ends</Label>
+                            <Switch
+                                onChange={(event: boolean) => this.setState({repeatNeverEnds: event})}
+                                checked={this.state.repeatNeverEnds}/>
+                        </FormGroup> : null}
                     <p className="warning">{this.state.warning}</p>
                 </ModalBody>
                 <ModalFooter>

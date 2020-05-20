@@ -2,8 +2,8 @@ import React from 'react';
 import {Component }from 'react';
 import './auth.css';
 import LoginInstance from '../../apisInstances/login';
-import {Redirect} from "react-router-dom";
 import AccessInterface from '../../store/interface/Access.interface'
+import {Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Collapse, Badge} from "reactstrap";
 
 interface Props {
     cookies: any
@@ -14,7 +14,7 @@ class Login extends Component<Props> {
         username: '',
         password: '',
         warning: '',
-        redirectToMain: false
+        collapse: false
     };
 
     usernameOnChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
@@ -29,41 +29,52 @@ class Login extends Component<Props> {
         });
     };
 
-    loginHandler = () => {
+    loginHandler = async () => {
         const loginInfo = {
             username: this.state.username,
             password: this.state.password
         };
         /*get access token */
-        LoginInstance.post('',loginInfo)
-            .then(response => {
-                const access: AccessInterface = response.data;
-
-                const accessKey = access.AccessToken;
-                /*store access token in cookies*/
-                const {cookies} = this.props;
-                cookies.set('AccessToken', accessKey, {path: '/'});
-                /*redirect to main page*/
-                this.setState({
-                    redirectToMain: true
-                });
-            })
+        const response = await LoginInstance.post('',loginInfo)
             .catch(err => {
                 console.log(err.response);
                 this.setState({warning: err.response.statusText})
             });
+        /*log in failed*/
+        if(!response) return;
+        const access: AccessInterface = response.data;
+        const accessKey = access.AccessToken;
+        /*store access token in cookies*/
+        const {cookies} = this.props;
+        const cookieSet = await cookies.set('AccessToken', accessKey, {path: '/'});
+        if(cookieSet) {this.setState({redirectToMain: true});}
+        window.location.href="/main";
     };
 
     render() {
-        if(this.state.redirectToMain) return(<Redirect to="/main"/>)
-
         return(
-            <div className="form">
-                <input type="text" onChange={this.usernameOnChangeHandler} placeholder="username"/>
-                <input type="password" onChange={this.passwordOnChangeHandler} placeholder="password"/>
-                <button onClick={this.loginHandler}>login</button>
-                <p className="warning">{this.state.warning}</p>
-                <p className="message">Not registered? <a href="/signup">Sign Up</a></p>
+            <div>
+                <Navbar color="dark" dark expand="md">
+                    <NavbarBrand className="NavBarBrand">Gathering</NavbarBrand>
+                    <NavbarToggler onClick={() => {this.setState({collapse: !this.state.collapse})}} className="mr-2" />
+                    <Collapse isOpen={this.state.collapse} navbar>
+                    <Nav className="mr-auto" navbar>
+                        <NavItem>
+                            <NavLink href="/signUp">Sign Up</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href="https://github.com/ZhenyiZhang/gather-client">GitHub</NavLink>
+                        </NavItem>
+                    </Nav>
+                    </Collapse>
+                </Navbar>
+                <div className="form">
+                    <input type="text" onChange={this.usernameOnChangeHandler} placeholder="username"/>
+                    <input type="password" onChange={this.passwordOnChangeHandler} placeholder="password"/>
+                    <button onClick={this.loginHandler}>login</button>
+                    <p className="message">Not registered? <a href="/signup">Sign Up</a></p>
+                    <p className="warning">{this.state.warning}</p>
+                </div>
             </div>
         );
     }

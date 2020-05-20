@@ -101,6 +101,7 @@ class NewEvent extends Component<Props> {
                                     onChange={date => this.setState({repeatEnds: date})}
                                     dateFormat="yyyy/MM/dd"
                         />
+                        <Label sm={2}>Never Ends</Label>
                         <Switch
                             onChange={(event: boolean) => this.setState({repeatNeverEnds: event})}
                             checked={this.state.repeatNeverEnds}/>

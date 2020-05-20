@@ -2,7 +2,6 @@ import React from 'react';
 import {Component } from 'react';
 import eventInterface from '../../../store/interface/Event.interface';
 import CalendarEvent from "./interface/calendarEvent.interface";
-import EventsGenerator from "./functions/eventGenerator";
 import OrganizationStateInterface from '../../../store/interface/OrganizationState.interface'
 import EventClickPopUp from './eventClickPopUp/eventClickPopUp'
 import getProfileInstance from '../../../apisInstances/getProfile';
@@ -11,16 +10,14 @@ import './eventsPanel.css'
 /*Redux*/
 import {connect} from 'react-redux';
 
-/*time format set up*/
-import { Calendar } from 'react-big-calendar'
-import Localizer from './localizer/localizer'
+import CalendarPanel from "./calenderPanel/calendarPanel";
+
 import {Dispatch} from "redux";
 import getProfileAction from "../topPanel/actions/getProfileAction";
 
 /*component*/
 interface Props {
     events: eventInterface[],
-    eventsInitial: CalendarEvent[],
     AccessToken: string,
     getProfileDispatch: (organizationData: OrganizationStateInterface) => void
 }
@@ -43,14 +40,16 @@ class EventsPanel extends Component<Props> {
             _id: '',
             Organization: ''
         },
+        /*the time range current calender view covers*/
         calendarStart: new Date(Date.now()).setMonth(new Date(Date.now()).getMonth() - 1),
         calendarEnd: new Date(Date.now()).setMonth(new Date(Date.now()).getMonth() + 1),
-        eventsDisplay: []
     };
 
-    onRangeChangeHandler = (range: {start: string, end: string}) => {
-        const list: CalendarEvent[] = EventsGenerator(this.props.events, new Date(range.start), new Date(range.end));
-        this.setState({eventsDisplay: list});
+    onRangeChangeHandler = (start: Date, end: Date) => {
+        this.setState({
+            calendarStart: start,
+            calendarEnd: end
+        })
     };
 
     eventOnClickHandler = (calendarEvent: CalendarEvent) => {
@@ -70,7 +69,8 @@ class EventsPanel extends Component<Props> {
             {headers:{Authorization: 'Bearer ' + this.props.AccessToken}})
             .then(res => {
                 const profile: OrganizationStateInterface = res.data;
-                this.props.getProfileDispatch(profile);})
+                this.props.getProfileDispatch(profile);
+            })
             .catch(() => {alert('failed to access user profile')});
     };
 
@@ -83,20 +83,12 @@ class EventsPanel extends Component<Props> {
     render() {
         return(
             <div>
-                {new Date(this.state.calendarStart).toDateString()}
-                <Calendar
-                    className="Calendar"
-                    titleAccessor="name"
-                    events={this.state.eventsDisplay.length === 0 ? this.props.eventsInitial : this.state.eventsDisplay}
-                    localizer={Localizer}
-                    startAccessor="startDate"
-                    endAccessor="endDate"
-                    onRangeChange={(range) => {
-                        const rangeParsed: {start: string, end: string} = JSON.parse(JSON.stringify(range));
-                        this.onRangeChangeHandler(rangeParsed)}
-                    }
-                    step={60}
-                    onSelectEvent={event => {this.eventOnClickHandler(event)}}
+                <CalendarPanel
+                    startDate = {new Date(this.state.calendarStart)}
+                    endDate = {new Date(this.state.calendarEnd)}
+                    eventsList={this.props.events}
+                    onRangeChangeHandler={this.onRangeChangeHandler}
+                    eventOnClickHandler={this.eventOnClickHandler}
                 />
                 <EventClickPopUp
                     event={this.state.popUpEvent}
@@ -111,12 +103,8 @@ class EventsPanel extends Component<Props> {
 }
 
 const mapStateToProps = (state: OrganizationStateInterface) => {
-    const calendarStart: Date = new Date(new Date(Date.now()).setMonth(new Date(Date.now()).getMonth() - 1));
-    const calendarEnd: Date =  new Date (new Date(Date.now()).setMonth(new Date(Date.now()).getMonth() + 1));
-    const eventsInitial: CalendarEvent[] = EventsGenerator(state.events, calendarStart, calendarEnd);
     return{
         events: state.events,
-        eventsInitial: eventsInitial
     };
 };
 

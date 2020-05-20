@@ -2,7 +2,6 @@ import React from 'react';
 import {Component }from 'react';
 import './auth.css';
 import LoginInstance from '../../apisInstances/login';
-import {Redirect} from "react-router-dom";
 import AccessInterface from '../../store/interface/Access.interface'
 
 interface Props {
@@ -14,7 +13,6 @@ class Login extends Component<Props> {
         username: '',
         password: '',
         warning: '',
-        redirectToMain: false
     };
 
     usernameOnChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
@@ -29,34 +27,29 @@ class Login extends Component<Props> {
         });
     };
 
-    loginHandler = () => {
+    loginHandler = async () => {
         const loginInfo = {
             username: this.state.username,
             password: this.state.password
         };
         /*get access token */
-        LoginInstance.post('',loginInfo)
-            .then(response => {
-                const access: AccessInterface = response.data;
-
-                const accessKey = access.AccessToken;
-                /*store access token in cookies*/
-                const {cookies} = this.props;
-                cookies.set('AccessToken', accessKey, {path: '/'});
-                /*redirect to main page*/
-                this.setState({
-                    redirectToMain: true
-                });
-            })
+        const response = await LoginInstance.post('',loginInfo)
             .catch(err => {
                 console.log(err.response);
                 this.setState({warning: err.response.statusText})
             });
+        /*log in failed*/
+        if(!response) return;
+        const access: AccessInterface = response.data;
+        const accessKey = access.AccessToken;
+        /*store access token in cookies*/
+        const {cookies} = this.props;
+        const cookieSet = await cookies.set('AccessToken', accessKey, {path: '/'});
+        if(cookieSet) {this.setState({redirectToMain: true});}
+        window.location.href="/main";
     };
 
     render() {
-        if(this.state.redirectToMain) return(<Redirect to="/main"/>)
-
         return(
             <div className="form">
                 <input type="text" onChange={this.usernameOnChangeHandler} placeholder="username"/>

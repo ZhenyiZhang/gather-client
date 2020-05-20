@@ -4,6 +4,7 @@ import updateEventInstance from '../../../../../apisInstances/updateEvent'
 import EventInterface from '../../../../../store/interface/Event.interface';
 import NewEvent from '../../../topPanel/newEvent/interface/event.interface'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input, Col } from 'reactstrap';
+import Switch from "react-switch";
 import DatePicker from "react-datepicker";
 
 interface Props {
@@ -105,10 +106,14 @@ class EventEditPanel extends Component<Props> {
                     {this.state.repeat !== 'None' ? <FormGroup className="FormGroupDate" row>
                         <Label sm={2}>Select Repeat End Time</Label>
                         <DatePicker className="form-control"
-                                    selected={new Date()}
+                                    selected={this.state.repeatEnds}
                                     onChange={date => this.setState({repeatEnds: date})}
                                     dateFormat="yyyy/MM/dd"
                         />
+                        <Label sm={2}>Never Ends</Label>
+                        <Switch
+                            onChange={(event: boolean) => this.setState({repeatNeverEnds: event})}
+                            checked={this.state.repeatNeverEnds}/>
                     </FormGroup> : null}
                     <p className="warning">{this.state.warning}</p>
                 </ModalBody>

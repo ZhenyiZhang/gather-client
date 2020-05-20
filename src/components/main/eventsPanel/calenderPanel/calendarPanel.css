@@ -1,0 +1,24 @@
+.Calendar {
+    width: 80%;
+    margin: auto;
+    height: 800px;
+}
+
+/* On screens that are 600px or less, set the background color to olive */
+@media screen and (max-width: 600px) {
+    .Calendar {
+        width: 100%;
+    }
+}
+@media screen and (min-width: 601px) and (max-width: 1199px) {
+    .Calendar {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .rbc-toolbar {
+        display: flex;
+        flex-direction: column;
+    }
+}

@@ -22,6 +22,7 @@ const CalendarPanel = (props: Props) => {
     return (
         <div>
             <Calendar
+                popup
                 className='Calendar'
                 titleAccessor="name"
                 events={eventsListGendered}
@@ -39,7 +40,7 @@ const CalendarPanel = (props: Props) => {
                     }
                     props.onRangeChangeHandler(new Date(rangeParsed.start), new Date(rangeParsed.end))}
                 }
-                step={60}
+                step={30}
                 onSelectEvent={event => {props.eventOnClickHandler(event)}}
             />
         </div>

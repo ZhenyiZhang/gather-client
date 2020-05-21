@@ -83,7 +83,6 @@ class EventsPanel extends Component<Props> {
     render() {
         return(
             <div>
-                <p>{new Date(this.state.calendarStart) + 'to' + new Date(this.state.calendarEnd)}</p>
                 <CalendarPanel
                     startDate = {new Date(this.state.calendarStart)}
                     endDate = {new Date(this.state.calendarEnd)}

@@ -54,7 +54,7 @@ class Login extends Component<Props> {
     render() {
         return(
             <div>
-                <Navbar color="dark" dark expand="md">
+                <Navbar fixed="top" color="dark" dark expand="md">
                     <NavbarBrand className="NavBarBrand">Gathering</NavbarBrand>
                     <NavbarToggler onClick={() => {this.setState({collapse: !this.state.collapse})}} className="mr-2" />
                     <Collapse isOpen={this.state.collapse} navbar>

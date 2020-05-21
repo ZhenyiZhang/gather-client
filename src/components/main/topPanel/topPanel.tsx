@@ -74,20 +74,18 @@ class TopPanel extends Component<Props> {
         return(
             <div className="topPanel">
                 {this.state.logOut ? <Redirect to='/' exact/> : null}
-                <Navbar color="dark" dark expand="md">
+                <Navbar fixed="top" color="dark" dark expand="md">
                     <NavbarBrand className="NavBarBrand">{this.props.organizationName}</NavbarBrand>
                     <Nav className="mr-auto" navbar>
                         <NavItem>
                             <NavLink href="https://github.com/ZhenyiZhang/gather-client">GitHub</NavLink>
                         </NavItem>
                     </Nav>
-                    <NavbarText onClick={this.logOutHandler}>
+                    <NavbarText className="LogOut" onClick={this.logOutHandler}>
                         Log out
                     </NavbarText>
                 </Navbar>
-                <p>{this.props.description}</p>
-                <Button color="primary" onClick={this.newEventHandler}> New Event</Button>
-                <Button color="secondary" onClick={this.logOutHandler}>Log Out</Button>
+                <Button className="NewButton" color="info" onClick={this.newEventHandler}> New Event</Button>
                 <NewEvent
                     AccessToken={this.state.AccessToken}
                     newEvent={this.state.newEvent}

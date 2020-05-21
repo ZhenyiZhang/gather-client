@@ -65,12 +65,12 @@ class SignUp extends Component {
             password: this.state.password,
             description: this.state.description,
             organizationName: this.state.organizationName,
-        }
+        };
         signUpInstance.post('', organization)
             .then(() => {this.setState({
                 componetDisplay: displayOption.done
             })})
-    }
+    };
 
     render() {
         let showComponent;
@@ -116,7 +116,7 @@ class SignUp extends Component {
 
         return(
             <div>
-                <Navbar color="dark" dark expand="md">
+                <Navbar fixed="top" color="dark" dark expand="md">
                     <NavbarBrand className="NavBarBrand">Gathering</NavbarBrand>
                     <NavbarToggler onClick={() => {this.setState({collapse: !this.state.collapse})}} className="mr-2" />
                     <Collapse isOpen={this.state.collapse} navbar>

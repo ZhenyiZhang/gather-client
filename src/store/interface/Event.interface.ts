@@ -7,5 +7,11 @@ export default interface Event{
     end: Date,
     repeatEnds: Date,
     repeatNeverEnds: boolean,
+     contacts: {
+        email: string,
+        link: string,
+        phone: string,
+        location: string
+    },
     _id: string
 };

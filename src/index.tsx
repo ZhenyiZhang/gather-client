@@ -13,15 +13,13 @@ const store = createStore(OrganizationReducer);
 
 
 ReactDOM.render(
-    <React.StrictMode>
         <CookiesProvider>
             <BrowserRouter>
                 <Provider store={store}>
                     <App />
                 </Provider>
             </BrowserRouter>
-        </CookiesProvider>
-    </React.StrictMode>,
+        </CookiesProvider>,
     document.getElementById('root')
 );
 

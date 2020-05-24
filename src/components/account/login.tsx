@@ -3,7 +3,7 @@ import {Component }from 'react';
 import './auth.css';
 import LoginInstance from '../../apisInstances/login';
 import AccessInterface from '../../store/interface/Access.interface'
-import {Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Collapse, Badge} from "reactstrap";
+import {Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Collapse} from "reactstrap";
 
 interface Props {
     cookies: any

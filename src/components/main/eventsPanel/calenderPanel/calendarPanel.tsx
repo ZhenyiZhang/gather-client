@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import eventInterface from '../../../../store/interface/Event.interface';
 import CalendarEvent from "../interface/calendarEvent.interface";
 import EventsGenerator from "../functions/eventGenerator";
@@ -25,6 +25,7 @@ const CalendarPanel = (props: Props) => {
                 popup
                 className='Calendar'
                 titleAccessor="name"
+                timeslots={8}
                 events={eventsListGendered}
                 localizer={Localizer}
                 startAccessor="startDate"
@@ -40,7 +41,7 @@ const CalendarPanel = (props: Props) => {
                     }
                     props.onRangeChangeHandler(new Date(rangeParsed.start), new Date(rangeParsed.end))}
                 }
-                step={30}
+                step={15}
                 onSelectEvent={event => {props.eventOnClickHandler(event)}}
             />
         </div>

@@ -11,18 +11,12 @@ import getProfileInstance from '../../../apisInstances/getProfile';
 import OrganizationStateInterface from '../../../store/interface/OrganizationState.interface';
 
 import {
-    Collapse,
     Button,
     Navbar,
-    NavbarToggler,
     NavbarBrand,
     Nav,
     NavItem,
     NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
     NavbarText
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'

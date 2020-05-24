@@ -4,6 +4,12 @@ export default interface newEventInterface {
     readonly start: Date,
     readonly end: Date,
     readonly repeatEnds: Date,
-    repeatNeverEnds: boolean,
+    readonly repeatNeverEnds: boolean,
+    readonly contacts: {
+        email: string,
+        link: string,
+        phone: string,
+        location: string
+    }
     readonly repeat: string
 }

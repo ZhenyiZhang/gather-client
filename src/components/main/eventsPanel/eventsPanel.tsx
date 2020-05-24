@@ -38,7 +38,13 @@ class EventsPanel extends Component<Props> {
             repeatEnds: new Date(),
             repeatNeverEnds: false,
             _id: '',
-            Organization: ''
+            Organization: '',
+            contacts: {
+                email: '',
+                link: '',
+                phone: '',
+                location: ''
+            }
         },
         /*the time range current calender view covers*/
         calendarStart: new Date(Date.now()).setMonth(new Date(Date.now()).getMonth() - 1),

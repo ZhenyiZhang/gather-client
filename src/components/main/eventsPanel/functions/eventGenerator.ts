@@ -10,6 +10,12 @@ const EventsGenerator = (events: eventInterface[], rangeStart: Date, rangeEnd: D
         repeat: '',
         repeatEnds: new Date(),
         repeatNeverEnds: false,
+        contacts: {
+            email: '',
+            link: '',
+            phone: '',
+            location: '',
+        },
         _id: '',
         Organization: ''
     }];

@@ -1,7 +1,8 @@
 const displayOption = {
     auth: 1,
     description: 2,
-    done: 3
+    share: 3,
+    done: 4
 };
 
 export default displayOption;

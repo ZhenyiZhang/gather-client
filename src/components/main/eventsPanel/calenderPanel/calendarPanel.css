@@ -377,6 +377,7 @@ button.rbc-input::-moz-focus-inner {
 .rbc-label {
     padding: 0 5px;
     font-family: 'Noto Sans', sans-serif;
+    font-weight: 600;
 }
 
 .rbc-day-slot {
@@ -548,7 +549,8 @@ button.rbc-input::-moz-focus-inner {
     pointer-events: none; }
 
 .Calendar {
-    width: 100%;
+    width: 90%;
+    max-width: 1600px;
     margin: auto;
     height: 800px;
 }
@@ -573,6 +575,13 @@ button{
         height: 1000px;
     }
 }
+
+@media screen and (min-height: 1200px) {
+    .Calendar {
+        height: 1000px;
+    }
+}
+
 @media screen and (min-height: 1000px) and (max-height:1199px){
     .Calendar {
         height: 900px;

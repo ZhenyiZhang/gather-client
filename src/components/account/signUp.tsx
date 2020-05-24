@@ -15,7 +15,8 @@ class SignUp extends Component {
         description: '',
         organizationName: '',
         warning: '',
-        componetDisplay: displayOption.auth,
+        share: false,
+        componentDisplay: displayOption.auth,
         collapse: false
     };
 
@@ -49,14 +50,22 @@ class SignUp extends Component {
         });
     };
 
+    shareHandler = (event: React.FormEvent<HTMLSelectElement>) => {
+        event.currentTarget.value === 'Yes' ?
+            this.setState({share: true}) :
+            this.setState({share: false});
+    };
+
     authHandler = async() => {
-        if(this.state.password !== this.state.passwordConfirm) {
-            this.setState({
-                warning: 'Passwords are not matched, please check'
-            })
-            return;
+        if(this.state.componentDisplay === displayOption.auth) {
+            if(this.state.password !== this.state.passwordConfirm) {
+                this.setState({
+                    warning: 'Passwords are not matched, please check'
+                });
+                return;
+            }
         }
-        this.setState({componetDisplay: displayOption.description})
+        this.setState({componentDisplay: this.state.componentDisplay + 1});
     };
 
     signUpHandler = async() => {
@@ -65,16 +74,17 @@ class SignUp extends Component {
             password: this.state.password,
             description: this.state.description,
             organizationName: this.state.organizationName,
+            share: this.state.share
         };
         signUpInstance.post('', organization)
             .then(() => {this.setState({
-                componetDisplay: displayOption.done
+                componentDisplay: displayOption.done
             })})
     };
 
     render() {
         let showComponent;
-        switch (this.state.componetDisplay) {
+        switch (this.state.componentDisplay) {
             case displayOption.auth:
                 showComponent = (
                     <div className="form">
@@ -87,7 +97,7 @@ class SignUp extends Component {
                         <button onClick={this.authHandler}>Next</button>
                         <p className="message">Already has an account? Go to <a href="/login">Log In</a></p>
                         <p className="warning">{this.state.warning}</p>
-                    </div>)
+                    </div>);
                 break;
 
             case displayOption.description:
@@ -98,17 +108,31 @@ class SignUp extends Component {
                         <input key='organizationName' className="text" onChange={this.organizationNameChangeHandler} placeholder="group/organization name"/>
                         <p>write a short description about your group/organization</p>
                         <textarea className="description" onChange={this.descriptionOnChangeHandler} placeholder="description"/>
+                        <button onClick={this.authHandler}>Next</button>
                         <p className="message">Already has an account? Go to <a href="/login">Log In</a></p>
-                        <button onClick={this.signUpHandler}>Sign Up</button>
                     </div>);
                 break;
-
+            case displayOption.share:
+                showComponent = (
+                    <div className="form">
+                        <h2><Badge color="info">Step 3</Badge></h2> <br/>
+                        <p>Do you want other people be able to see your events?</p>
+                        <select key='organizationName' className="text"
+                               onChange={this.shareHandler}
+                               placeholder="No">
+                            <option>Yes</option>
+                            <option>No</option>
+                        </select>
+                        <button onClick={this.signUpHandler}>Sign Up</button>
+                        <p className="message">Already has an account? Go to <a href="/login">Log In</a></p>
+                    </div>
+                );
+                break;
             case displayOption.done:
                 showComponent = (
                     <div className="form">
                         <h2><Badge color="info">You are all set</Badge></h2> <br/>
                         <p className="message">Go to <a href="/login">Log In</a></p>
-
                     </div>
                 );
                 break;

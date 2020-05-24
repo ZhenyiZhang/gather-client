@@ -119,7 +119,7 @@ class SignUp extends Component {
                         <p>Do you want other people be able to see your events?</p>
                         <select key='organizationName' className="text"
                                onChange={this.shareHandler}
-                               placeholder="No">
+                               value={this.state.share? 'Yes' : 'No'}>
                             <option>Yes</option>
                             <option>No</option>
                         </select>

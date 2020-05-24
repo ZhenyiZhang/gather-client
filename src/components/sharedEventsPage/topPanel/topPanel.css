@@ -1,0 +1,31 @@
+.topPanel {
+    margin-bottom: 10px;
+}
+
+.header {
+    text-align: left;
+}
+.LogOut {
+    display: flex;
+    flex-direction: row
+}
+
+.LogOut:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.Nav {
+    display: flex;
+    flex-direction: row;
+}
+
+.NavBarBrand {
+    font-size: 22px
+}
+
+
+body {
+    padding-top: 80px;
+}
+

@@ -160,7 +160,7 @@ class EventEditPanel extends Component<Props> {
                             <FormGroup className="FormGroup" row>
                                 <Label sm={2}>Repeat</Label>
                                 <Col sm={10}>
-                                    <Input type="select" name="repeat" id="repeat" value={this.props.event.repeat}
+                                    <Input type="select" name="repeat" id="repeat" value={this.state.repeat}
                                            onChange={event => this.setState({repeat: event.target.value})}>
                                         <option>None</option>
                                         <option>Weekly</option>
@@ -181,7 +181,7 @@ class EventEditPanel extends Component<Props> {
                                 <Label className="NeverEndsLabel" sm={2}>Never Ends</Label>
                                 <Switch
                                     onChange={(event: boolean) => this.setState({repeatNeverEnds: event})}
-                                    checked={this.props.event.repeatNeverEnds}/>
+                                    checked={this.state.repeatNeverEnds}/>
                             </FormGroup> : null}
                         </Col>
                     </Form>

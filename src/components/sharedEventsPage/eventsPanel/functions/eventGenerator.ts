@@ -2,7 +2,23 @@ import eventInterface from "../../../../store/interface/Event.interface";
 import CalendarEvent from "../interface/calendarEvent.interface";
 
 const EventsGenerator = (events: eventInterface[], rangeStart: Date, rangeEnd: Date): CalendarEvent[] => {
-    let eventsFullList = [{} as CalendarEvent];
+    let eventsFullList = [{
+        name: '',
+        startDate: new Date(),
+        endDate: new Date(),
+        description: '',
+        repeat: '',
+        repeatEnds: new Date(),
+        repeatNeverEnds: false,
+        contacts: {
+            email: '',
+            link: '',
+            phone: '',
+            location: '',
+        },
+        _id: '',
+        Organization: ''
+    }];
     events.forEach((event: eventInterface) => {
         /*the case when event is not repeated */
         if(event.repeat === 'None') {

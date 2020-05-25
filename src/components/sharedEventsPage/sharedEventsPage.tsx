@@ -10,7 +10,6 @@ class SharedEventsPage extends Component<any> {
         showPage: false,
     };
     componentDidMount() {
-        console.log('haha');
         getSharedProfileInstance.get(`${this.props.match.params.userId}`)
             .then(response => {
                 const organization: OrganizationStateInterface = response.data;

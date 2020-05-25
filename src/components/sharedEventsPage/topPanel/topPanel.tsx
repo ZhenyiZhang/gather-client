@@ -34,7 +34,7 @@ class TopPanel extends Component<Props> {
                                 <NavLink href="https://github.com/ZhenyiZhang/gather-client">GitHub</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/signUp" >Create new account</NavLink>
+                                <NavLink href="/signUp" >Create my account</NavLink>
                             </NavItem>
                         </Nav>
                     </Collapse>

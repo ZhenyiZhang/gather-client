@@ -1,0 +1,15 @@
+
+
+.LogOut:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.Nav {
+    display: flex;
+    flex-direction: row;
+}
+
+.NavBarBrand {
+    font-size: 22px
+}

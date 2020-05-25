@@ -19,9 +19,9 @@ const Routes = (props: any) => {
                         {(props.cookies.get('AccessToken'))? <Redirect to="/main"/> : null}
                         <Login cookies={props.cookies}/>
                     </Route>
-                    <Route path="/main" exact>
+                    <Route path="/main" >
                         {(props.cookies.get('AccessToken'))? null : <Redirect to="/login"/>}
-                        <Main shared={false} cookies={props.cookies}/>
+                        <Main cookies={props.cookies}/>
                     </Route>
                     {/*if access token is not found always redirect to /login*/}
                     {(props.cookies.get('AccessToken'))? <Redirect to="/main"/> : <Redirect to="/login"/> }

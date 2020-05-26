@@ -2,7 +2,7 @@ import React from 'react';
 import {Component} from 'react';
 import updateEventInstance from '../../../../../apisInstances/updateEvent'
 import EventInterface from '../../../../../store/interface/Event.interface';
-import NewEvent from '../../../topPanel/newEvent/interface/event.interface'
+import NewEvent from '../../newEvent/interface/event.interface'
 import {Button, Modal, ModalBody, ModalFooter, FormGroup, Label, Input, Col, Form, ModalHeader} from 'reactstrap';
 import Switch from "react-switch";
 import DatePicker from "react-datepicker";

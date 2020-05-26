@@ -3,7 +3,7 @@ import {Component } from 'react';
 import eventInterface from '../../../store/interface/Event.interface';
 import CalendarEvent from "./interface/calendarEvent.interface";
 import EventClickPopUp from './eventClickPopUp/eventClickPopUp';
-import CalendarPanel from '../../main/eventsPanel/calenderPanel/calendarPanel';
+import SharedCalendarPanel from "./sharedCalendarPanel/sharedCalendarPanel";
 import '../../main/eventsPanel/calenderPanel/calendarPanel.css'
 
 /*component*/
@@ -26,12 +26,7 @@ class EventsPanel extends Component<Props> {
             repeatNeverEnds: false,
             _id: '',
             Organization: '',
-            contacts: {
-                email: '',
-                link: '',
-                phone: '',
-                location: ''
-            }
+            contacts: {email: '', link: '', phone: '', location: ''}
         },
         /*the time range current calender view covers*/
         calendarStart: new Date(Date.now()).setMonth(new Date(Date.now()).getMonth() - 1),
@@ -66,7 +61,7 @@ class EventsPanel extends Component<Props> {
     render() {
         return(
             <div>
-                <CalendarPanel
+                <SharedCalendarPanel
                     startDate = {new Date(this.state.calendarStart)}
                     endDate = {new Date(this.state.calendarEnd)}
                     eventsList={this.props.events}

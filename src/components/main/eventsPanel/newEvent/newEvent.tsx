@@ -14,13 +14,15 @@ interface Props {
     AccessToken: string,
     newEvent: boolean,
     newEventHandler: () => void
+    startSelected: Date,
+    endSelected: Date,
 }
 
 class NewEvent extends Component<Props> {
     state = {
         name: '',
-        start: new Date(),
-        end: new Date(),
+        start: this.props.startSelected,
+        end: this.props.endSelected,
         repeatEnds: new Date(),
         contacts: {
             email: '',
@@ -34,7 +36,20 @@ class NewEvent extends Component<Props> {
         warning: null,
     };
 
+    componentWillReceiveProps(nextProps: Readonly<Props>, nextContext: any): void {
+        if(nextProps.startSelected !== this.state.start) {
+            this.setState({
+                start: nextProps.startSelected,
+                end: nextProps.endSelected
+            })
+        }
+    };
+
     submitEvent = () => {
+        if(new Date(this.state.start) >= new Date(this.state.end)) {
+            this.setState({warning: 'event start time must be greater than end time'});
+            return
+        }
         const {warning, ...others} = this.state;
         const event: eventInterface = others;
         console.log(event);

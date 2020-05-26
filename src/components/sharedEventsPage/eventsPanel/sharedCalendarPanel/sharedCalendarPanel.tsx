@@ -1,8 +1,8 @@
 import React from 'react';
 import eventInterface from '../../../../store/interface/Event.interface';
 import CalendarEvent from "../interface/calendarEvent.interface";
-import EventsGenerator from "../functions/eventGenerator";
-import './calendarPanel.css'
+import EventsGenerator from "../../../main/eventsPanel/functions/eventGenerator";
+import './sharedCalendarPanel.css'
 
 /*time format set up*/
 import { Calendar } from 'react-big-calendar'
@@ -15,10 +15,9 @@ interface Props {
     eventsList: eventInterface[],
     onRangeChangeHandler: (start: Date, end: Date) => void
     eventOnClickHandler: (calendarEvent: CalendarEvent) => void
-    slotOnClickHandler: (start: Date, end: Date) => void
 }
 
-const CalendarPanel = (props: Props) => {
+const SharedCalendarPanel = (props: Props) => {
     const eventsListGendered: CalendarEvent[] = EventsGenerator(props.eventsList, props.startDate, props.endDate);
     return (
         <div>
@@ -33,9 +32,6 @@ const CalendarPanel = (props: Props) => {
                 endAccessor="endDate"
                 step={15}
                 selectable
-                onSelectSlot={(slotInfo => {
-                    const slotInfoParsed = JSON.parse(JSON.stringify(slotInfo));
-                    props.slotOnClickHandler(slotInfoParsed.start, slotInfoParsed.end)})}
                 onSelectEvent={event => {props.eventOnClickHandler(event)}}
                 onRangeChange={(range) => {
                     let rangeParsed = JSON.parse(JSON.stringify(range));
@@ -53,4 +49,4 @@ const CalendarPanel = (props: Props) => {
     );
 };
 
-export default CalendarPanel;
+export default SharedCalendarPanel;

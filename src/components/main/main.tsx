@@ -67,7 +67,7 @@ class Main extends Component<Props> {
                         <ProfilePage AccessToken={this.props.cookies.get('AccessToken')}/>
                     </Route>
                     <Route path="" exact>
-                        <TopPanel cookies={this.props.cookies}/>
+                        <TopPanel/>
                         <EventsPanel AccessToken={this.props.cookies.get('AccessToken')}/>
                     </Route>
                 </Switch>

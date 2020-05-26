@@ -3,6 +3,7 @@ import {Component }from 'react';
 import './auth.css';
 import signUpInterface from './interface/signUp.interface'
 import signUpInstance from '../../apisInstances/signUp';
+import verifyUserNameInstance from '../../apisInstances/verifyUserName'
 import displayOption from './constants/signUpDisplayOption'
 import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Badge} from "reactstrap";
 
@@ -56,16 +57,23 @@ class SignUp extends Component {
             this.setState({share: false});
     };
 
-    authHandler = async() => {
-        if(this.state.componentDisplay === displayOption.auth) {
-            if(this.state.password !== this.state.passwordConfirm) {
-                this.setState({
-                    warning: 'Passwords are not matched, please check'
-                });
+    authHandler = () => {
+        verifyUserNameInstance.post('', {userName: this.state.username})
+            .then(() => {
+                if(this.state.componentDisplay === displayOption.auth) {
+                    if(this.state.password !== this.state.passwordConfirm) {
+                        this.setState({
+                            warning: 'Passwords are not matched, please check'
+                        });
+                        return;
+                    }
+                }
+                this.setState({componentDisplay: this.state.componentDisplay + 1});
+            })
+            .catch(() => {
+                this.setState({warning: 'the user already exist'});
                 return;
-            }
-        }
-        this.setState({componentDisplay: this.state.componentDisplay + 1});
+            });
     };
 
     signUpHandler = async() => {
@@ -80,6 +88,7 @@ class SignUp extends Component {
             .then(() => {this.setState({
                 componentDisplay: displayOption.done
             })})
+            .catch(err => {alert(err)});
     };
 
     render() {
@@ -90,26 +99,41 @@ class SignUp extends Component {
                     <div className="form">
                         <h2><Badge color="info">Step 1</Badge></h2> <br/>
                         <p>Your user name for log in and password</p>
-                        <input key='username' type="text" onChange={this.usernameOnChangeHandler} placeholder="username"/>
-                        <input key='password' type="password" onChange={this.passwordOnChangeHandler} placeholder="password"/>
-                        <input key='passwordConfirm' type="password" onChange={this.passwordConfirmOnChangeHandler}
+                        <input key='username' type="text"
+                               onChange={this.usernameOnChangeHandler}
+                               value={this.state.username}
+                               placeholder="username"/>
+                        <input key='password' type="password"
+                               onChange={this.passwordOnChangeHandler}
+                               value={this.state.password}
+                               placeholder="password"/>
+                        <input key='passwordConfirm' type="password"
+                               onChange={this.passwordConfirmOnChangeHandler}
+                               value={this.state.passwordConfirm}
                                placeholder="confirm password"/>
                         <button onClick={this.authHandler}>Next</button>
-                        <p className="message">Already has an account? Go to <a href="/login">Log In</a></p>
+                        <p className="message">Already have an account? Go to <a href="/login">Log In</a></p>
                         <p className="warning">{this.state.warning}</p>
                     </div>);
                 break;
-
             case displayOption.description:
                 showComponent = (
                     <div className="form">
                         <h2><Badge color="info">Step 2</Badge></h2> <br/>
                         <p>What is your group/organization name ?</p>
-                        <input key='organizationName' className="text" onChange={this.organizationNameChangeHandler} placeholder="group/organization name"/>
+                        <input key='organizationName' className="text"
+                               onChange={this.organizationNameChangeHandler}
+                               value={this.state.organizationName}
+                               placeholder="group/organization name"/>
                         <p>write a short description about your group/organization</p>
-                        <textarea className="description" onChange={this.descriptionOnChangeHandler} placeholder="description"/>
+                        <textarea className="description"
+                                  onChange={this.descriptionOnChangeHandler}
+                                  value={this.state.description}
+                                  placeholder="description"/>
+                        <button onClick={() => {this.setState({componentDisplay: this.state.componentDisplay - 1})}}>Go Back</button>
+                        <br/><br/>
                         <button onClick={this.authHandler}>Next</button>
-                        <p className="message">Already has an account? Go to <a href="/login">Log In</a></p>
+                        <p className="message">Already have an account? Go to <a href="/login">Log In</a></p>
                     </div>);
                 break;
             case displayOption.share:
@@ -118,13 +142,15 @@ class SignUp extends Component {
                         <h2><Badge color="info">Step 3</Badge></h2> <br/>
                         <p>Do you want other people be able to see your events?</p>
                         <select key='organizationName' className="text"
-                               onChange={this.shareHandler}
-                               value={this.state.share? 'Yes' : 'No'}>
+                                onChange={this.shareHandler}
+                                value={this.state.share? 'Yes' : 'No'}>
                             <option>Yes</option>
                             <option>No</option>
-                        </select>
+                        </select> <br/> <br/>
+                        <button onClick={() => {this.setState({componentDisplay: this.state.componentDisplay - 1})}}>Go Back</button>
+                        <br/><br/>
                         <button onClick={this.signUpHandler}>Sign Up</button>
-                        <p className="message">Already has an account? Go to <a href="/login">Log In</a></p>
+                        <p className="message">Already have an account? Go to <a href="/login">Log In</a></p>
                     </div>
                 );
                 break;

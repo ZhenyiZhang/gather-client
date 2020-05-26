@@ -26,7 +26,7 @@ class TopPanel extends Component<Props> {
         return(
             <div className="topPanel">
                 <Navbar fixed="top" color="dark" dark expand="md">
-                    <NavbarBrand className="NavBarBrand">{this.props.organization.name}</NavbarBrand>
+                    <NavbarBrand className="NavBarBrand">{this.props.organization.organizationName}</NavbarBrand>
                     <NavbarToggler onClick={() => {this.setState({collapse: !this.state.collapse})}} className="mr-2" />
                     <Collapse isOpen={this.state.collapse} navbar>
                         <Nav className="mr-auto" navbar>

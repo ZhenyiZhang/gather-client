@@ -136,28 +136,28 @@ class NewEvent extends Component<Props> {
                                         <Input placeholder="Email"
                                                onChange={(event:  React.FormEvent<HTMLInputElement>) => {
                                                    this.contactInfoHandler(event, 'Email');
-                                               }}> </Input>
+                                               }}/>
                                     </Col>
                                     <Label sm={2}>Phone</Label>
                                     <Col sm={10}>
                                         <Input placeholder="Phone"
                                                onChange={(event:  React.FormEvent<HTMLInputElement>) => {
                                                    this.contactInfoHandler(event, 'Phone');
-                                               }}> </Input>
+                                               }}/>
                                     </Col>
                                 <Label sm={2}>Link</Label>
                                 <Col sm={10}>
                                     <Input placeholder="Link"
                                            onChange={(event:  React.FormEvent<HTMLInputElement>) => {
                                                this.contactInfoHandler(event, 'Link');
-                                           }}> </Input>
+                                           }}/>
                                 </Col>
                                 <Label sm={2}>Location</Label>
                                 <Col sm={10}>
                                     <Input placeholder="Location"
                                            onChange={(event:  React.FormEvent<HTMLInputElement>) => {
                                                this.contactInfoHandler(event, 'Location');
-                                           }}> </Input>
+                                           }}/>
                                 </Col>
                             </FormGroup>
                             <FormGroup className="FormGroup" row>

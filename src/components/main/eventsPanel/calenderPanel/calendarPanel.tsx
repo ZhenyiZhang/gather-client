@@ -30,6 +30,9 @@ const CalendarPanel = (props: Props) => {
                 localizer={Localizer}
                 startAccessor="startDate"
                 endAccessor="endDate"
+                step={15}
+                selectable
+                onSelectEvent={event => {props.eventOnClickHandler(event)}}
                 onRangeChange={(range) => {
                     let rangeParsed = JSON.parse(JSON.stringify(range));
                     if(rangeParsed.start && rangeParsed.end) {
@@ -41,8 +44,6 @@ const CalendarPanel = (props: Props) => {
                     }
                     props.onRangeChangeHandler(new Date(rangeParsed.start), new Date(rangeParsed.end))}
                 }
-                step={15}
-                onSelectEvent={event => {props.eventOnClickHandler(event)}}
             />
         </div>
     );

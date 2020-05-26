@@ -44,7 +44,7 @@ class EventClickPopUp extends Component<Props> {
 
     render() {
         return(
-            <Modal isOpen={this.props.popUp} toggle={this.props.popUpToggle} modalTransition={{ timeout: 300 }} >
+            <Modal className="PopUpModal" isOpen={this.props.popUp} toggle={this.props.popUpToggle} modalTransition={{ timeout: 300 }} >
                 <ModalHeader className='lead' toggle={this.props.popUpToggle}>{this.props.event.name}</ModalHeader>
                 <ModalBody>
                     <p className="lead">{this.props.event.description}</p>
@@ -53,17 +53,17 @@ class EventClickPopUp extends Component<Props> {
                     <p className="label">End Date:</p>
                     <p>{dateformat(new Date(this.props.event.end),"dddd, mmmm dS, yyyy, h:MM TT")}</p>
                     {this.props.event.repeat === 'none' ? null :
-                        this.props.event.repeatNeverEnds ? <p><p className="label">Repeat:</p> Never Ends</p> :
-                            <p><p className="label">Event repeats {this.props.event.repeat} until {' '}</p>
+                        this.props.event.repeatNeverEnds ? <p><strong className="label">Repeat:</strong> Never Ends</p> :
+                            <p><strong className="label">Event repeats {this.props.event.repeat} until {' '}</strong>
                                 {dateformat(new Date(this.props.event.repeatEnds),"dddd, mmmm dS, yyyy, h:MM TT")}</p>}
                     {this.props.event.contacts.email ?
-                        <p><p className="label">{'Email: '}</p> {this.props.event.contacts.email}</p> : null}
+                        <p><strong className="label">{'Email: '}</strong> {this.props.event.contacts.email}</p> : null}
                     {this.props.event.contacts.phone ?
-                        <p><p className="label">{'Phone: '}</p> {this.props.event.contacts.phone}</p> : null}
+                        <p><strong className="label">{'Phone: '}</strong> {this.props.event.contacts.phone}</p> : null}
                     {this.props.event.contacts.link ?
-                        <p><p className="label">{'Link: '}</p> {this.props.event.contacts.link}</p> : null}
+                        <p><strong className="label">{'Link: '}</strong> {this.props.event.contacts.link}</p> : null}
                     {this.props.event.contacts.location ?
-                        <p><p className="label">{'Location: '}</p> {this.props.event.contacts.location}</p> : null}
+                        <p><strong className="label">{'Location: '}</strong> {this.props.event.contacts.location}</p> : null}
                 </ModalBody>
                 <ModalFooter>
                     <Button color="info" onClick={this.editingToggle}> Edit </Button>

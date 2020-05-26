@@ -3,7 +3,7 @@ import {Component} from 'react';
 import updateEventInstance from '../../../../../apisInstances/updateEvent'
 import EventInterface from '../../../../../store/interface/Event.interface';
 import NewEvent from '../../../topPanel/newEvent/interface/event.interface'
-import {Button, Modal, ModalBody, ModalFooter, FormGroup, Label, Input, Col, Form} from 'reactstrap';
+import {Button, Modal, ModalBody, ModalFooter, FormGroup, Label, Input, Col, Form, ModalHeader} from 'reactstrap';
 import Switch from "react-switch";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
@@ -85,6 +85,7 @@ class EventEditPanel extends Component<Props> {
     render() {
         return (
             <Modal className="CusModal" isOpen={this.props.editing} toggle={this.props.editingToggle}>
+                <ModalHeader className='lead' toggle={this.props.editingToggle}>Edit Event</ModalHeader>
                 <ModalBody>
                     <Form>
                         <Col>

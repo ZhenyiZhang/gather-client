@@ -31,6 +31,14 @@ class EventEditPanel extends Component<Props> {
         warning: '',
     };
 
+    componentWillReceiveProps(nextProps: Readonly<Props>, nextContext: any): void {
+        if(nextProps.event.name !== this.state.name) {
+            this.setState({
+                ...nextProps.event
+            })
+        }
+    }
+
     submitHandler = () => {
         const {warning,  ...others} = this.state;
         const updateData: NewEvent = others;
@@ -114,14 +122,22 @@ class EventEditPanel extends Component<Props> {
                             <FormGroup className="FormGroup" row>
                                 <Label sm={2}>Event Name</Label>
                                 <Col sm={10}>
-                                    <Input type="text" name="name" id="name" placeholder={this.props.event.name}
+                                    <Input type="text"
+                                           name="name"
+                                           value={this.state.name}
+                                           id="name"
+                                           placeholder={this.props.event.name}
                                            onChange={event => this.setState({name: event.target.value})}/>
                                 </Col>
                             </FormGroup>
                             <FormGroup className="FormGroup" row>
                                 <Label for="examplePassword" sm={2}>Description</Label>
                                 <Col sm={10}>
-                                    <Input type="textarea" name="description" id="description" placeholder={this.props.event.description}
+                                    <Input type="textarea"
+                                           name="description"
+                                           value={this.state.description}
+                                           id="description"
+                                           placeholder="description"
                                            onChange={event => this.setState({description: event.target.value})}/>
                                 </Col>
                             </FormGroup>
@@ -131,28 +147,32 @@ class EventEditPanel extends Component<Props> {
                             <FormGroup className="FormGroup" row>
                                 <Label sm={2}>Email</Label>
                                 <Col sm={10}>
-                                    <Input placeholder={this.props.event.contacts.email}
+                                    <Input placeholder="Email"
+                                           value={this.state.contacts.email}
                                            onChange={(event:  React.FormEvent<HTMLInputElement>) => {
                                                this.contactInfoHandler(event, 'Email');
                                            }}> </Input>
                                 </Col>
                                 <Label sm={2}>Phone</Label>
                                 <Col sm={10}>
-                                    <Input placeholder={this.props.event.contacts.phone}
+                                    <Input placeholder="Phone"
+                                           value={this.state.contacts.phone}
                                            onChange={(event:  React.FormEvent<HTMLInputElement>) => {
                                                this.contactInfoHandler(event, 'Phone');
                                            }}> </Input>
                                 </Col>
                                 <Label sm={2}>Link</Label>
                                 <Col sm={10}>
-                                    <Input placeholder={this.props.event.contacts.link}
+                                    <Input placeholder="Link"
+                                           value={this.state.contacts.link}
                                            onChange={(event:  React.FormEvent<HTMLInputElement>) => {
                                                this.contactInfoHandler(event, 'Link');
                                            }}> </Input>
                                 </Col>
                                 <Label sm={2}>Location</Label>
                                 <Col sm={10}>
-                                    <Input placeholder={this.props.event.contacts.location}
+                                    <Input placeholder="Location"
+                                           value={this.state.contacts.location}
                                            onChange={(event:  React.FormEvent<HTMLInputElement>) => {
                                                this.contactInfoHandler(event, 'Location');
                                            }}> </Input>

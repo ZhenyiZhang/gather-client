@@ -8,7 +8,7 @@ import {
     Nav,
     NavItem,
     NavLink,
-    Collapse, NavbarToggler
+    Collapse, NavbarToggler, Button, Card, CardBody
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './topPanel.css';
@@ -20,11 +20,12 @@ interface Props {
 
 class TopPanel extends Component<Props> {
     state = {
-        collapse: false
+        collapse: false,
+        dropdownOpen: false
     };
     render() {
         return(
-            <div className="topPanel">
+            <div>
                 <Navbar fixed="top" color="dark" dark expand="md">
                     <NavbarBrand className="NavBarBrand">{this.props.organization.organizationName}</NavbarBrand>
                     <NavbarToggler onClick={() => {this.setState({collapse: !this.state.collapse})}} className="mr-2" />
@@ -39,6 +40,20 @@ class TopPanel extends Component<Props> {
                         </Nav>
                     </Collapse>
                 </Navbar>
+                <div className="Info">
+                    <h2>{this.props.organization.organizationName}</h2>
+                    <Button
+                        color="info"
+                        onClick={() => {this.setState({dropdownOpen: !this.state.dropdownOpen})}}
+                        className="MoreButton">About Us</Button>
+                    <Collapse isOpen={this.state.dropdownOpen}>
+                        <Card>
+                            <CardBody>
+                                {this.props.organization.description}
+                            </CardBody>
+                        </Card>
+                    </Collapse>
+                </div>
             </div>
         );
     }

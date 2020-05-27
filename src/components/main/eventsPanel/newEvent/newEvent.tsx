@@ -153,6 +153,7 @@ class NewEvent extends Component<Props> {
                                                    this.contactInfoHandler(event, 'Email');
                                                }}/>
                                     </Col>
+                                <br/><br/>
                                     <Label sm={2}>Phone</Label>
                                     <Col sm={10}>
                                         <Input placeholder="Phone"
@@ -160,6 +161,7 @@ class NewEvent extends Component<Props> {
                                                    this.contactInfoHandler(event, 'Phone');
                                                }}/>
                                     </Col>
+                                <br/><br/>
                                 <Label sm={2}>Link</Label>
                                 <Col sm={10}>
                                     <Input placeholder="Link"
@@ -167,6 +169,7 @@ class NewEvent extends Component<Props> {
                                                this.contactInfoHandler(event, 'Link');
                                            }}/>
                                 </Col>
+                                <br/><br/>
                                 <Label sm={2}>Location</Label>
                                 <Col sm={10}>
                                     <Input placeholder="Location"

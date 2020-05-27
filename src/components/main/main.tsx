@@ -43,7 +43,7 @@ class Main extends Component<Props> {
             <div>
                 {this.state.logOut ? <Redirect to='/' exact/> : null}
                 <Navbar fixed="top" color="dark" dark expand="md">
-                    <NavbarBrand className="NavBarBrand">{this.props.organization.organizationName}</NavbarBrand>
+                    <NavbarBrand className="NavBarBrand">Gathering</NavbarBrand>
                     <NavbarToggler onClick={() => {this.setState({collapse: !this.state.collapse})}} className="mr-2" />
                     <Collapse isOpen={this.state.collapse} navbar>
                         <Nav className="mr-auto" navbar>
@@ -52,9 +52,6 @@ class Main extends Component<Props> {
                             </NavItem>
                             <NavItem>
                                 <NavLink href="/main/profile">Profile</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink href="https://github.com/ZhenyiZhang/gather-client">GitHub</NavLink>
                             </NavItem>
                         </Nav>
                         <NavbarText className="LogOut" onClick={this.logOutHandler}>

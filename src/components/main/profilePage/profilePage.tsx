@@ -25,6 +25,16 @@ class ProfilePage extends Component<Props> {
         link: `/shared/`
     };
 
+    componentWillReceiveProps(nextProps: Readonly<Props>, nextContext: any): void {
+        if(nextProps.organization.organizationName !== this.state.organizationName) {
+            this.setState({
+                organizationName: nextProps.organization.organizationName,
+                description: nextProps.organization.description,
+                share: nextProps.organization.share
+            })
+        }
+    }
+
     submitHandler = () => {
         const {link, edit, ...updateProfile} = this.state;
         console.log(this.props.AccessToken);
@@ -63,19 +73,19 @@ class ProfilePage extends Component<Props> {
                     <Form>
                         <FormGroup>
                             <Label>User/Group Name</Label>
-                            <Input
+                            <Input value={this.state.organizationName}
                                 onChange={(event) => {
                                     this.setState({organizationName: event.currentTarget.value})
                                 }}
-                                placeholder={this.props.organization.organizationName} />
+                                placeholder="User/Group name" />
                         </FormGroup>
                         <FormGroup>
                             <Label>Description</Label>
-                            <Input
+                            <Input value={this.state.description}
                                 onChange={(event) => {
                                     this.setState({description: event.currentTarget.value})
                                 }}
-                                placeholder={this.props.organization.description} />
+                                placeholder="Description"/>
                         </FormGroup>
                         <FormGroup>
                             <Label>Share Events</Label>

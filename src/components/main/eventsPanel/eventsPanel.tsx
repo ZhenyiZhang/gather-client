@@ -6,7 +6,8 @@ import OrganizationStateInterface from '../../../store/interface/OrganizationSta
 import EventClickPopUp from './eventClickPopUp/eventClickPopUp';
 import NewEvent from './newEvent/newEvent'
 import getProfileInstance from '../../../apisInstances/getProfile';
-import './calenderPanel/calendarPanel.css'
+import './calenderPanel/calendarPanel.css';
+import './eventsPanel.css';
 
 /*Redux*/
 import {connect} from 'react-redux';
@@ -105,7 +106,7 @@ class EventsPanel extends Component<Props> {
     render() {
         return(
             <div>
-                <Button className="NewButton" color="info" onClick={this.newEventHandler}> New Event</Button>
+                <Button className="NewEventButton" color="primary" onClick={this.newEventHandler}> New Event</Button>
                 <CalendarPanel
                     startDate = {new Date(this.state.calendarStart)}
                     endDate = {new Date(this.state.calendarEnd)}

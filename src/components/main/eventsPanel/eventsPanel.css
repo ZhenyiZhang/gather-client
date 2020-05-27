@@ -1,0 +1,7 @@
+.NewEventButton {
+    text-align: right;
+    right: 5%;
+    top: 8%;
+    border-radius:10px;
+    position: absolute;
+}

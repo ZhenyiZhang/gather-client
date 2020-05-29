@@ -3,10 +3,11 @@ import TopPanel from './topPanel/topPanel';
 import EventsPanel from './eventsPanel/eventsPanel';
 import {connect} from "react-redux";
 import OrganizationStateInterface from "../../store/interface/OrganizationState.interface";
-import {Collapse, Nav, Navbar, NavbarBrand, NavbarText, NavbarToggler, NavItem, NavLink} from "reactstrap";
+import {Badge, Collapse, Nav, Navbar, NavbarBrand, NavbarText, NavbarToggler, NavItem, NavLink} from "reactstrap";
 import {Redirect, Route, Switch} from "react-router-dom";
 import ProfilePage from "./profilePage/profilePage";
 import getProfileInstance from "../../apisInstances/getProfile";
+import LogoutInstance from "../../apisInstances/logout";
 import {Dispatch} from "redux";
 import getProfileAction from "./topPanel/actions/getProfileAction";
 import './main.css';
@@ -29,13 +30,22 @@ class Main extends Component<Props> {
             .then(res => {
                 const profile: OrganizationStateInterface = res.data;
                 this.props.getProfileDispatch(profile);})
-            .catch(() => {alert('failed to access user profile')});
+            .catch(() => {
+                this.props.cookies.remove('AccessToken');
+                this.setState({logOut: true});
+                alert('failed to access user profile');
+                window.location.href="/login"
+            });
     }
 
-    logOutHandler = () => {
-        this.props.cookies.remove('AccessToken');
-        this.setState({logOut: true});
-        window.location.href="/login";
+    logOutHandler = async() => {
+        LogoutInstance.get('',
+            {headers:{Authorization: 'Bearer ' + this.props.cookies.get('AccessToken')}})
+            .then(() => {
+                this.props.cookies.remove('AccessToken');
+                this.setState({logOut: true});
+                window.location.href="/login";})
+            .catch(err => {alert(err)});
     };
 
     render() {
@@ -66,6 +76,12 @@ class Main extends Component<Props> {
                     <Route path="" exact>
                         <TopPanel/>
                         <EventsPanel AccessToken={this.props.cookies.get('AccessToken')}/>
+                        <br/>
+                        {this.props.organization.share?
+                            <Badge className="LinkBadge"
+                                   href={'/shared/' + this.props.organization._id}
+                                   color="info">Shared Link: {'/shared/' + this.props.organization._id}</Badge>: null
+                        }
                     </Route>
                 </Switch>
             </div>

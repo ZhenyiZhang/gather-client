@@ -6,6 +6,7 @@ const initialState: OrganizationStateInterface = {
     organizationName: '',
     events: [],
     share: false,
+    email: '',
     _id: ''
 };
 

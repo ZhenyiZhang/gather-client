@@ -20,6 +20,7 @@ class ProfilePage extends Component<Props> {
     state = {
         edit: false,
         organizationName: this.props.organization.organizationName,
+        email: this.props.organization.email,
         description: this.props.organization.description,
         share: this.props.organization.share,
         link: `/shared/`
@@ -30,6 +31,7 @@ class ProfilePage extends Component<Props> {
             this.setState({
                 organizationName: nextProps.organization.organizationName,
                 description: nextProps.organization.description,
+                email: nextProps.organization.email,
                 share: nextProps.organization.share
             })
         }
@@ -56,8 +58,10 @@ class ProfilePage extends Component<Props> {
         return(
             (!this.state.edit) ?
                 (<div className="ProfilePage">
-                    <h3>User/Group Name:</h3>
+                    <h3>Displayed User/Group Name:</h3>
                     <h4>{this.props.organization.organizationName}</h4>
+                    <h3>Registered Email</h3>
+                    <h4>{this.props.organization.email}</h4>
                     <h3>Description:</h3>
                     <h4>{this.props.organization.description}</h4>
                     <h3>Share Events:</h3>
@@ -78,6 +82,14 @@ class ProfilePage extends Component<Props> {
                                     this.setState({organizationName: event.currentTarget.value})
                                 }}
                                 placeholder="User/Group name" />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label>Email</Label>
+                            <Input value={this.state.email}
+                                   onChange={(event) => {
+                                       this.setState({email: event.currentTarget.value})
+                                   }}
+                                   placeholder="Email"/>
                         </FormGroup>
                         <FormGroup>
                             <Label>Description</Label>

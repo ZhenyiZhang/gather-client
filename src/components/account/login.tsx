@@ -73,6 +73,7 @@ class Login extends Component<Props> {
                     <input type="password" onChange={this.passwordOnChangeHandler} placeholder="password"/>
                     <button onClick={this.loginHandler}>login</button>
                     <p className="message">Not registered? <a href="/signup">Sign Up</a></p>
+                    <p className="message">Forgot your password? <a href="/reset">Reset Password</a></p>
                     <p className="warning">{this.state.warning}</p>
                 </div>
             </div>

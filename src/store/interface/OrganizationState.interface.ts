@@ -7,4 +7,5 @@ export default interface OrganizationStateInterface {
     readonly share: boolean,
     readonly events: Event[],
     readonly _id: string,
+    readonly email: string
 }

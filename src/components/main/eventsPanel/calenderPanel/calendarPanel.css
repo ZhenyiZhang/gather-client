@@ -291,7 +291,10 @@ button.rbc-input::-moz-focus-inner {
     flex: 1 0 0%; }
 .rbc-day-bg + .rbc-day-bg {
     border-left: 1px solid #DDD;
-    font: Amino
+}
+
+.rbc-day-bg + .rbc-day-bg:hover {
+    background-color: lightgrey;
 }
 .rbc-rtl .rbc-day-bg + .rbc-day-bg {
     border-left-width: 0;

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Component }from 'react';
 import './auth.css';
-import signUpInterface from './interface/signUp.interface'
+import SignUpInterface from './interface/signUp.interface'
 import signUpInstance from '../../apisInstances/signUp';
 import verifyUserNameInstance from '../../apisInstances/verifyUserName'
 import displayOption from './constants/signUpDisplayOption'
@@ -16,6 +16,7 @@ class SignUp extends Component {
         description: '',
         organizationName: '',
         warning: '',
+        email: '',
         share: false,
         componentDisplay: displayOption.auth,
         collapse: false
@@ -51,6 +52,12 @@ class SignUp extends Component {
         });
     };
 
+    emailOnChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
+      this.setState({
+          email: event.currentTarget.value
+      })
+    };
+
     shareHandler = (event: React.FormEvent<HTMLSelectElement>) => {
         event.currentTarget.value === 'Yes' ?
             this.setState({share: true}) :
@@ -77,12 +84,13 @@ class SignUp extends Component {
     };
 
     signUpHandler = async() => {
-        const  organization: signUpInterface = {
+        const  organization: SignUpInterface = {
             name: this.state.username,
             password: this.state.password,
             description: this.state.description,
             organizationName: this.state.organizationName,
-            share: this.state.share
+            share: this.state.share,
+            email: this.state.email,
         };
         signUpInstance.post('', organization)
             .then(() => {this.setState({
@@ -103,6 +111,10 @@ class SignUp extends Component {
                                onChange={this.usernameOnChangeHandler}
                                value={this.state.username}
                                placeholder="username"/>
+                        <input key='email' type="email"
+                               onChange={this.emailOnChangeHandler}
+                               value={this.state.email}
+                               placeholder="email"/>
                         <input key='password' type="password"
                                onChange={this.passwordOnChangeHandler}
                                value={this.state.password}

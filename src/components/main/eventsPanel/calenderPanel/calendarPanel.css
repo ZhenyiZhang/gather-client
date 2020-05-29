@@ -295,6 +295,7 @@ button.rbc-input::-moz-focus-inner {
 
 .rbc-day-bg + .rbc-day-bg:hover {
     background-color: lightgrey;
+    transition: all 0.3s;
 }
 .rbc-rtl .rbc-day-bg + .rbc-day-bg {
     border-left-width: 0;

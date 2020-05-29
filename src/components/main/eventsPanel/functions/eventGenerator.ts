@@ -1,6 +1,18 @@
 import eventInterface from "../../../../store/interface/Event.interface";
 import CalendarEvent from "../interface/calendarEvent.interface";
 
+const confirmExceptions = (dateToConfirm: Date, exceptions: Date[]):boolean => {
+    let result = false;
+    exceptions.forEach(date => {
+        if ((new Date(date).getDate() === new Date(dateToConfirm).getDate())
+            &&(new Date(date).getFullYear() === new Date(dateToConfirm).getFullYear())
+            &&(new Date(date).getMonth() === new Date(dateToConfirm).getMonth())) {
+            result =  true;
+        }
+    });
+    return result;
+};
+
 const EventsGenerator = (events: eventInterface[], rangeStart: Date, rangeEnd: Date): CalendarEvent[] => {
     let eventsFullList = [{} as CalendarEvent];
     events.forEach((event: eventInterface) => {
@@ -12,15 +24,22 @@ const EventsGenerator = (events: eventInterface[], rangeStart: Date, rangeEnd: D
                 ...event
             });
         }
+
+        /*repeat but not permanently*/
         if (!event.repeatNeverEnds && event.repeat !== 'None'){
             let dateStartCount = new Date(event.start);
             let dateEndCount = new Date(event.end);
             while (dateStartCount < new Date(event.repeatEnds)) {
-                eventsFullList.push({
-                    startDate: new Date(dateStartCount),
-                    endDate: new Date(dateEndCount),
-                    ...event
-                });
+                if(event.repeatExceptions) {
+                    if(!(confirmExceptions(dateStartCount, event.repeatExceptions))) {
+                        console.log('push');
+                        eventsFullList.push({
+                            startDate: new Date(dateStartCount),
+                            endDate: new Date(dateEndCount),
+                            ...event
+                        });
+                    }
+                }
                 switch (event.repeat) {
                     case 'Monthly':
                         dateStartCount.setMonth(dateStartCount.getMonth() + 1);
@@ -45,6 +64,7 @@ const EventsGenerator = (events: eventInterface[], rangeStart: Date, rangeEnd: D
                 }
             }
         }
+        /*events never ends*/
         if (event.repeatNeverEnds){
             if(new Date(event.start) > rangeEnd) return;
             let eventStartCount = new Date(event.start);
@@ -55,12 +75,15 @@ const EventsGenerator = (events: eventInterface[], rangeStart: Date, rangeEnd: D
                     eventEndCount.setMonth(eventEndCount.getMonth() + 1);
                 }
                 while (eventEndCount < rangeEnd && eventStartCount > rangeStart) {
-                    eventsFullList.push({
-                            startDate: eventStartCount,
-                            endDate: eventEndCount,
-                            ...event
+                    if(event.repeatExceptions) {
+                        if(!confirmExceptions(eventStartCount, event.repeatExceptions)) {
+                            eventsFullList.push({
+                                startDate: new Date(eventStartCount),
+                                endDate: new Date(eventStartCount),
+                                ...event
+                            });
                         }
-                    );
+                    }
                     eventStartCount.setMonth(eventStartCount.getMonth() + 1);
                     eventEndCount.setMonth(eventEndCount.getMonth() + 1);
                 }
@@ -71,12 +94,15 @@ const EventsGenerator = (events: eventInterface[], rangeStart: Date, rangeEnd: D
                     eventEndCount.setDate(eventEndCount.getDate() + 7);
                 }
                 while (eventEndCount < rangeEnd && eventStartCount > rangeStart) {
-                    eventsFullList.push({
-                            startDate: new Date(eventStartCount),
-                            endDate: new Date(eventEndCount),
-                            ...event
+                    if(event.repeatExceptions) {
+                        if(!confirmExceptions(eventStartCount, event.repeatExceptions)) {
+                            eventsFullList.push({
+                                startDate: new Date(eventStartCount),
+                                endDate: new Date(eventStartCount),
+                                ...event
+                            });
                         }
-                    );
+                    }
                     eventStartCount.setDate(eventStartCount.getDate() + 7);
                     eventEndCount.setDate(eventEndCount.getDate() + 7);
                 }
@@ -87,12 +113,21 @@ const EventsGenerator = (events: eventInterface[], rangeStart: Date, rangeEnd: D
                     eventEndCount.setFullYear(eventEndCount.getFullYear() + 1);
                 }
                 while (eventEndCount < rangeEnd && eventStartCount > rangeStart) {
-                    eventsFullList.push({
-                            startDate: new Date(eventStartCount),
-                            endDate: new Date(eventEndCount),
-                            ...event
+                    // eventsFullList.push({
+                    //         startDate: new Date(eventStartCount),
+                    //         endDate: new Date(eventEndCount),
+                    //         ...event
+                    //     }
+                    // );
+                    if(event.repeatExceptions) {
+                        if(!confirmExceptions(eventStartCount, event.repeatExceptions)) {
+                            eventsFullList.push({
+                                startDate: new Date(eventStartCount),
+                                endDate: new Date(eventStartCount),
+                                ...event
+                            });
                         }
-                    );
+                    }
                     eventStartCount.setFullYear(eventStartCount.getFullYear() + 1);
                     eventEndCount.setFullYear(eventEndCount.getFullYear() + 1);
                 }
@@ -103,12 +138,15 @@ const EventsGenerator = (events: eventInterface[], rangeStart: Date, rangeEnd: D
                     eventEndCount.setDate(eventEndCount.getDate() + 14);
                 }
                 while (eventEndCount < rangeEnd && eventStartCount > rangeStart) {
-                    eventsFullList.push({
-                            startDate: new Date(eventStartCount),
-                            endDate: new Date(eventEndCount),
-                            ...event
+                    if(event.repeatExceptions) {
+                        if(!confirmExceptions(eventStartCount, event.repeatExceptions)) {
+                            eventsFullList.push({
+                                startDate: new Date(eventStartCount),
+                                endDate: new Date(eventStartCount),
+                                ...event
+                            });
                         }
-                    );
+                    }
                     eventStartCount.setDate(eventStartCount.getDate() + 14);
                     eventEndCount.setDate(eventEndCount.getDate() + 14);
                 }
@@ -119,12 +157,15 @@ const EventsGenerator = (events: eventInterface[], rangeStart: Date, rangeEnd: D
                     eventEndCount.setDate(eventEndCount.getDate() + 1);
                 }
                 while (eventEndCount < rangeEnd && eventStartCount > rangeStart) {
-                    eventsFullList.push({
-                            startDate: new Date(eventStartCount),
-                            endDate: new Date(eventEndCount),
-                            ...event
+                    if(event.repeatExceptions) {
+                        if(!confirmExceptions(eventStartCount, event.repeatExceptions)) {
+                            eventsFullList.push({
+                                startDate: new Date(eventStartCount),
+                                endDate: new Date(eventStartCount),
+                                ...event
+                            });
                         }
-                    );
+                    }
                     eventStartCount.setDate(eventStartCount.getDate() + 1);
                     eventEndCount.setDate(eventEndCount.getDate() + 1);
                 }

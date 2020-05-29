@@ -5,3 +5,8 @@
 .PopUpModal {
     margin-top: 80px;
 }
+
+.ButtonSecondary {
+    margin-left: 10px;
+    opacity: 0.8;
+}

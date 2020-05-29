@@ -6,3 +6,19 @@
 .LinkBadge {
     font-size: 18px;
 }
+
+.EditProfile {
+    margin: auto;
+    text-align: center;
+    width: 60%;
+}
+
+.ButtonCancel {
+    margin-left: 15px;
+}
+
+@media screen and (max-width: 800px) {
+    .EditProfile{
+        width: 80%;
+    }
+}

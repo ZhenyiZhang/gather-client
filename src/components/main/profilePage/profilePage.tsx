@@ -73,7 +73,7 @@ class ProfilePage extends Component<Props> {
                     <br/> <br/>
                     <Button onClick={() => {this.setState({edit: !this.state.edit})}} color="info">Edit</Button>
                 </div>) :
-                <div>
+                <div className="EditProfile">
                     <Form>
                         <FormGroup>
                             <Label>User/Group Name</Label>
@@ -93,7 +93,8 @@ class ProfilePage extends Component<Props> {
                         </FormGroup>
                         <FormGroup>
                             <Label>Description</Label>
-                            <Input value={this.state.description}
+                            <Input type="textarea"
+                                value={this.state.description}
                                 onChange={(event) => {
                                     this.setState({description: event.currentTarget.value})
                                 }}
@@ -108,6 +109,7 @@ class ProfilePage extends Component<Props> {
                             onClick={this.submitHandler}
                             color="info">Submit</Button>
                         <Button color="secondary"
+                                className="ButtonCancel"
                                 onClick={() => {this.setState({edit: !this.state.edit})}}>Cancel</Button>
                     </Form>
                 </div>

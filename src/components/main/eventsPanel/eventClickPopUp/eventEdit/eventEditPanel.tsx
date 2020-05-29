@@ -151,7 +151,7 @@ class EventEditPanel extends Component<Props> {
                                            value={this.state.contacts.email}
                                            onChange={(event:  React.FormEvent<HTMLInputElement>) => {
                                                this.contactInfoHandler(event, 'Email');
-                                           }}> </Input>
+                                           }}/>
                                 </Col>
                                 <Label sm={2}>Phone</Label>
                                 <Col sm={10}>
@@ -159,7 +159,7 @@ class EventEditPanel extends Component<Props> {
                                            value={this.state.contacts.phone}
                                            onChange={(event:  React.FormEvent<HTMLInputElement>) => {
                                                this.contactInfoHandler(event, 'Phone');
-                                           }}> </Input>
+                                           }}/>
                                 </Col>
                                 <Label sm={2}>Link</Label>
                                 <Col sm={10}>
@@ -167,7 +167,7 @@ class EventEditPanel extends Component<Props> {
                                            value={this.state.contacts.link}
                                            onChange={(event:  React.FormEvent<HTMLInputElement>) => {
                                                this.contactInfoHandler(event, 'Link');
-                                           }}> </Input>
+                                           }}/>
                                 </Col>
                                 <Label sm={2}>Location</Label>
                                 <Col sm={10}>
@@ -175,7 +175,7 @@ class EventEditPanel extends Component<Props> {
                                            value={this.state.contacts.location}
                                            onChange={(event:  React.FormEvent<HTMLInputElement>) => {
                                                this.contactInfoHandler(event, 'Location');
-                                           }}> </Input>
+                                           }}/>
                                 </Col>
                             </FormGroup>
                             <FormGroup className="FormGroup" row>

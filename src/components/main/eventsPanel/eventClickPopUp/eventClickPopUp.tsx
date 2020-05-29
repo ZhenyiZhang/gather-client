@@ -3,6 +3,7 @@ import EventInterface from '../../../../store/interface/Event.interface';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import deleteEventInstance from '../../../../apisInstances/deleteEvent';
 import dateformat from 'dateformat';
+import eventRepeatExceptionInstance from "../../../../apisInstances/eventRepeatException";
 import EventEditPanel from './eventEdit/eventEditPanel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './eventClickPopUp.css';
@@ -42,6 +43,21 @@ class EventClickPopUp extends Component<Props> {
             });
     };
 
+    editOneTimeHandler = () => {
+
+    };
+
+    deleteOneTimeHandler = () => {
+        eventRepeatExceptionInstance.post(this.props.event._id,
+            {date: this.props.event.start},
+            {headers:{Authorization: 'Bearer ' + this.props.AccessToken}})
+            .then(() => {
+                this.props.popUpToggle();
+                this.refreshHandler();
+            })
+            .catch(err => {alert(err)});
+    };
+
     render() {
         return(
             <Modal className="PopUpModal" isOpen={this.props.popUp} toggle={this.props.popUpToggle} modalTransition={{ timeout: 300 }} >
@@ -69,6 +85,12 @@ class EventClickPopUp extends Component<Props> {
                     <Button color="info" onClick={this.editingToggle}> Edit </Button>
                     <Button color="danger"
                             onClick={() => {this.deleteEventHandler()}}> Delete </Button>
+                    {this.props.event.repeat !== 'none' ?
+                        <div>
+                            <Button className="ButtonSecondary"
+                                    color="info"
+                                    onClick={this.editingToggle}> Edit This Time </Button>
+                        </div> : null}
                 </ModalFooter>
                 <EventEditPanel
                     AccessToken={this.props.AccessToken}
@@ -80,7 +102,7 @@ class EventClickPopUp extends Component<Props> {
             </Modal>
         );
     }
-};
+}
 
 export default EventClickPopUp;
 

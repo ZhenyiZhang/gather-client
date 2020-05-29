@@ -7,6 +7,7 @@ export default interface Event{
     end: Date,
     repeatEnds: Date,
     repeatNeverEnds: boolean,
+    repeatExceptions? : Date[],
      contacts: {
         email: string,
         link: string,

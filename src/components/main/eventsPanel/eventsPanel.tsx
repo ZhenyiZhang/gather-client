@@ -72,10 +72,11 @@ class EventsPanel extends Component<Props> {
 
     eventOnClickHandler = (calendarEvent: CalendarEvent) => {
         const event: eventInterface = {
+            ...calendarEvent,
             start: calendarEvent.startDate,
             end: calendarEvent.endDate,
-            ...calendarEvent
         };
+        console.log(event);
         this.setState({
             popUpEvent: event,
             popUp: !this.state.popUp

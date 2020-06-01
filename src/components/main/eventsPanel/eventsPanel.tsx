@@ -6,27 +6,33 @@ import OrganizationStateInterface from '../../../store/interface/OrganizationSta
 import EventClickPopUp from './eventClickPopUp/eventClickPopUp';
 import NewEvent from './newEvent/newEvent'
 import getProfileInstance from '../../../apisInstances/getProfile';
-import './calenderPanel/calendarPanel.css';
-import './eventsPanel.css';
+import CalendarPanel from "./calenderPanel/calendarPanel";
+import {Dispatch} from "redux";
+import getProfileAction from "../topPanel/actions/getProfileAction";
+import CopyToClipboard from "react-copy-to-clipboard";
+import ClientURL from "../../../apisInstances/clientURL";
 
 /*Redux*/
 import {connect} from 'react-redux';
 
-import CalendarPanel from "./calenderPanel/calendarPanel";
-
-import {Dispatch} from "redux";
-import getProfileAction from "../topPanel/actions/getProfileAction";
-import {Button} from "reactstrap";
+/*Style*/
+import {Alert, Button} from "reactstrap";
+import './calenderPanel/calendarPanel.css';
+import './eventsPanel.css';
 
 /*component*/
 interface Props {
     events: eventInterface[],
+    userId: string,
+    share: boolean,
     AccessToken: string,
     getProfileDispatch: (organizationData: OrganizationStateInterface) => void
 }
 
 class EventsPanel extends Component<Props> {
     state = {
+        alert: false,
+        copy: false,
         /*control whether event is clicked or not*/
         popUp: false,
         /*controller for refreshing page*/
@@ -99,6 +105,11 @@ class EventsPanel extends Component<Props> {
         })
     };
 
+    linkOnCopyHandler = () => {
+        setTimeout(() => {this.setState({alert: false})}, 1000);
+        this.setState({copy: true, alert: true});
+    };
+
     slotOnClickHandler = (start: Date, end: Date) => {
         this.setState({newEventSelectedStart: new Date(start), newEventSelectedEnd: new Date(end)});
         this.newEventHandler();
@@ -129,6 +140,17 @@ class EventsPanel extends Component<Props> {
                     newEventHandler={this.newEventHandler}
                     startSelected={this.state.newEventSelectedStart}
                     endSelected={this.state.newEventSelectedEnd}/>
+                {this.props.share?
+                    <div className="Share">
+                        <CopyToClipboard text={ClientURL + `/shared/${this.props.userId}`} onCopy={this.linkOnCopyHandler}>
+                            <Button className="LinkBadge" color="primary">Sharable Link</Button>
+                        </CopyToClipboard>
+                        <Alert className="CopyAlert"
+                               color="success" isOpen={this.state.alert} fade={true}>
+                            Copied to clipboard
+                        </Alert>
+                    </div>
+                    : null}
             </div>
         );
     }
@@ -137,6 +159,8 @@ class EventsPanel extends Component<Props> {
 const mapStateToProps = (state: OrganizationStateInterface) => {
     return{
         events: state.events,
+        userId: state._id,
+        share: state.share
     };
 };
 

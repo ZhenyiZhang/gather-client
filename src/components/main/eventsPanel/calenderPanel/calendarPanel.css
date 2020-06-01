@@ -22,6 +22,7 @@ button.rbc-input::-moz-focus-inner {
     padding: 0; }
 
 .rbc-calendar {
+    border-bottom: 1px solid #DDD;
     box-sizing: border-box;
     height: 100%;
     display: flex;
@@ -95,12 +96,15 @@ button.rbc-input::-moz-focus-inner {
 }
 
 .rbc-toolbar {
+    margin-left: 5%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     margin-bottom: 10px;
-    font-size: 16px; }
+    font-size: 16px;
+    margin-right: 5%;
+}
 .rbc-toolbar .rbc-toolbar-label {
     font-family: 'Jost', sans-serif;
     font-size: 30px;
@@ -553,7 +557,7 @@ button.rbc-input::-moz-focus-inner {
     pointer-events: none; }
 
 .Calendar {
-    width: 90%;
+    width: 100%;
     max-width: 1600px;
     margin: auto;
     height: 800px;
@@ -564,7 +568,7 @@ button{
     font-family: 'Noto Sans', sans-serif;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 750px) {
     .rbc-toolbar {
         display: flex;
         flex-direction: column;

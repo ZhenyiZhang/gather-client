@@ -2,14 +2,7 @@ import React from 'react';
 import {Component }from 'react';
 import OrganizationStateInterface from '../../../store/interface/OrganizationState.interface';
 
-import {
-    Navbar,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    NavLink,
-    Collapse, NavbarToggler, Button, Card, CardBody
-} from 'reactstrap';
+import {Navbar, Row, NavbarBrand, Nav, NavItem, NavLink, Collapse, NavbarToggler, Button, Card, CardBody} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './topPanel.css';
 
@@ -27,7 +20,7 @@ class TopPanel extends Component<Props> {
         return(
             <div>
                 <Navbar fixed="top" color="dark" dark expand="md">
-                    <NavbarBrand className="NavBarBrand">{this.props.organization.organizationName}</NavbarBrand>
+                    <NavbarBrand className="NavBarBrand">Gathering</NavbarBrand>
                     <NavbarToggler onClick={() => {this.setState({collapse: !this.state.collapse})}} className="mr-2" />
                     <Collapse isOpen={this.state.collapse} navbar>
                         <Nav className="mr-auto" navbar>
@@ -41,11 +34,13 @@ class TopPanel extends Component<Props> {
                     </Collapse>
                 </Navbar>
                 <div className="Info">
-                    <h2>{this.props.organization.organizationName}</h2>
-                    <Button
-                        color="info"
-                        onClick={() => {this.setState({dropdownOpen: !this.state.dropdownOpen})}}
-                        className="MoreButton">About Us</Button>
+                    <Row>
+                        <h2>{this.props.organization.organizationName}</h2>
+                        <Button
+                            color="info"
+                            onClick={() => {this.setState({dropdownOpen: !this.state.dropdownOpen})}}
+                            className="MoreButton">About Us</Button>
+                    </Row>
                     <Collapse isOpen={this.state.dropdownOpen}>
                         <Card>
                             <CardBody>

@@ -3,9 +3,10 @@ import {Component} from 'react';
 import updateEventInstance from '../../../../../apisInstances/updateEvent'
 import EventInterface from '../../../../../store/interface/Event.interface';
 import NewEvent from '../../newEvent/interface/event.interface'
-import {Button, Modal, ModalBody, ModalFooter, FormGroup, Label, Input, Col, Form, ModalHeader} from 'reactstrap';
 import Switch from "react-switch";
 import DatePicker from "react-datepicker";
+
+import {Button, Modal, ModalBody, ModalFooter, FormGroup, Label, Input, Col, Form, ModalHeader} from 'reactstrap';
 import 'react-datepicker/dist/react-datepicker.css';
 import './eventEditPanel.css';
 
@@ -101,7 +102,11 @@ class EventEditPanel extends Component<Props> {
                                 <Label sm={2}>Select Start Time</Label>
                                 <DatePicker className="form-control"
                                             selected={this.state.start}
-                                            onChange={date => this.setState({start: date})}
+                                            onChange={(date: Date) => {
+                                                this.setState({
+                                                    start: new Date(date),
+                                                    end: new Date(date.setMinutes(date.getMinutes() + 30))
+                                                })}}
                                             showTimeSelect
                                             timeIntervals={15}
                                             timeCaption="time"
@@ -112,7 +117,13 @@ class EventEditPanel extends Component<Props> {
                                 <Label sm={2}>Select End Time</Label>
                                 <DatePicker className="form-control"
                                             selected={this.state.end}
-                                            onChange={date => this.setState({end: date})}
+                                            onChange={(date: Date) => {
+                                                if(date < new Date(this.state.start)) {
+                                                    this.setState({warning: 'event start time must be greater than end time'});
+                                                    return;
+                                                }
+                                                this.setState({warning: null});
+                                                this.setState({end: date})}}
                                             showTimeSelect
                                             timeIntervals={15}
                                             timeCaption="time"

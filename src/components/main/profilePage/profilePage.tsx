@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import OrganizationStateInterface from '../../../store/interface/OrganizationState.interface';
+import ClientURL from "../../../apisInstances/clientURL";
 import updateProfileInstance from "../../../apisInstances/updateProfile";
 import getProfileInstance from "../../../apisInstances/getProfile";
-import { Badge, Button, Form, Col, Row, FormGroup, Label, Input} from 'reactstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import CopyToClipboard from 'react-copy-to-clipboard';
 import Switch from "react-switch";
 import {connect} from "react-redux";
-import './profilePage.css';
 import {Dispatch} from "redux";
 import getProfileAction from "../topPanel/actions/getProfileAction";
+
+import {Alert, Button, Form, FormGroup, Label, Input} from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './profilePage.css';
 
 interface Props {
     organization: OrganizationStateInterface,
@@ -23,7 +26,9 @@ class ProfilePage extends Component<Props> {
         email: this.props.organization.email,
         description: this.props.organization.description,
         share: this.props.organization.share,
-        link: `/shared/`
+        copy: false,
+        alert: false,
+        link: ''
     };
 
     componentWillReceiveProps(nextProps: Readonly<Props>, nextContext: any): void {
@@ -32,7 +37,8 @@ class ProfilePage extends Component<Props> {
                 organizationName: nextProps.organization.organizationName,
                 description: nextProps.organization.description,
                 email: nextProps.organization.email,
-                share: nextProps.organization.share
+                share: nextProps.organization.share,
+                link: ClientURL + `/shared/${nextProps.organization._id}`
             })
         }
     }
@@ -54,6 +60,11 @@ class ProfilePage extends Component<Props> {
             .catch((err) => {alert(err)});
     };
 
+    linkOnCopyHandler = () => {
+        setTimeout(() => {this.setState({alert: false})}, 1000);
+        this.setState({copy: true, alert: true});
+    };
+
     render() {
         return(
             (!this.state.edit) ?
@@ -66,54 +77,57 @@ class ProfilePage extends Component<Props> {
                     <h4>{this.props.organization.description}</h4>
                     <h3>Share Events:</h3>
                     <h4>{this.props.organization.share? 'Yes' : 'No'}</h4>
+                    <Button onClick={() => {this.setState({edit: !this.state.edit})}} color="info">Edit</Button><br/><br/>
                     {this.props.organization.share?
-                        <Badge className="LinkBadge"
-                               href={this.state.link + this.props.organization._id}
-                               color="primary">Shared Link: {this.state.link + this.props.organization._id}</Badge> : null}
-                    <br/> <br/>
-                    <Button onClick={() => {this.setState({edit: !this.state.edit})}} color="info">Edit</Button>
-                </div>) :
-                <div className="EditProfile">
-                    <Form>
-                        <FormGroup>
-                            <Label>User/Group Name</Label>
-                            <Input value={this.state.organizationName}
-                                onChange={(event) => {
-                                    this.setState({organizationName: event.currentTarget.value})
-                                }}
-                                placeholder="User/Group name" />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label>Email</Label>
-                            <Input value={this.state.email}
-                                   onChange={(event) => {
-                                       this.setState({email: event.currentTarget.value})
-                                   }}
-                                   placeholder="Email"/>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label>Description</Label>
-                            <Input type="textarea"
-                                value={this.state.description}
-                                onChange={(event) => {
-                                    this.setState({description: event.currentTarget.value})
-                                }}
-                                placeholder="Description"/>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label>Share Events</Label>
-                            <br/>
-                            <Switch checked={this.state.share} onChange={() => this.setState({share: !this.state.share})}/>
-                        </FormGroup>
-                        <Button
-                            onClick={this.submitHandler}
-                            color="info">Submit</Button>
-                        <Button color="secondary"
-                                className="ButtonCancel"
-                                onClick={() => {this.setState({edit: !this.state.edit})}}>Cancel</Button>
-                    </Form>
-                </div>
-
+                        <CopyToClipboard text={this.state.link} onCopy={this.linkOnCopyHandler}>
+                            <Button className="LinkBadge" color="primary">Click to copy sharable link</Button>
+                        </CopyToClipboard>
+                        : null} <br/><br/>
+                    <Alert className="CopyAlert"
+                           color="success" isOpen={this.state.alert} fade={true}>
+                        Copied to clipboard
+                    </Alert>
+                    </div>) :
+                    <div className="EditProfile">
+                        <Form>
+                            <FormGroup>
+                                <Label>User/Group Name</Label>
+                                <Input value={this.state.organizationName}
+                                       onChange={(event) => {
+                                           this.setState({organizationName: event.currentTarget.value})
+                                       }}
+                                       placeholder="User/Group name" />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label>Email</Label>
+                                <Input value={this.state.email}
+                                       onChange={(event) => {
+                                           this.setState({email: event.currentTarget.value})
+                                       }}
+                                       placeholder="Email"/>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label>Description</Label>
+                                <Input type="textarea"
+                                       value={this.state.description}
+                                       onChange={(event) => {
+                                           this.setState({description: event.currentTarget.value})
+                                       }}
+                                       placeholder="Description"/>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label>Share Events</Label>
+                                <br/>
+                                <Switch checked={this.state.share} onChange={() => this.setState({share: !this.state.share})}/>
+                            </FormGroup>
+                            <Button
+                                onClick={this.submitHandler}
+                                color="info">Submit</Button>
+                            <Button color="secondary"
+                                    className="ButtonCancel"
+                                    onClick={() => {this.setState({edit: !this.state.edit})}}>Cancel</Button>
+                        </Form>
+                    </div>
         );
     }
 }

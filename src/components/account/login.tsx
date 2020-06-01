@@ -1,9 +1,10 @@
 import React from 'react';
 import {Component }from 'react';
-import './auth.css';
 import LoginInstance from '../../apisInstances/login';
 import AccessInterface from '../../store/interface/Access.interface'
+
 import {Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Collapse} from "reactstrap";
+import './auth.css';
 
 interface Props {
     cookies: any
@@ -37,7 +38,6 @@ class Login extends Component<Props> {
         /*get access token */
         const response = await LoginInstance.post('',loginInfo)
             .catch(err => {
-                console.log(err.response);
                 this.setState({warning: err.response.statusText})
             });
         /*log in failed*/
@@ -69,8 +69,12 @@ class Login extends Component<Props> {
                     </Collapse>
                 </Navbar>
                 <div className="form">
-                    <input type="text" onChange={this.usernameOnChangeHandler} placeholder="username"/>
-                    <input type="password" onChange={this.passwordOnChangeHandler} placeholder="password"/>
+                    <input onKeyPress={(event) => {
+                        if(event.key === "Enter") {this.loginHandler();}}}
+                        type="text" onChange={this.usernameOnChangeHandler} placeholder="username"/>
+                    <input onKeyPress={(event) => {
+                        if(event.key === "Enter") {this.loginHandler();}}}
+                        type="password" onChange={this.passwordOnChangeHandler} placeholder="password"/>
                     <button onClick={this.loginHandler}>login</button>
                     <p className="message">Not registered? <a href="/signup">Sign Up</a></p>
                     <p className="message">Forgot your password? <a href="/reset">Reset Password</a></p>

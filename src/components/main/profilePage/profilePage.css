@@ -3,7 +3,12 @@
     text-align: left;
 }
 
+.CopyAlert {
+    width: 200px;
+}
+
 .LinkBadge {
+    height: 40px;
     font-size: 18px;
 }
 

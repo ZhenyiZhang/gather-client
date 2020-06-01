@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import EventInterface from '../../../../store/interface/Event.interface';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import deleteEventInstance from '../../../../apisInstances/deleteEvent';
 import dateformat from 'dateformat';
 import eventRepeatExceptionInstance from "../../../../apisInstances/eventRepeatException";
 import EventEditPanel from './eventEdit/eventEditPanel';
+
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './eventClickPopUp.css';
 
@@ -43,10 +44,6 @@ class EventClickPopUp extends Component<Props> {
             });
     };
 
-    editOneTimeHandler = () => {
-
-    };
-
     deleteOneTimeHandler = () => {
         eventRepeatExceptionInstance.post(this.props.event._id,
             {date: this.props.event.start},
@@ -68,7 +65,7 @@ class EventClickPopUp extends Component<Props> {
                     <p>{dateformat(new Date(this.props.event.start),"dddd, mmmm dS, yyyy, h:MM TT")}</p>
                     <p className="label">End Date:</p>
                     <p>{dateformat(new Date(this.props.event.end),"dddd, mmmm dS, yyyy, h:MM TT")}</p>
-                    {this.props.event.repeat === 'none' ? null :
+                    {this.props.event.repeat === 'None' ? null :
                         this.props.event.repeatNeverEnds ? <p><strong className="label">Repeat:</strong> Never Ends</p> :
                             <p><strong className="label">Event repeats {this.props.event.repeat} until {' '}</strong>
                                 {dateformat(new Date(this.props.event.repeatEnds),"dddd, mmmm dS, yyyy, h:MM TT")}</p>}
@@ -85,11 +82,11 @@ class EventClickPopUp extends Component<Props> {
                     <Button color="info" onClick={this.editingToggle}> Edit </Button>
                     <Button color="danger"
                             onClick={() => {this.deleteEventHandler()}}> Delete </Button>
-                    {this.props.event.repeat !== 'none' ?
+                    {this.props.event.repeat !== 'None' ?
                         <div>
                             <Button className="ButtonSecondary"
-                                    color="info"
-                                    onClick={this.editingToggle}> Edit This Time </Button>
+                                    color="danger"
+                                    onClick={() => {this.deleteOneTimeHandler()}}> Delete This Time</Button>
                         </div> : null}
                 </ModalFooter>
                 <EventEditPanel

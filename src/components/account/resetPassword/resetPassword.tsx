@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import {Redirect, Route, Switch} from "react-router-dom";
-import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Button, Badge} from "reactstrap";
+import {Route, Switch} from "react-router-dom";
 import resetPasswordRequest from "../../../apisInstances/resetRequst";
 import updatePasswordInstance from "../../../apisInstances/updatePassword";
+
+import {Spinner, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Button} from "reactstrap";
 import '../auth.css';
 
 class ResetPassword extends Component {
@@ -10,16 +11,27 @@ class ResetPassword extends Component {
         email: '',
         password: '',
         passwordConfirm: '',
-        collapse: false
+        collapse: false,
+        warning: '',
+        spinner: false,
     };
 
     sendEmailHandler = () => {
+        this.setState({spinner: true});
         resetPasswordRequest.post('', {email: this.state.email})
-            .then(() => {alert('the email was sent')})
-            .catch((err) => {alert(err)})
+            .then(() => {
+                this.setState({spinner: false});
+                alert('the email was sent');})
+            .catch((err) => {
+                this.setState({spinner: false});
+                alert(err)})
     };
 
     passwordOnChangeHandler = (token: string) => {
+        if(this.state.password !== this.state.passwordConfirm) {
+            this.setState({warning: 'Passwords are not matched, please check'});
+            return;
+        }
         updatePasswordInstance.post('', {password: this.state.password},
             {headers:{Authorization: 'Bearer ' + token}})
             .then(() => {window.location.href="/login"})
@@ -57,6 +69,8 @@ class ResetPassword extends Component {
                             <Button color="info"
                                     onClick={this.sendEmailHandler}>
                                 Send Reset Password Email</Button>
+                            <br/> <br/>
+                            {this.state.spinner? (<Spinner color="secondary"/>) : null}
                         </div>
                     </Route>
                     <Route path="/reset/:resetToken" render={({match}) => (
@@ -72,6 +86,7 @@ class ResetPassword extends Component {
                             <Button color="info"
                                     onClick={() => {this.passwordOnChangeHandler(match.params.resetToken)}}>
                                 Change Password</Button>
+                            <p className="warning" color="danger">{this.state.warning}</p>
                         </div>
                     )}/>
                 </Switch>

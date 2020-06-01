@@ -2,10 +2,11 @@ import React from 'react';
 import {Component} from 'react';
 import newEventInstance from '../../../../apisInstances/newEvent'
 import eventInterface from './interface/event.interface';
-import {Button, FormGroup, Label, Input, Col, Modal, ModalBody, ModalFooter, Form} from 'reactstrap';
 import Switch from "react-switch";
 import {Redirect} from "react-router-dom";
 import DatePicker from 'react-datepicker';
+
+import {Button, FormGroup, Label, Input, Col, Modal, ModalBody, ModalFooter, Form} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'react-datepicker/dist/react-datepicker.css';
 import './newEvent.css';
@@ -21,8 +22,8 @@ interface Props {
 class NewEvent extends Component<Props> {
     state = {
         name: '',
-        start: this.props.startSelected,
-        end: this.props.endSelected,
+        start: new Date(this.props.startSelected),
+        end: new Date(this.props.endSelected),
         repeatEnds: new Date(),
         contacts: {
             email: '',
@@ -110,7 +111,11 @@ class NewEvent extends Component<Props> {
                                 <Label sm={2}>Select Start Time</Label>
                                 <DatePicker className="form-control"
                                             selected={this.state.start}
-                                            onChange={date => this.setState({start: date})}
+                                            onChange={(date: Date) => {
+                                                this.setState({
+                                                    start: new Date(date),
+                                                    end: new Date(date.setMinutes(date.getMinutes() + 30))
+                                                })}}
                                             showTimeSelect
                                             timeIntervals={15}
                                             timeCaption="time"
@@ -121,7 +126,13 @@ class NewEvent extends Component<Props> {
                                 <Label sm={2}>Select End Time</Label>
                                 <DatePicker className="form-control"
                                             selected={this.state.end}
-                                            onChange={date => this.setState({end: date})}
+                                            onChange={(date: Date) => {
+                                                if(date < new Date(this.state.start)) {
+                                                    this.setState({warning: 'event start time must be greater than end time'});
+                                                    return;
+                                                }
+                                                this.setState({warning: null});
+                                                this.setState({end: date})}}
                                             showTimeSelect
                                             timeIntervals={15}
                                             timeCaption="time"
@@ -143,7 +154,7 @@ class NewEvent extends Component<Props> {
                                 </Col>
                             </FormGroup>
                             <FormGroup className="FormGroup" row>
-                                <Label sm={2}>Contacts</Label>
+                                <Label sm={2}>Contacts (optional)</Label>
                             </FormGroup>
                             <FormGroup className="FormGroup" row>
                                     <Label sm={2}>Email</Label>

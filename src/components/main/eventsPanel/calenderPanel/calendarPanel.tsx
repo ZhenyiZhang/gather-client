@@ -19,6 +19,18 @@ interface Props {
 }
 
 const CalendarPanel = (props: Props) => {
+    const onRangeChangeHandler = (range: any) => {
+        let rangeParsed = JSON.parse(JSON.stringify(range));
+        if(rangeParsed.start && rangeParsed.end) {
+            rangeParsed = {start: rangeParsed.start, end: rangeParsed.end};
+        } else {
+            let end = new Date(rangeParsed[rangeParsed.length - 1]);
+            end.setDate(end.getDate() + 1);
+            rangeParsed = {start: rangeParsed[0], end: end}
+        }
+        props.onRangeChangeHandler(new Date(rangeParsed.start), new Date(rangeParsed.end));
+    };
+
     const eventsListGendered: CalendarEvent[] = EventsGenerator(props.eventsList, props.startDate, props.endDate);
     return (
         <div>
@@ -38,16 +50,8 @@ const CalendarPanel = (props: Props) => {
                     props.slotOnClickHandler(slotInfoParsed.start, slotInfoParsed.end)})}
                 onSelectEvent={event => {props.eventOnClickHandler(event)}}
                 onRangeChange={(range) => {
-                    let rangeParsed = JSON.parse(JSON.stringify(range));
-                    if(rangeParsed.start && rangeParsed.end) {
-                        rangeParsed = {start: rangeParsed.start, end: rangeParsed.end};
-                    } else {
-                        let end = new Date(rangeParsed[rangeParsed.length - 1]);
-                        end.setDate(end.getDate() + 1);
-                        rangeParsed = {start: rangeParsed[0], end: end}
-                    }
-                    props.onRangeChangeHandler(new Date(rangeParsed.start), new Date(rangeParsed.end))}
-                }
+                    onRangeChangeHandler(range);
+                }}
             />
         </div>
     );

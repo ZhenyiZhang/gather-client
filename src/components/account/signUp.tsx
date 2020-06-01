@@ -5,6 +5,7 @@ import SignUpInterface from './interface/signUp.interface'
 import signUpInstance from '../../apisInstances/signUp';
 import verifyUserNameInstance from '../../apisInstances/verifyUserName'
 import displayOption from './constants/signUpDisplayOption'
+
 import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Badge} from "reactstrap";
 
 
@@ -65,7 +66,7 @@ class SignUp extends Component {
     };
 
     authHandler = () => {
-        verifyUserNameInstance.post('', {userName: this.state.username})
+        verifyUserNameInstance.post('', {userName: this.state.username, email: this.state.email})
             .then(() => {
                 if(this.state.componentDisplay === displayOption.auth) {
                     if(this.state.password !== this.state.passwordConfirm) {
@@ -75,10 +76,11 @@ class SignUp extends Component {
                         return;
                     }
                 }
+                this.setState({warning: null});
                 this.setState({componentDisplay: this.state.componentDisplay + 1});
             })
-            .catch(() => {
-                this.setState({warning: 'the user already exist'});
+            .catch((err) => {
+                this.setState({warning: err.response.statusText});
                 return;
             });
     };

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Component }from 'react';
 import {connect} from 'react-redux';
-import {Button, Collapse, CardBody, Card} from 'reactstrap';
+import {Button, Collapse, CardBody, Card, Row, Col} from 'reactstrap';
 import OrganizationStateInterface from '../../../store/interface/OrganizationState.interface';
 
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -20,12 +20,14 @@ class TopPanel extends Component<Props> {
     };
     render() {
         return(
-            <div className="topPanel">
-                <h2>{this.props.organizationName}</h2>
-                <Button
-                    color="info"
-                    onClick={() => {this.setState({dropdownOpen: !this.state.dropdownOpen})}}
-                    className="MoreButton">More</Button>
+            <div className="TopPanel">
+                <Row>
+                    <h2>{this.props.organizationName}</h2>
+                    <Button
+                        color="info"
+                        onClick={() => {this.setState({dropdownOpen: !this.state.dropdownOpen})}}
+                        className="MoreButton">More</Button>
+                </Row>
                 <Collapse isOpen={this.state.dropdownOpen}>
                     <Card>
                         <CardBody>

@@ -1,13 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
 
-.topPanel {
+.TopPanel {
     font-family: 'Noto Sans', sans-serif;
     text-align: left;
-    margin-left: 5%;
+    margin-left: 6%;
     margin-right: 5%;
 }
 .MoreButton {
+    height: 40px;
+    margin-left: 10px;
     border-radius: 10px;
+}
+.Share {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
 }
 body {
     padding-top: 80px;

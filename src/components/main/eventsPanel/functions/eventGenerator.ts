@@ -79,7 +79,7 @@ const EventsGenerator = (events: eventInterface[], rangeStart: Date, rangeEnd: D
                         if(!confirmExceptions(eventStartCount, event.repeatExceptions)) {
                             eventsFullList.push({
                                 startDate: new Date(eventStartCount),
-                                endDate: new Date(eventStartCount),
+                                endDate: new Date(eventEndCount),
                                 ...event
                             });
                         }
@@ -98,7 +98,7 @@ const EventsGenerator = (events: eventInterface[], rangeStart: Date, rangeEnd: D
                         if(!confirmExceptions(eventStartCount, event.repeatExceptions)) {
                             eventsFullList.push({
                                 startDate: new Date(eventStartCount),
-                                endDate: new Date(eventStartCount),
+                                endDate: new Date(eventEndCount),
                                 ...event
                             });
                         }
@@ -113,17 +113,11 @@ const EventsGenerator = (events: eventInterface[], rangeStart: Date, rangeEnd: D
                     eventEndCount.setFullYear(eventEndCount.getFullYear() + 1);
                 }
                 while (eventEndCount < rangeEnd && eventStartCount > rangeStart) {
-                    // eventsFullList.push({
-                    //         startDate: new Date(eventStartCount),
-                    //         endDate: new Date(eventEndCount),
-                    //         ...event
-                    //     }
-                    // );
                     if(event.repeatExceptions) {
                         if(!confirmExceptions(eventStartCount, event.repeatExceptions)) {
                             eventsFullList.push({
                                 startDate: new Date(eventStartCount),
-                                endDate: new Date(eventStartCount),
+                                endDate: new Date(eventEndCount),
                                 ...event
                             });
                         }
@@ -142,7 +136,7 @@ const EventsGenerator = (events: eventInterface[], rangeStart: Date, rangeEnd: D
                         if(!confirmExceptions(eventStartCount, event.repeatExceptions)) {
                             eventsFullList.push({
                                 startDate: new Date(eventStartCount),
-                                endDate: new Date(eventStartCount),
+                                endDate: new Date(eventEndCount),
                                 ...event
                             });
                         }
@@ -161,7 +155,7 @@ const EventsGenerator = (events: eventInterface[], rangeStart: Date, rangeEnd: D
                         if(!confirmExceptions(eventStartCount, event.repeatExceptions)) {
                             eventsFullList.push({
                                 startDate: new Date(eventStartCount),
-                                endDate: new Date(eventStartCount),
+                                endDate: new Date(eventEndCount),
                                 ...event
                             });
                         }

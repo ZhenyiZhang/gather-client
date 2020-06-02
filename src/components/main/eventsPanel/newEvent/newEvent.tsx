@@ -132,7 +132,7 @@ class NewEvent extends Component<Props> {
                                                     return;
                                                 }
                                                 this.setState({warning: null});
-                                                this.setState({end: date})}}
+                                                this.setState({end: new Date(date)})}}
                                             showTimeSelect
                                             timeIntervals={15}
                                             timeCaption="time"

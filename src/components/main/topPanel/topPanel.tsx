@@ -1,7 +1,7 @@
 import React from 'react';
 import {Component }from 'react';
 import {connect} from 'react-redux';
-import {Button, Collapse, CardBody, Card, Row, Col} from 'reactstrap';
+import {Button, Collapse, CardBody, Card, Row} from 'reactstrap';
 import OrganizationStateInterface from '../../../store/interface/OrganizationState.interface';
 
 import 'bootstrap/dist/css/bootstrap.min.css'

@@ -181,7 +181,7 @@ class SignUp extends Component {
         return(
             <div>
                 <Navbar fixed="top" color="dark" dark expand="md">
-                    <NavbarBrand className="NavBarBrand">Gathering</NavbarBrand>
+                    <NavbarBrand className="NavBarBrand">Gather</NavbarBrand>
                     <NavbarToggler onClick={() => {this.setState({collapse: !this.state.collapse})}} className="mr-2" />
                     <Collapse isOpen={this.state.collapse} navbar>
                         <Nav className="mr-auto" navbar>

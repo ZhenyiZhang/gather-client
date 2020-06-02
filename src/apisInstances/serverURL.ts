@@ -1,3 +1,3 @@
-const ServerURL = 'http://192.168.0.27:5000';
+const ServerURL = 'https://gather-server-service.herokuapp.com';
 
 export default ServerURL;

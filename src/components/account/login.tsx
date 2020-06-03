@@ -75,7 +75,7 @@ class Login extends Component<Props> {
                 <div className="form">
                     <input onKeyPress={(event) => {
                         if(event.key === "Enter") {this.loginHandler();}}}
-                        type="text" onChange={this.usernameOnChangeHandler} placeholder="username"/>
+                        type="text" onChange={this.usernameOnChangeHandler} placeholder="username or email"/>
                     <input onKeyPress={(event) => {
                         if(event.key === "Enter") {this.loginHandler();}}}
                         type="password" onChange={this.passwordOnChangeHandler} placeholder="password"/>

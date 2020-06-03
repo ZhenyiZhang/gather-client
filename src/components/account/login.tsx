@@ -3,7 +3,7 @@ import {Component }from 'react';
 import LoginInstance from '../../apisInstances/login';
 import AccessInterface from '../../store/interface/Access.interface'
 
-import {Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Collapse} from "reactstrap";
+import {Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Collapse, Spinner} from "reactstrap";
 import './auth.css';
 
 interface Props {
@@ -15,7 +15,8 @@ class Login extends Component<Props> {
         username: '',
         password: '',
         warning: '',
-        collapse: false
+        collapse: false,
+        spinner: false
     };
 
     usernameOnChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
@@ -35,10 +36,12 @@ class Login extends Component<Props> {
             username: this.state.username,
             password: this.state.password
         };
+        this.setState({spinner: true});
         /*get access token */
         const response = await LoginInstance.post('',loginInfo)
             .catch(err => {
-                this.setState({warning: err.response.statusText})
+                this.setState({warning: err.response.statusText});
+                this.setState({spinner: false});
             });
         /*log in failed*/
         if(!response) return;
@@ -48,6 +51,7 @@ class Login extends Component<Props> {
         const {cookies} = this.props;
         const cookieSet = await cookies.set('AccessToken', accessKey, {path: '/'});
         if(cookieSet) {this.setState({redirectToMain: true});}
+        this.setState({spinner: false});
         window.location.href="/main";
     };
 
@@ -79,6 +83,7 @@ class Login extends Component<Props> {
                     <p className="message">Not registered? <a href="/signup">Sign Up</a></p>
                     <p className="message">Forgot your password? <a href="/reset">Reset Password</a></p>
                     <p className="warning">{this.state.warning}</p>
+                    {this.state.spinner? <Spinner color="info"/> : null}
                 </div>
             </div>
         );

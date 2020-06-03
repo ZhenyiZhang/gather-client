@@ -6,7 +6,19 @@ import NewEvent from '../../newEvent/interface/event.interface'
 import Switch from "react-switch";
 import DatePicker from "react-datepicker";
 
-import {Button, Modal, ModalBody, ModalFooter, FormGroup, Label, Input, Col, Form, ModalHeader} from 'reactstrap';
+import {
+    Button,
+    Modal,
+    ModalBody,
+    ModalFooter,
+    FormGroup,
+    Label,
+    Input,
+    Col,
+    Form,
+    ModalHeader,
+    Spinner
+} from 'reactstrap';
 import 'react-datepicker/dist/react-datepicker.css';
 import './eventEditPanel.css';
 
@@ -29,6 +41,7 @@ class EventEditPanel extends Component<Props> {
         end: new Date(this.props.event.end),
         repeatNeverEnds: this.props.event.repeatNeverEnds,
         contacts: this.props.event.contacts,
+        spinner: false,
         warning: '',
     };
 
@@ -41,16 +54,20 @@ class EventEditPanel extends Component<Props> {
     }
 
     submitHandler = () => {
-        const {warning,  ...others} = this.state;
+        const {warning, spinner,...others} = this.state;
         const updateData: NewEvent = others;
+        this.setState({spinner: true});
         updateEventInstance.post(this.props.event._id, updateData,
             {headers:{Authorization: 'Bearer ' + this.props.AccessToken}})
             .then(() => {
+                this.setState({spinner: false});
                 this.props.refreshHandler();
                 this.props.editingToggle();
                 this.props.popUpToggle();
             })
-            .catch((err) => {alert(err)});
+            .catch((err) => {
+                this.setState({spinner: false});
+                alert(err)});
     };
 
     contactInfoHandler = (event: React.FormEvent<HTMLInputElement>, type: string) => {
@@ -219,6 +236,7 @@ class EventEditPanel extends Component<Props> {
                     </Form>
                     <ModalFooter>
                         <Button color="info" onClick={this.submitHandler}>Submit</Button>
+                        {this.state.spinner? <Spinner color="info"/> : null}
                     </ModalFooter>
                     <p className="warning">{this.state.warning}</p>
                 </ModalBody>

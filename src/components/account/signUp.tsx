@@ -6,7 +6,7 @@ import signUpInstance from '../../apisInstances/signUp';
 import verifyUserNameInstance from '../../apisInstances/verifyUserName'
 import displayOption from './constants/signUpDisplayOption'
 
-import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Badge} from "reactstrap";
+import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Badge, Spinner} from "reactstrap";
 
 
 class SignUp extends Component {
@@ -20,7 +20,8 @@ class SignUp extends Component {
         email: '',
         share: false,
         componentDisplay: displayOption.auth,
-        collapse: false
+        collapse: false,
+        spinner: false
     };
 
     usernameOnChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
@@ -66,20 +67,23 @@ class SignUp extends Component {
     };
 
     authHandler = () => {
+        if(this.state.componentDisplay === displayOption.auth) {
+            if(this.state.password !== this.state.passwordConfirm) {
+                this.setState({
+                    warning: 'Passwords are not matched, please check'
+                });
+                return;
+            }
+        }
+        this.setState({spinner: true});
         verifyUserNameInstance.post('', {userName: this.state.username, email: this.state.email})
             .then(() => {
-                if(this.state.componentDisplay === displayOption.auth) {
-                    if(this.state.password !== this.state.passwordConfirm) {
-                        this.setState({
-                            warning: 'Passwords are not matched, please check'
-                        });
-                        return;
-                    }
-                }
+                this.setState({spinner: false});
                 this.setState({warning: null});
                 this.setState({componentDisplay: this.state.componentDisplay + 1});
             })
             .catch((err) => {
+                this.setState({spinner: false});
                 this.setState({warning: err.response.statusText});
                 return;
             });
@@ -94,11 +98,15 @@ class SignUp extends Component {
             share: this.state.share,
             email: this.state.email,
         };
+        this.setState({spinner: true});
         signUpInstance.post('', organization)
             .then(() => {this.setState({
+                spinner: false,
                 componentDisplay: displayOption.done
             })})
-            .catch(err => {alert(err)});
+            .catch(err => {
+                this.setState({spinner: false});
+                alert(err)});
     };
 
     render() {
@@ -128,6 +136,7 @@ class SignUp extends Component {
                         <button onClick={this.authHandler}>Next</button>
                         <p className="message">Already have an account? Go to <a href="/login">Log In</a></p>
                         <p className="warning">{this.state.warning}</p>
+                        {this.state.spinner? <Spinner color="info"/> : null}
                     </div>);
                 break;
             case displayOption.description:
@@ -165,6 +174,7 @@ class SignUp extends Component {
                         <br/><br/>
                         <button onClick={this.signUpHandler}>Sign Up</button>
                         <p className="message">Already have an account? Go to <a href="/login">Log In</a></p>
+                        {this.state.spinner? <Spinner color="info"/> : null}
                     </div>
                 );
                 break;

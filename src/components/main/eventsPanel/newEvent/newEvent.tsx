@@ -6,7 +6,7 @@ import Switch from "react-switch";
 import {Redirect} from "react-router-dom";
 import DatePicker from 'react-datepicker';
 
-import {Button, FormGroup, Label, Input, Col, Modal, ModalBody, ModalFooter, Form} from 'reactstrap';
+import {Button, FormGroup, Label, Input, Col, Modal, ModalBody, ModalFooter, Form, Spinner} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'react-datepicker/dist/react-datepicker.css';
 import './newEvent.css';
@@ -35,6 +35,7 @@ class NewEvent extends Component<Props> {
         repeat: 'None',
         description: '',
         warning: null,
+        spinner: false,
     };
 
     componentWillReceiveProps(nextProps: Readonly<Props>, nextContext: any): void {
@@ -51,16 +52,19 @@ class NewEvent extends Component<Props> {
             this.setState({warning: 'event start time must be greater than end time'});
             return
         }
-        const {warning, ...others} = this.state;
+        const {warning, spinner, ...others} = this.state;
         const event: eventInterface = others;
-        console.log(event);
+        this.setState({spinner: true});
         newEventInstance.post('', event,
             {headers:{Authorization: 'Bearer ' + this.props.AccessToken}})
             .then(() => {
+                this.setState({spinner: false});
                 this.setState({warning : (<Redirect to={'/main'} exact/>)});
                 this.props.newEventHandler();
             })
-            .catch(error => {this.setState({warning: error.response.statusText})})
+            .catch(error => {this.setState({
+                spinner: false,
+                warning: error.response.statusText})})
     };
 
     contactInfoHandler = (event: React.FormEvent<HTMLInputElement>, type: string) => {
@@ -220,6 +224,7 @@ class NewEvent extends Component<Props> {
                     <ModalFooter>
                         <Button color="info" onClick={this.submitEvent}>Submit</Button>
                         <Button color="secondary" onClick={this.props.newEventHandler}>Cancel</Button>
+                        {this.state.spinner? <Spinner color="info"/> : null}
                     </ModalFooter>
                     <p className="warning">{this.state.warning}</p>
                 </ModalBody>

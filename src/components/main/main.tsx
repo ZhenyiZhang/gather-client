@@ -26,6 +26,10 @@ class Main extends Component<Props> {
     };
 
     componentDidMount(): void {
+        if(!this.props.cookies.get('AccessToken')) {
+            window.location.href="/login";
+            return;
+        }
         getProfileInstance.get('',
             {headers:{Authorization: 'Bearer ' + this.props.cookies.get('AccessToken')}})
             .then(res => {

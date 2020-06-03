@@ -558,7 +558,6 @@ button.rbc-input::-moz-focus-inner {
 
 .Calendar {
     width: 100%;
-    max-width: 1600px;
     margin: auto;
     height: 800px;
 }

@@ -26,7 +26,7 @@ class TopPanel extends Component<Props> {
                     <Button
                         color="info"
                         onClick={() => {this.setState({dropdownOpen: !this.state.dropdownOpen})}}
-                        className="MoreButton">More</Button>
+                        className="MoreButton">About</Button>
                 </Row>
                 <Collapse isOpen={this.state.dropdownOpen}>
                     <Card>

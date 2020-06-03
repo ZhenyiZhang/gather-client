@@ -16,7 +16,7 @@ import ClientURL from "../../../apisInstances/clientURL";
 import {connect} from 'react-redux';
 
 /*Style*/
-import {Alert, Button} from "reactstrap";
+import {Alert, Button, Col} from "reactstrap";
 import './calenderPanel/calendarPanel.css';
 import './eventsPanel.css';
 
@@ -118,6 +118,17 @@ class EventsPanel extends Component<Props> {
     render() {
         return(
             <div>
+                {this.props.share?
+                    <Col>
+                        <CopyToClipboard text={ClientURL + `/shared/${this.props.userId}`} onCopy={this.linkOnCopyHandler}>
+                            <Button className="Share" color="primary">Sharable Link</Button>
+                        </CopyToClipboard>
+                        <Alert className="CopyAlert"
+                               color="success" isOpen={this.state.alert} fade={true}>
+                            Copied to clipboard
+                        </Alert>
+                    </Col>
+                    : null}
                 <Button className="NewEventButton" color="primary" onClick={this.newEventHandler}> New Event</Button>
                 <CalendarPanel
                     startDate = {new Date(this.state.calendarStart)}
@@ -140,17 +151,6 @@ class EventsPanel extends Component<Props> {
                     newEventHandler={this.newEventHandler}
                     startSelected={this.state.newEventSelectedStart}
                     endSelected={this.state.newEventSelectedEnd}/>
-                {this.props.share?
-                    <div className="Share">
-                        <CopyToClipboard text={ClientURL + `/shared/${this.props.userId}`} onCopy={this.linkOnCopyHandler}>
-                            <Button className="LinkBadge" color="primary">Sharable Link</Button>
-                        </CopyToClipboard>
-                        <Alert className="CopyAlert"
-                               color="success" isOpen={this.state.alert} fade={true}>
-                            Copied to clipboard
-                        </Alert>
-                    </div>
-                    : null}
             </div>
         );
     }

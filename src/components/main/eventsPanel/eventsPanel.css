@@ -1,10 +1,28 @@
 .NewEventButton {
-    margin-left: 5px;
-    text-align: right;
-    right: 5%;
-    top: 80px;
+    margin-top: 5px;
+    margin-bottom:5px;
     border-radius:10px;
-    position: absolute;
+}
+.Share {
+    text-align:center;
+    margin:auto;
+    border-radius: 10px;
+}
+
+.CopyAlert {
+    text-align:center;
+    margin:auto;
+    border-radius: 10px;
+}
+
+@media screen and (min-width: 500px) {
+    .NewEventButton {
+        margin-left: 5px;
+        text-align: right;
+        right: 5%;
+        position: absolute;
+        top: 80px;
+    }
 }
 
 body {

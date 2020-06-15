@@ -57,7 +57,7 @@ class EventEditPanel extends Component<Props> {
         const {warning, spinner,...others} = this.state;
         const updateData: NewEvent = others;
         this.setState({spinner: true});
-        updateEventInstance.post(this.props.event._id, updateData,
+        updateEventInstance.put(this.props.event._id, updateData,
             {headers:{Authorization: 'Bearer ' + this.props.AccessToken}})
             .then(() => {
                 this.setState({spinner: false});

@@ -28,7 +28,7 @@ const Routes = (props: any) => {
                         <ResetPassword/>
                     </Route>
                     {/*if access token is not found always redirect to /login*/}
-                    {(props.cookies.get('AccessToken'))? <Redirect to="/main"/> : <Redirect to="/login"/> }
+                    {(props.cookies.get('AccessToken'))? <Redirect to="/main"/> : <Redirect to="/signup"/> }
                 </Switch>
             </div>
     );

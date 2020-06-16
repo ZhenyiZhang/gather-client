@@ -38,17 +38,18 @@ Instead, it will copy all the configuration files and the transitive dependencie
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
 ### `sign up`
-![](images/Screen Shot 2020-06-16 at 12.00.27 PM.PNG)
+Sign up with email address
+<img src='./images/Screen Shot 2020-06-16 at 12.00.27 PM.png'/>
 
 ### `view and manage activities`
-![](images/Screen Shot 2020-06-16 at 12.12.28 PM.PNG)
+<img src='./images/Screen Shot 2020-06-16 at 12.12.28 PM.png'/>
 
 ### `turn on share feature`
 Other people can see your schedules through the link(users can turn it off as well)
-![](images/Screen Shot 2020-06-16 at 12.13.23 PM.PNG)
+<img src='./images/Screen Shot 2020-06-16 at 12.13.23 PM.png'/>
 
 ### `Week view and day view`
-![](images/Screen Shot 2020-06-16 at 12.14.30 PM.PNG) <br /> <br />
-![](images/Screen Shot 2020-06-16 at 12.14.50 PM.PNG)
+<img src='./images/Screen Shot 2020-06-16 at 12.14.30 PM.png'/>  <br /> <br />
+<img src='./images/Screen Shot 2020-06-16 at 12.14.50 PM.png'/>
 
 

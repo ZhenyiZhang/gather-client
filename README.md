@@ -39,6 +39,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ### `sign up`
 ![ScreenShot](./images/Screen Shot 2020-06-16 at 12.00.27 PM.png)
+<img src="./images/Screen Shot 2020-06-16 at 12.00.27 PM.png" />
 
 ### `view and manage activities`
 ![ScreenShot](./images/Screen Shot 2020-06-16 at 12.12.28 PM.png)

@@ -11,7 +11,6 @@ import {BrowserRouter} from 'react-router-dom'
 
 const store = createStore(OrganizationReducer);
 
-
 ReactDOM.render(
         <CookiesProvider>
             <BrowserRouter>

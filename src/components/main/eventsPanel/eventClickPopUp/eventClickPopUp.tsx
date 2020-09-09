@@ -23,15 +23,15 @@ class EventClickPopUp extends Component<Props> {
         startTimeReformat: dateformat(this.props.event.start,"dddd, mmmm dS, yyyy, h:MM:ss TT"),
         endTimeReformat: dateformat(this.props.event.end,"dddd, mmmm dS, yyyy, h:MM:ss TT")
     };
-
+    /*toggle event editing option*/
     editingToggle = () => {
         this.setState({ editing: !this.state.editing });
     };
-
+    /*refresh the page*/
     refreshHandler = () => {
         this.props.refreshHandler();
     };
-
+    /*submit event delete*/
     deleteEventHandler = () => {
         deleteEventInstance.delete(this.props.event._id,
             {headers:{Authorization: 'Bearer ' + this.props.AccessToken}})
@@ -43,7 +43,7 @@ class EventClickPopUp extends Component<Props> {
                 alert('failed to delete the event');
             });
     };
-
+    /*delete one time of repeated events*/
     deleteOneTimeHandler = () => {
         eventRepeatExceptionInstance.post(this.props.event._id,
             {date: this.props.event.start},

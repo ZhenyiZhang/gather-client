@@ -58,7 +58,7 @@ class EventsPanel extends Component<Props> {
         calendarStart: new Date(Date.now()).setMonth(new Date(Date.now()).getMonth() - 1),
         calendarEnd: new Date(Date.now()).setMonth(new Date(Date.now()).getMonth() + 1),
     };
-
+    /*update calendar time range state*/
     onRangeChangeHandler = (start: Date, end: Date) => {
         this.setState({
             calendarStart: start,

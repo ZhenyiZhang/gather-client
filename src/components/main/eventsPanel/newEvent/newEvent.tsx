@@ -53,7 +53,7 @@ class NewEvent extends Component<Props> {
             input => (input.value = "")
         );
     }
-
+    /*update location state*/
     onSuggestSelect = (place: Suggest) => {
         if(!place) return;
         this.setState({
@@ -63,8 +63,9 @@ class NewEvent extends Component<Props> {
             }
         });
     };
-
+    /*submit event form*/
     submitEvent = () => {
+        /*event end time must be greater than start time*/
         if(new Date(this.state.start) >= new Date(this.state.end)) {
             this.setState({warning: 'event start time must be greater than end time'});
             return
@@ -83,7 +84,7 @@ class NewEvent extends Component<Props> {
                 spinner: false,
                 warning: error.response.statusText})})
     };
-
+    /*update contact state except location*/
     contactInfoHandler = (event: React.FormEvent<HTMLInputElement>, type: string) => {
         switch (type) {
             case 'Email':

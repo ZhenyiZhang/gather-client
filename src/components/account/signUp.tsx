@@ -24,49 +24,58 @@ class SignUp extends Component {
         spinner: false
     };
 
+    /*change user name state*/
     usernameOnChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
         this.setState({
             username: event.currentTarget.value
         });
     };
 
+    /*change password state*/
     passwordOnChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
         this.setState({
             password: event.currentTarget.value
         });
     };
 
+    /*change password confirm state*/
     passwordConfirmOnChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
         this.setState({
             passwordConfirm: event.currentTarget.value
         });
     };
 
+    /*change organization name state*/
     organizationNameChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
         this.setState({
             organizationName: event.currentTarget.value
         });
     };
 
+    /*change description state*/
     descriptionOnChangeHandler = (event: React.FormEvent<HTMLTextAreaElement>) => {
         this.setState({
             description: event.currentTarget.value
         });
     };
 
+    /*change email state*/
     emailOnChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
       this.setState({
           email: event.currentTarget.value
       })
     };
 
+    /*change share state*/
     shareHandler = (event: React.FormEvent<HTMLSelectElement>) => {
         event.currentTarget.value === 'Yes' ?
             this.setState({share: true}) :
             this.setState({share: false});
     };
 
+    /*check sign up form*/
     authHandler = () => {
+        /*check if passwords are matched */
         if(this.state.componentDisplay === displayOption.auth) {
             if(this.state.password !== this.state.passwordConfirm) {
                 this.setState({
@@ -75,7 +84,9 @@ class SignUp extends Component {
                 return;
             }
         }
+        /*turn on spinner option*/
         this.setState({spinner: true});
+       /*confirm user name and email are not registered by others*/
         verifyUserNameInstance.post('', {userName: this.state.username, email: this.state.email})
             .then(() => {
                 this.setState({spinner: false});
@@ -89,6 +100,7 @@ class SignUp extends Component {
             });
     };
 
+    /*submit sign up form*/
     signUpHandler = async() => {
         const  organization: SignUpInterface = {
             name: this.state.username,
@@ -98,7 +110,9 @@ class SignUp extends Component {
             share: this.state.share,
             email: this.state.email,
         };
+        /*turn on spinner option*/
         this.setState({spinner: true});
+        /*submit form to server*/
         signUpInstance.post('', organization)
             .then(() => {this.setState({
                 spinner: false,
@@ -187,7 +201,6 @@ class SignUp extends Component {
                 );
                 break;
         }
-
         return(
             <div>
                 <Navbar fixed="top" color="dark" dark expand="md">

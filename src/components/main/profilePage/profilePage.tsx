@@ -43,9 +43,9 @@ class ProfilePage extends Component<Props> {
         }
     }
 
+    /*submit profile modification form */
     submitHandler = () => {
         const {link, edit, ...updateProfile} = this.state;
-        console.log(this.props.AccessToken);
         updateProfileInstance.post('', updateProfile,
             {headers:{Authorization: 'Bearer ' + this.props.AccessToken}})
             .then(() => {
@@ -60,6 +60,7 @@ class ProfilePage extends Component<Props> {
             .catch((err) => {alert(err)});
     };
 
+    /*copy share link to clipboard*/
     linkOnCopyHandler = () => {
         setTimeout(() => {this.setState({alert: false})}, 1000);
         this.setState({copy: true, alert: true});

@@ -1,6 +1,7 @@
 import eventInterface from "../../../../store/interface/Event.interface";
 import CalendarEvent from "../interface/calendarEvent.interface";
 
+/*check if event is excluded from specific date*/
 const confirmExceptions = (dateToConfirm: Date, exceptions: Date[]):boolean => {
     let result = false;
     exceptions.forEach(date => {
@@ -13,10 +14,12 @@ const confirmExceptions = (dateToConfirm: Date, exceptions: Date[]):boolean => {
     return result;
 };
 
+/*generate all events in a given time range*/
 const EventsGenerator = (events: eventInterface[], rangeStart: Date, rangeEnd: Date): CalendarEvent[] => {
     let eventsFullList = [{} as CalendarEvent];
+    /*iterate through each event*/
     events.forEach((event: eventInterface) => {
-        /*the case when event is not repeated */
+        /*event is not repeated */
         if(event.repeat === 'None') {
             eventsFullList.push({
                 startDate: new Date(event.start),
@@ -24,15 +27,15 @@ const EventsGenerator = (events: eventInterface[], rangeStart: Date, rangeEnd: D
                 ...event
             });
         }
-
-        /*repeat but not permanently*/
+        /*events that are repeated but not permanently*/
         if (!event.repeatNeverEnds && event.repeat !== 'None'){
             let dateStartCount = new Date(event.start);
             let dateEndCount = new Date(event.end);
+            /*generate specific events time for repeated events in the calendar time range*/
             while (dateStartCount < new Date(event.repeatEnds)) {
                 if(event.repeatExceptions) {
+                    /*push event to list if is not excluded*/
                     if(!(confirmExceptions(dateStartCount, event.repeatExceptions))) {
-                        console.log('push');
                         eventsFullList.push({
                             startDate: new Date(dateStartCount),
                             endDate: new Date(dateEndCount),
@@ -66,6 +69,7 @@ const EventsGenerator = (events: eventInterface[], rangeStart: Date, rangeEnd: D
         }
         /*events never ends*/
         if (event.repeatNeverEnds){
+            /*event start time is out of time range*/
             if(new Date(event.start) > rangeEnd) return;
             let eventStartCount = new Date(event.start);
             let eventEndCount = new Date(event.end);

@@ -25,11 +25,14 @@ class Main extends Component<Props> {
         collapse: false
     };
 
+    /*get user profile data*/
     componentDidMount(): void {
+        /*if no AccessToken, redirect to login page*/
         if(!this.props.cookies.get('AccessToken')) {
             window.location.href="/login";
             return;
         }
+        /*request user profile data from server*/
         getProfileInstance.get('',
             {headers:{Authorization: 'Bearer ' + this.props.cookies.get('AccessToken')}})
             .then(res => {

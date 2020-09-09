@@ -16,6 +16,7 @@ class ResetPassword extends Component {
         spinner: false,
     };
 
+    /*reset password */
     sendEmailHandler = () => {
         this.setState({spinner: true});
         resetPasswordRequest.post('', {email: this.state.email})
@@ -27,6 +28,7 @@ class ResetPassword extends Component {
                 alert(err)})
     };
 
+    /*check if passwords are valid*/
     passwordOnChangeHandler = (token: string) => {
         if(this.state.password !== this.state.passwordConfirm) {
             this.setState({warning: 'Passwords are not matched, please check'});

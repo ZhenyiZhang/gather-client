@@ -8,19 +8,7 @@ import DatePicker from "react-datepicker";
 import Geosuggest, { Suggest } from 'react-geosuggest';
 
 
-import {
-    Button,
-    Modal,
-    ModalBody,
-    ModalFooter,
-    FormGroup,
-    Label,
-    Input,
-    Col,
-    Form,
-    ModalHeader,
-    Spinner
-} from 'reactstrap';
+import {Button, Modal, ModalBody, ModalFooter, FormGroup, Label, Input, Col, Form, ModalHeader, Spinner} from 'reactstrap';
 import 'react-datepicker/dist/react-datepicker.css';
 import './eventEditPanel.css';
 
@@ -46,7 +34,6 @@ class EventEditPanel extends Component<Props> {
         spinner: false,
         warning: '',
     };
-
     componentWillReceiveProps(nextProps: Readonly<Props>, nextContext: any): void {
         if(nextProps.event.name !== this.state.name) {
             this.setState({
@@ -54,13 +41,12 @@ class EventEditPanel extends Component<Props> {
             })
         }
     }
-
     componentWillUnmount(): void {
         Array.from(document.querySelectorAll("input")).forEach(
             input => (input.value = "")
         );
     }
-
+    /*submit event modification form*/
     submitHandler = () => {
         const {warning, spinner,...others} = this.state;
         const updateData: NewEvent = others;
@@ -77,7 +63,7 @@ class EventEditPanel extends Component<Props> {
                 this.setState({spinner: false});
                 alert(err)});
     };
-
+    /*update location state*/
     onSuggestSelect = (place: Suggest) => {
         if(!place) return;
         this.setState({
@@ -87,7 +73,7 @@ class EventEditPanel extends Component<Props> {
             }
         });
     };
-
+    /*update contact state except location*/
     contactInfoHandler = (event: React.FormEvent<HTMLInputElement>, type: string) => {
         switch (type) {
             case 'Email':

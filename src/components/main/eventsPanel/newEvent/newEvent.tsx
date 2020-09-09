@@ -5,6 +5,7 @@ import eventInterface from './interface/event.interface';
 import Switch from "react-switch";
 import {Redirect} from "react-router-dom";
 import DatePicker from 'react-datepicker';
+import Geosuggest, { Suggest } from 'react-geosuggest';
 
 import {Button, FormGroup, Label, Input, Col, Modal, ModalBody, ModalFooter, Form, Spinner} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -47,6 +48,22 @@ class NewEvent extends Component<Props> {
         }
     };
 
+    componentWillUnmount(): void {
+        Array.from(document.querySelectorAll("input")).forEach(
+            input => (input.value = "")
+        );
+    }
+
+    onSuggestSelect = (place: Suggest) => {
+        if(!place) return;
+        this.setState({
+            contacts: {
+                ...this.state.contacts,
+                location: place.label
+            }
+        });
+    };
+
     submitEvent = () => {
         if(new Date(this.state.start) >= new Date(this.state.end)) {
             this.setState({warning: 'event start time must be greater than end time'});
@@ -83,14 +100,6 @@ class NewEvent extends Component<Props> {
                     contacts: {
                         ...this.state.contacts,
                         phone: event.currentTarget.value,
-                    }
-                });
-                break;
-            case 'Location':
-                this.setState({
-                    contacts: {
-                        ...this.state.contacts,
-                        location: event.currentTarget.value,
                     }
                 });
                 break;
@@ -187,10 +196,10 @@ class NewEvent extends Component<Props> {
                                 <br/><br/>
                                 <Label sm={2}>Location</Label>
                                 <Col sm={10}>
-                                    <Input placeholder="Location"
-                                           onChange={(event:  React.FormEvent<HTMLInputElement>) => {
-                                               this.contactInfoHandler(event, 'Location');
-                                           }}/>
+                                    <Geosuggest
+                                        placeholder="Search for location"
+                                        onSuggestSelect={this.onSuggestSelect}
+                                    />
                                 </Col>
                             </FormGroup>
                             <FormGroup className="FormGroup" row>

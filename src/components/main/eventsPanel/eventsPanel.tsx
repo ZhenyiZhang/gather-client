@@ -82,7 +82,6 @@ class EventsPanel extends Component<Props> {
             start: calendarEvent.startDate,
             end: calendarEvent.endDate,
         };
-        console.log(event);
         this.setState({
             popUpEvent: event,
             popUp: !this.state.popUp
@@ -152,6 +151,7 @@ class EventsPanel extends Component<Props> {
                     startSelected={this.state.newEventSelectedStart}
                     endSelected={this.state.newEventSelectedEnd}/>
             </div>
+
         );
     }
 }

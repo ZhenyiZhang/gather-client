@@ -5,6 +5,8 @@ import EventInterface from '../../../../../store/interface/Event.interface';
 import NewEvent from '../../newEvent/interface/event.interface'
 import Switch from "react-switch";
 import DatePicker from "react-datepicker";
+import Geosuggest, { Suggest } from 'react-geosuggest';
+
 
 import {
     Button,
@@ -53,6 +55,12 @@ class EventEditPanel extends Component<Props> {
         }
     }
 
+    componentWillUnmount(): void {
+        Array.from(document.querySelectorAll("input")).forEach(
+            input => (input.value = "")
+        );
+    }
+
     submitHandler = () => {
         const {warning, spinner,...others} = this.state;
         const updateData: NewEvent = others;
@@ -70,6 +78,16 @@ class EventEditPanel extends Component<Props> {
                 alert(err)});
     };
 
+    onSuggestSelect = (place: Suggest) => {
+        if(!place) return;
+        this.setState({
+            contacts: {
+                ...this.state.contacts,
+                location: place.label
+            }
+        });
+    };
+
     contactInfoHandler = (event: React.FormEvent<HTMLInputElement>, type: string) => {
         switch (type) {
             case 'Email':
@@ -84,24 +102,24 @@ class EventEditPanel extends Component<Props> {
             case 'Phone':
                 this.setState({
                     contacts: {
-                        phone: event.currentTarget.value,
-                        ...this.state.contacts
+                        ...this.state.contacts,
+                        phone: event.currentTarget.value
                     }
                 });
                 break;
             case 'Location':
                 this.setState({
                     contacts: {
-                        location: event.currentTarget.value,
-                        ...this.state.contacts
+                        ...this.state.contacts,
+                        location: event.currentTarget.value
                     }
                 });
                 break;
             case 'Link':
                 this.setState({
                     contacts: {
-                        link: event.currentTarget.value,
-                        ...this.state.contacts
+                        ...this.state.contacts,
+                        location: event.currentTarget.value
                     }
                 });
                 break;
@@ -181,6 +199,7 @@ class EventEditPanel extends Component<Props> {
                                                this.contactInfoHandler(event, 'Email');
                                            }}/>
                                 </Col>
+                                <br/><br/>
                                 <Label sm={2}>Phone</Label>
                                 <Col sm={10}>
                                     <Input placeholder="Phone"
@@ -189,6 +208,7 @@ class EventEditPanel extends Component<Props> {
                                                this.contactInfoHandler(event, 'Phone');
                                            }}/>
                                 </Col>
+                                <br/><br/>
                                 <Label sm={2}>Link</Label>
                                 <Col sm={10}>
                                     <Input placeholder="Link"
@@ -197,14 +217,15 @@ class EventEditPanel extends Component<Props> {
                                                this.contactInfoHandler(event, 'Link');
                                            }}/>
                                 </Col>
+                                <br/><br/>
                                 <Label sm={2}>Location</Label>
                                 <Col sm={10}>
-                                    <Input placeholder="Location"
-                                           value={this.state.contacts.location}
-                                           onChange={(event:  React.FormEvent<HTMLInputElement>) => {
-                                               this.contactInfoHandler(event, 'Location');
-                                           }}/>
+                                    <Geosuggest
+                                        placeholder="Search for location"
+                                        onSuggestSelect={this.onSuggestSelect}
+                                    />
                                 </Col>
+                                <br/><br/>
                             </FormGroup>
                             <FormGroup className="FormGroup" row>
                                 <Label sm={2}>Repeat</Label>

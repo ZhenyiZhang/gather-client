@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import EventInterface from '../../../../store/interface/Event.interface';
-import {Modal, ModalBody, ModalHeader} from 'reactstrap';
 import dateformat from 'dateformat';
+import EventInterface from '../../../../store/interface/Event.interface';
+
+import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './eventClickPopUp.css';
 
@@ -15,6 +16,10 @@ class EventClickPopUp extends Component<Props> {
     state = {
         startTimeReformat: dateformat(this.props.event.start,"dddd, mmmm dS, yyyy, h:MM:ss TT"),
         endTimeReformat: dateformat(this.props.event.end,"dddd, mmmm dS, yyyy, h:MM:ss TT")
+    };
+
+    downloadEvent = () => {
+
     };
 
     render() {
@@ -40,6 +45,9 @@ class EventClickPopUp extends Component<Props> {
                     {this.props.event.contacts.location ?
                         <p><p className="label">{'Location: '}</p> {this.props.event.contacts.location}</p> : null}
                 </ModalBody>
+                <ModalFooter>
+                    <Button color="primary" onClick={this.downloadEvent}> Download Event File</Button>
+                </ModalFooter>
             </Modal>
         );
     }

@@ -44,15 +44,15 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 Sign up with email address
 <img src='./images/Screen Shot 2020-06-16 at 12.00.27 PM.png'/>
 
-### `Create Repeated Event`
+### `create Repeated Event`
 <img src='./demos/createEvent.gif'/>
+
+### `share events`
+Other people can see your schedules through a link(users can turn it off as well)
+<img src='./demos/shareEvents.gif'/>
 
 ### `view and manage activities`
 <img src='./images/Screen Shot 2020-06-16 at 12.12.28 PM.png'/>
-
-### `turn on share feature`
-Other people can see your schedules through the link(users can turn it off as well)
-<img src='./images/Screen Shot 2020-06-16 at 12.13.23 PM.png'/>
 
 ### `Week view and day view`
 <img src='./images/Screen Shot 2020-06-16 at 12.14.30 PM.png'/>  <br /> <br />

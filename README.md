@@ -44,6 +44,9 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 Sign up with email address
 <img src='./images/Screen Shot 2020-06-16 at 12.00.27 PM.png'/>
 
+### `Create Repeated Event`
+<img src='./demos/createEvent.gif'/>
+
 ### `view and manage activities`
 <img src='./images/Screen Shot 2020-06-16 at 12.12.28 PM.png'/>
 

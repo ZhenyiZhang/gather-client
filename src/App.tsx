@@ -9,7 +9,6 @@ function App(props: any) {
         const script = document.createElement("script");
         script.async = true;
         script.src = `${process.env.REACT_APP_GOOGLE_GEO_API}`;
-        console.log(process.env.REACT_APP_GOOGLE_GEO_API);
         document.head.appendChild(script);
     });
     return (

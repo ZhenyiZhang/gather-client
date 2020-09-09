@@ -221,8 +221,8 @@ class EventEditPanel extends Component<Props> {
                                 <Label sm={2}>Location</Label>
                                 <Col sm={10}>
                                     <Geosuggest
-                                        placeholder="Search for location"
                                         onSuggestSelect={this.onSuggestSelect}
+                                        placeholder={this.state.contacts.location}
                                     />
                                 </Col>
                                 <br/><br/>

@@ -1,4 +1,4 @@
 /*deploy URL*/
-const ClientURL = 'https://gather-client.herokuapp.com';
+const ClientURL = 'http://www.gatheracts.link';
 
 export default ClientURL;

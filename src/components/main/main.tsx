@@ -37,6 +37,7 @@ class Main extends Component<Props> {
             {headers:{Authorization: 'Bearer ' + this.props.cookies.get('AccessToken')}})
             .then(res => {
                 const profile: OrganizationStateInterface = res.data;
+                console.log(profile);
                 this.props.getProfileDispatch(profile);})
             .catch(() => {
                 this.props.cookies.remove('AccessToken');

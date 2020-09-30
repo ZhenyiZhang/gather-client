@@ -5,12 +5,13 @@ import CalendarEvent from "./interface/calendarEvent.interface";
 import OrganizationStateInterface from '../../../store/interface/OrganizationState.interface'
 import EventClickPopUp from './eventClickPopUp/eventClickPopUp';
 import NewEvent from './newEvent/newEvent'
-import getProfileInstance from '../../../apisInstances/getProfile';
 import CalendarPanel from "./calenderPanel/calendarPanel";
 import {Dispatch} from "redux";
 import getProfileAction from "../topPanel/actions/getProfileAction";
 import CopyToClipboard from "react-copy-to-clipboard";
 import ClientURL from "../../../apisInstances/clientURL";
+import getProfileInstance from '../../../apisInstances/getProfile';
+import tinyUrlInstance from '../../../apisInstances/tinyURL';
 
 /*Redux*/
 import {connect} from 'react-redux';
@@ -38,6 +39,7 @@ class EventsPanel extends Component<Props> {
         /*controller for refreshing page*/
         refresh: false,
         /*content in the pop up modal*/
+        shareUrl: '',
         popUpEvent: {
             name: '',
             description: '',
@@ -58,6 +60,7 @@ class EventsPanel extends Component<Props> {
         calendarStart: new Date(Date.now()).setMonth(new Date(Date.now()).getMonth() - 1),
         calendarEnd: new Date(Date.now()).setMonth(new Date(Date.now()).getMonth() + 1),
     };
+
     /*update calendar time range state*/
     onRangeChangeHandler = (start: Date, end: Date) => {
         this.setState({
@@ -104,7 +107,11 @@ class EventsPanel extends Component<Props> {
         })
     };
 
-    linkOnCopyHandler = () => {
+    linkOnCopyHandler = async() => {
+        const shareUrl = await tinyUrlInstance.post('', {
+            longURL: ClientURL + `/shared/${this.props.userId}`
+        });
+        this.setState({shareUrl: shareUrl.data.shortURL});
         setTimeout(() => {this.setState({alert: false})}, 1000);
         this.setState({copy: true, alert: true});
     };
@@ -119,7 +126,7 @@ class EventsPanel extends Component<Props> {
             <div>
                 {this.props.share?
                     <Col>
-                        <CopyToClipboard text={ClientURL + `/shared/${this.props.userId}`} onCopy={this.linkOnCopyHandler}>
+                        <CopyToClipboard text={this.state.shareUrl} onCopy={this.linkOnCopyHandler}>
                             <Button className="Share" color="primary">Sharable Link</Button>
                         </CopyToClipboard>
                         <Alert className="CopyAlert"

@@ -4,18 +4,18 @@ import {
     Route,
     Redirect
 } from "react-router-dom";
-import Login from "../components/account/login";
-import SignUp from "../components/account/signUp";
-import SharedEventsPage from "../components/sharedEventsPage/sharedEventsPage";
-import ResetPassword from "../components/account/resetPassword/resetPassword";
-import Main from "../components/main/main"
+import Login from "../pages/authorization/Login/Login";
+import Signup from "../pages/authorization/Signup/Signup";
+import SharedEventsPage from "../pages/sharedPage/sharedEventsPage";
+import ResetPassword from "../pages/authorization/ResetPassword/ResetPassword";
+import Main from "../pages/home/main"
 
 const Routes = (props: any) => {
     return(
             <div>
                 <Switch>
                     <Route path='/shared/:userId' component={SharedEventsPage}/>
-                    <Route path="/signup" exact component={SignUp}/>
+                    <Route path="/signup" exact component={Signup}/>
                     <Route path="/login" exact>
                         {(props.cookies.get('AccessToken'))? <Redirect to="/main"/> : null}
                         <Login cookies={props.cookies}/>

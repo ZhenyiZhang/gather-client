@@ -1,7 +1,7 @@
 import React,  {useEffect} from 'react';
 import {Route} from "react-router-dom";
 import {withCookies} from 'react-cookie';
-import HomeContainer from './components/homeContainer/homeContainer';
+import HomeContainer from './components/HomeContainer/HomeContainer';
 
 import './App.css';
 

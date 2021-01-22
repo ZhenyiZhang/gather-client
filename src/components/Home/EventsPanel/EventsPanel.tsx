@@ -127,7 +127,7 @@ class EventsPanel extends Component<Props> {
                 {this.props.share?
                     <Col>
                         <CopyToClipboard text={this.state.shareUrl} onCopy={this.linkOnCopyHandler}>
-                            <Button className="Share" color="primary">Sharable Link</Button>
+                            <Button className="Share" color="info">Sharable Link</Button>
                         </CopyToClipboard>
                         <Alert className="CopyAlert"
                                color="success" isOpen={this.state.alert} fade={true}>
@@ -135,7 +135,7 @@ class EventsPanel extends Component<Props> {
                         </Alert>
                     </Col>
                     : null}
-                <Button className="NewEventButton" color="primary" onClick={this.newEventHandler}> New Event</Button>
+                <Button className="NewEventButton" color="info" onClick={this.newEventHandler}> New Event</Button>
                 <CalendarPanel
                     startDate = {new Date(this.state.calendarStart)}
                     endDate = {new Date(this.state.calendarEnd)}

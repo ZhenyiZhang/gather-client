@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import Login from "../pages/authorization/Login/Login";
 import Signup from "../pages/authorization/Signup/Signup";
-import SharedEventsPage from "../pages/sharedPage/sharedEventsPage";
+import SharedEventsPage from "../pages/shared/sharedEventsPage";
 import ResetPassword from "../pages/authorization/ResetPassword/ResetPassword";
 import Main from "../pages/home/main"
 

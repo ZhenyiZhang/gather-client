@@ -1,17 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap');
 
-.TopPanel {
+.TopPanelControl {
+    align-items: center;
+    display: flex;
+    justify-content: flex-start;
     font-family: 'Noto Sans JP', sans-serif;
-    text-align: left;
-    margin-left: 6%;
-    margin-right: 5%;
+    width: 100vw;
+    margin-left: 5%;
 }
+
 .ButtonAbout {
     background: none;
     color: #007bff;
     height: 38px;
     margin-left: 10px;
     border-radius: 10px;
+}
+
+.ButtonAbout:focus {
+    background: none;
+    color: #007bff;
+}
+
+.Collspse {
+    width: 70vw;
+    margin-left: 15vw;
 }
 
 .Card {
@@ -21,5 +34,11 @@
 
 body {
     padding-top: 80px;
+}
+
+@media screen and (max-width: 500px) {
+    .TopPanelControl {
+        justify-content: center;
+    }
 }
 

@@ -2,9 +2,9 @@ import React from 'react';
 import {Component }from 'react';
 import OrganizationStateInterface from '../../../store/interface/OrganizationState.interface';
 
-import {Navbar, Row, NavbarBrand, Nav, NavItem, NavLink, Collapse, NavbarToggler, Button, Card, CardBody} from 'reactstrap';
+import {Navbar, NavbarBrand, Nav, NavItem, NavLink, Collapse, NavbarToggler, Button, Card, CardBody} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './TopPanel.css';
+import '../../Home/TopPanel/TopPanel.css';
 
 
 interface Props {
@@ -33,22 +33,22 @@ class TopPanel extends Component<Props> {
                         </Nav>
                     </Collapse>
                 </Navbar>
-                <div className="Info">
-                    <Row>
+                <>
+                    <div className="TopPanelControl">
                         <h2>{this.props.organization.organizationName}</h2>
                         <Button
-                            color="info"
-                            onClick={() => {this.setState({dropdownOpen: !this.state.dropdownOpen})}}
-                            className="MoreButton">About</Button>
-                    </Row>
-                    <Collapse isOpen={this.state.dropdownOpen}>
-                        <Card>
+                            color="primary"
+                            onClick={() => { this.setState({ dropdownOpen: !this.state.dropdownOpen }) }}
+                            className="ButtonAbout">About</Button>
+                    </div>
+                    <Collapse className="Collspse" isOpen={this.state.dropdownOpen}>
+                        <Card className="Card">
                             <CardBody>
                                 {this.props.organization.description}
                             </CardBody>
                         </Card>
                     </Collapse>
-                </div>
+                </>
             </div>
         );
     }

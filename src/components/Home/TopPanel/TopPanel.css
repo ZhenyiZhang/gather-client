@@ -6,10 +6,17 @@
     margin-left: 6%;
     margin-right: 5%;
 }
-.MoreButton {
-    height: 40px;
+.ButtonAbout {
+    background: none;
+    color: #007bff;
+    height: 38px;
     margin-left: 10px;
     border-radius: 10px;
+}
+
+.Card {
+    border-radius: 10px;
+    margin: 5px;
 }
 
 body {

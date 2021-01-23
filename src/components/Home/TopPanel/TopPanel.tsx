@@ -24,12 +24,12 @@ class TopPanel extends Component<Props> {
                 <Row>
                     <h2>{this.props.organizationName}</h2>
                     <Button
-                        color="info"
+                        color="primary"
                         onClick={() => {this.setState({dropdownOpen: !this.state.dropdownOpen})}}
-                        className="MoreButton">About</Button>
+                        className="ButtonAbout">About</Button>
                 </Row>
                 <Collapse isOpen={this.state.dropdownOpen}>
-                    <Card>
+                    <Card className="Card">
                         <CardBody>
                             {this.props.description}
                         </CardBody>

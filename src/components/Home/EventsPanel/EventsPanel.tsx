@@ -17,7 +17,7 @@ import tinyUrlInstance from '../../../lib/apisInstances/tinyURL';
 import {connect} from 'react-redux';
 
 /*Style*/
-import {Alert, Button, Row} from "reactstrap";
+import {Alert, Button} from "reactstrap";
 import './CalenderPanel/CalendarPanel.css';
 import './EventsPanel.css';
 

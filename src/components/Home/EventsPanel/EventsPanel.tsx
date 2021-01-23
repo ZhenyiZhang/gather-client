@@ -17,7 +17,7 @@ import tinyUrlInstance from '../../../lib/apisInstances/tinyURL';
 import {connect} from 'react-redux';
 
 /*Style*/
-import {Alert, Button, Col} from "reactstrap";
+import {Alert, Button, Row} from "reactstrap";
 import './CalenderPanel/CalendarPanel.css';
 import './EventsPanel.css';
 
@@ -124,18 +124,15 @@ class EventsPanel extends Component<Props> {
     render() {
         return(
             <div>
-                {this.props.share?
-                    <Col>
-                        <CopyToClipboard text={this.state.shareUrl} onCopy={this.linkOnCopyHandler}>
-                            <Button className="Share" color="info">Sharable Link</Button>
-                        </CopyToClipboard>
-                        <Alert className="CopyAlert"
-                               color="success" isOpen={this.state.alert} fade={true}>
-                            Copied to clipboard
-                        </Alert>
-                    </Col>
-                    : null}
-                <Button className="NewEventButton" color="info" onClick={this.newEventHandler}> New Event</Button>
+                <div className="TopControl"> 
+                    <Button className="NewEventButton" color="info" onClick={this.newEventHandler}> New Event</Button>
+                    {this.props.share &&
+                            <CopyToClipboard text={this.state.shareUrl} onCopy={this.linkOnCopyHandler}>
+                                <Button className="Share" color="info">Link to Share </Button>
+                            </CopyToClipboard>
+                    }
+                    <Alert className="CopyAlert" color="success" isOpen={this.state.alert} fade={true}>Copied</Alert>
+                </div>
                 <CalendarPanel
                     startDate = {new Date(this.state.calendarStart)}
                     endDate = {new Date(this.state.calendarEnd)}

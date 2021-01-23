@@ -1,28 +1,29 @@
 .NewEventButton {
-    margin-top: 5px;
-    margin-bottom:5px;
     border-radius:10px;
+    height: 38px;
+    margin-right: 20px;
 }
+
 .Share {
+    height: 38px;
     text-align:center;
-    margin:auto;
+    margin-right:5px;
     border-radius: 10px;
+}
+
+.TopControl {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-bottom: 10px;
+    width: 100vw;
 }
 
 .CopyAlert {
-    text-align:center;
-    margin:auto;
+    margin: 0;
+    text-align: left;
     border-radius: 10px;
-}
-
-@media screen and (min-width: 500px) {
-    .NewEventButton {
-        margin-left: 5px;
-        text-align: right;
-        right: 5%;
-        position: absolute;
-        top: 80px;
-    }
 }
 
 body {

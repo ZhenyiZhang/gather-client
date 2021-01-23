@@ -33,6 +33,10 @@
     color: red
 }
 
+.CusModalFooter {
+    margin: 15px;
+}
+
 .CusModal {
     max-width: 1600px;
     width: 70%;

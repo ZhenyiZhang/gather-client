@@ -11,7 +11,7 @@ import {Dispatch} from "redux";
 import getProfileAction from "../../components/Home/TopPanel/actions/getProfileAction";
 
 import {Collapse, Nav, Navbar, NavbarBrand, NavbarText, NavbarToggler, NavItem, NavLink} from "reactstrap";
-import './main.css';
+import './home.css';
 
 interface Props {
     organization: OrganizationStateInterface,
@@ -19,7 +19,7 @@ interface Props {
     getProfileDispatch: (organizationData: OrganizationStateInterface) => void
 }
 
-class Main extends Component<Props> {
+class Home extends Component<Props> {
     state = {
         logOut: false,
         collapse: false
@@ -67,7 +67,7 @@ class Main extends Component<Props> {
                     <Collapse isOpen={this.state.collapse} navbar>
                         <Nav className="mr-auto" navbar>
                             <NavItem>
-                                <NavLink href="/main">Main</NavLink>
+                                <NavLink href="/main">Home</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink href="/main/profile">Profile</NavLink>
@@ -107,4 +107,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

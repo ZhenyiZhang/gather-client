@@ -4,7 +4,7 @@ import TopPanel from '../../components/Shared/TopPanel/TopPanel';
 import EventsPanel from '../../components/Shared/EventsPanel/EventsPanel';
 import getSharedProfileInstance from "../../lib/apisInstances/getSharedProfile";
 
-class SharedEventsPage extends Component<any> {
+class Shared extends Component<any> {
     state = {
         organizationData: {} as OrganizationStateInterface,
         showPage: false,
@@ -35,4 +35,4 @@ class SharedEventsPage extends Component<any> {
     }
 }
 
-export default SharedEventsPage;
+export default Shared;

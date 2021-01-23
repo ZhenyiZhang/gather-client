@@ -7,7 +7,7 @@ import {Redirect} from "react-router-dom";
 import DatePicker from 'react-datepicker';
 import Geosuggest, { Suggest } from 'react-geosuggest';
 
-import {Button, FormGroup, Label, Input, Col, Modal, ModalBody, ModalFooter, Form, Spinner} from 'reactstrap';
+import {Button, FormGroup, Label, Input, Col, Modal, ModalHeader, ModalBody, ModalFooter, Form, Spinner} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'react-datepicker/dist/react-datepicker.css';
 import './NewEvent.css';
@@ -118,6 +118,7 @@ class NewEvent extends Component<Props> {
     render() {
         return (
             <Modal className="CusModal" isOpen={this.props.newEvent} toggle={this.props.newEventHandler}>
+                <ModalHeader className="CusModalFooter">Add New Event</ModalHeader>
                 <ModalBody>
                     <Form>
                         <Col>

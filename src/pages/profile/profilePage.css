@@ -1,6 +1,18 @@
-.ProfilePage {
-    margin-left: 10%;
-    text-align: left;
+.ProfileContainer {
+    width: 50%;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+}
+
+.ProfileEditBtn {
+    margin-right: 10px;
+}
+
+.ProfilePageContainer {
+    display: grid;
+    place-items: center;
+    width: 100vw;
 }
 
 .CopyAlert {
@@ -8,14 +20,13 @@
 }
 
 .LinkBadge {
-    height: 40px;
     font-size: 18px;
 }
 
 .EditProfile {
     margin: auto;
     text-align: center;
-    width: 60%;
+    width: 50%;
 }
 
 .ButtonCancel {

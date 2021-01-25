@@ -173,7 +173,6 @@ class EventsPanel extends Component<Props> {
           startSelected={this.state.newEventSelectedStart}
           endSelected={this.state.newEventSelectedEnd}
         />
-        />
       </div>
     );
   }

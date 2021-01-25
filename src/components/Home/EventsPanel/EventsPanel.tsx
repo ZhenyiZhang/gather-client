@@ -1,14 +1,14 @@
-import React, {Component } from 'react';
+import React, { Component } from "react";
 
-import {Dispatch} from "redux";
+import { Dispatch } from "redux";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { connect } from "react-redux";
 import { Alert, Button } from "reactstrap";
-import eventInterface from '../../../store/interface/Event.interface';
+import eventInterface from "../../../store/interface/Event.interface";
 import CalendarEvent from "./interface/calendarEvent.interface";
-import OrganizationStateInterface from '../../../store/interface/OrganizationState.interface'
-import EventClickPopUp from './EventClickPopUp/EventClickPopUp';
-import NewEvent from './NewEvent/NewEvent'
+import OrganizationStateInterface from "../../../store/interface/OrganizationState.interface";
+import EventClickPopUp from "./EventClickPopUp/EventClickPopUp";
+import NewEvent from "./NewEvent/NewEvent";
 import CalendarPanel from "./CalenderPanel/CalendarPanel";
 import getProfileAction from "../TopPanel/actions/getProfileAction";
 import ClientURL from "../../../lib/apisInstances/clientURL";
@@ -77,7 +77,7 @@ class EventsPanel extends Component<Props> {
     this.setState({ newEvent: !this.state.newEvent });
     getProfileInstance
       .get("", {
-        headers: { Authorization: `Bearer ${  this.props.AccessToken}` },
+        headers: { Authorization: `Bearer ${this.props.AccessToken}` },
       })
       .then((res) => {
         const profile: OrganizationStateInterface = res.data;
@@ -103,7 +103,7 @@ class EventsPanel extends Component<Props> {
   refreshHandler = () => {
     getProfileInstance
       .get("", {
-        headers: { Authorization: `Bearer ${  this.props.AccessToken}` },
+        headers: { Authorization: `Bearer ${this.props.AccessToken}` },
       })
       .then((res) => {
         const profile: OrganizationStateInterface = res.data;
@@ -122,7 +122,7 @@ class EventsPanel extends Component<Props> {
 
   linkOnCopyHandler = async () => {
     const shareUrl = await tinyUrlInstance.post("", {
-      longURL: `${ClientURL  }/shared/${this.props.userId}`,
+      longURL: `${ClientURL}/shared/${this.props.userId}`,
     });
     this.setState({ shareUrl: shareUrl.data.shortURL });
     setTimeout(() => {
@@ -142,14 +142,32 @@ class EventsPanel extends Component<Props> {
   render() {
     return (
       <div>
-        <div className="TopControl"> 
-          <Button className="NewEventButton" color="info" onClick={this.newEventHandler}> New Event</Button>
+        <div className="TopControl">
+          <Button
+            className="NewEventButton"
+            color="info"
+            onClick={this.newEventHandler}
+          >
+            New Event
+          </Button>
           {this.props.share && (
-          <CopyToClipboard text={this.state.shareUrl} onCopy={this.linkOnCopyHandler}>
-            <Button className="Share" color="info">Link to Share </Button>
-          </CopyToClipboard>
-                          )}
-          <Alert className="CopyAlert" color="success" isOpen={this.state.alert} fade>Copied</Alert>
+            <CopyToClipboard
+              text={this.state.shareUrl}
+              onCopy={this.linkOnCopyHandler}
+            >
+              <Button className="Share" color="info">
+                Link to Share
+              </Button>
+            </CopyToClipboard>
+          )}
+          <Alert
+            className="CopyAlert"
+            color="success"
+            isOpen={this.state.alert}
+            fade
+          >
+            Copied
+          </Alert>
         </div>
         <CalendarPanel
           startDate={new Date(this.state.calendarStart)}

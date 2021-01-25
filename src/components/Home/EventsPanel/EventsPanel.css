@@ -1,14 +1,9 @@
-.NewEventButton {
+.TopControl-Button {
+    background: none;
+    color: #17a2b8;
     border-radius:10px;
     height: 38px;
-    margin-right: 20px;
-}
-
-.Share {
-    height: 38px;
-    text-align:center;
-    margin-right:5px;
-    border-radius: 10px;
+    margin-right: 10px;
 }
 
 .TopControl {

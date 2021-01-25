@@ -1,25 +1,25 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import { Dispatch } from "redux";
-import CopyToClipboard from "react-copy-to-clipboard";
-import { connect } from "react-redux";
-import { Alert, Button } from "reactstrap";
-import eventInterface from "../../../store/interface/Event.interface";
-import CalendarEvent from "./interface/calendarEvent.interface";
-import OrganizationStateInterface from "../../../store/interface/OrganizationState.interface";
-import EventClickPopUp from "./EventClickPopUp/EventClickPopUp";
-import NewEvent from "./NewEvent/NewEvent";
-import CalendarPanel from "./CalenderPanel/CalendarPanel";
-import getProfileAction from "../TopPanel/actions/getProfileAction";
-import ClientURL from "../../../lib/apisInstances/clientURL";
-import getProfileInstance from "../../../lib/apisInstances/getProfile";
-import tinyUrlInstance from "../../../lib/apisInstances/tinyURL";
+import { Dispatch } from 'redux';
+import CopyToClipboard from 'react-copy-to-clipboard';
+import { connect } from 'react-redux';
+import { Alert, Button } from 'reactstrap';
+import eventInterface from '../../../store/interface/Event.interface';
+import CalendarEvent from './interface/calendarEvent.interface';
+import OrganizationStateInterface from '../../../store/interface/OrganizationState.interface';
+import EventClickPopUp from './EventClickPopUp/EventClickPopUp';
+import NewEvent from './NewEvent/NewEvent';
+import CalendarPanel from './CalenderPanel/CalendarPanel';
+import getProfileAction from '../TopPanel/actions/getProfileAction';
+import ClientURL from '../../../lib/apisInstances/clientURL';
+import getProfileInstance from '../../../lib/apisInstances/getProfile';
+import tinyUrlInstance from '../../../lib/apisInstances/tinyURL';
 
 /* Redux */
 
 /* Style */
-import "./CalenderPanel/CalendarPanel.css";
-import "./EventsPanel.css";
+import './CalenderPanel/CalendarPanel.css';
+import './EventsPanel.css';
 
 /* component */
 interface Props {
@@ -39,18 +39,18 @@ class EventsPanel extends Component<Props> {
     /* controller for refreshing page */
     refresh: false,
     /* content in the pop up modal */
-    shareUrl: "",
+    shareUrl: '',
     popUpEvent: {
-      name: "",
-      description: "",
+      name: '',
+      description: '',
       start: new Date(),
       end: new Date(),
-      repeat: "",
+      repeat: '',
       repeatEnds: new Date(),
       repeatNeverEnds: false,
-      _id: "",
-      Organization: "",
-      contacts: { email: "", link: "", phone: "", location: "" },
+      _id: '',
+      Organization: '',
+      contacts: { email: '', link: '', phone: '', location: '' },
     },
     /* new event modal controller */
     newEvent: false,
@@ -76,7 +76,7 @@ class EventsPanel extends Component<Props> {
   newEventHandler = () => {
     this.setState({ newEvent: !this.state.newEvent });
     getProfileInstance
-      .get("", {
+      .get('', {
         headers: { Authorization: `Bearer ${this.props.AccessToken}` },
       })
       .then((res) => {
@@ -84,7 +84,7 @@ class EventsPanel extends Component<Props> {
         this.props.getProfileDispatch(profile);
       })
       .catch(() => {
-        alert("failed to access user profile");
+        alert('failed to access user profile');
       });
   };
 
@@ -102,7 +102,7 @@ class EventsPanel extends Component<Props> {
 
   refreshHandler = () => {
     getProfileInstance
-      .get("", {
+      .get('', {
         headers: { Authorization: `Bearer ${this.props.AccessToken}` },
       })
       .then((res) => {
@@ -110,7 +110,7 @@ class EventsPanel extends Component<Props> {
         this.props.getProfileDispatch(profile);
       })
       .catch(() => {
-        alert("failed to access user profile");
+        alert('failed to access user profile');
       });
   };
 
@@ -121,7 +121,7 @@ class EventsPanel extends Component<Props> {
   };
 
   linkOnCopyHandler = async () => {
-    const shareUrl = await tinyUrlInstance.post("", {
+    const shareUrl = await tinyUrlInstance.post('', {
       longURL: `${ClientURL}/shared/${this.props.userId}`,
     });
     this.setState({ shareUrl: shareUrl.data.shortURL });
@@ -208,7 +208,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     getProfileDispatch: (organizationData: OrganizationStateInterface) => {
       const action: getProfileAction = {
-        type: "getProfile",
+        type: 'getProfile',
         organization: organizationData,
       };
       dispatch(action);

@@ -93,10 +93,10 @@ class Home extends Component<Props> {
           <Collapse isOpen={this.state.collapse} navbar>
             <Nav className="mr-auto" navbar>
               <NavItem>
-                <NavLink href="/main">Home</NavLink>
+                <NavLink href="/home">Home</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/main/profile">Profile</NavLink>
+                <NavLink href="/home/profile">Profile</NavLink>
               </NavItem>
             </Nav>
             <NavbarText className="LogOut" onClick={this.logOutHandler}>
@@ -105,7 +105,7 @@ class Home extends Component<Props> {
           </Collapse>
         </Navbar>
         <Switch>
-          <Route path="/main/profile" exact>
+          <Route path="/home/profile" exact>
             <ProfilePage AccessToken={this.props.cookies.get("AccessToken")} />
           </Route>
           <Route path="" exact>

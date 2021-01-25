@@ -1,20 +1,21 @@
+import React, { useEffect } from 'react';
 import Cookies from 'universal-cookie';
-import React, { useEffect } from "react";
-import { Route } from "react-router-dom";
-import { withCookies } from "react-cookie";
-import HomeContainer from "./components/HomeContainer/HomeContainer";
+import { Route } from 'react-router-dom';
 
-import "./App.css";
+import { withCookies } from 'react-cookie';
+import HomeContainer from './components/HomeContainer/HomeContainer';
+
+import './App.css';
 
 interface Props {
-    cookies: Cookies;
-};
+  cookies: Cookies;
+}
 
 function App(props: Props) {
-  const {cookies} = props;
+  const { cookies } = props;
   /* import google geo api for location searching */
   useEffect(() => {
-    const script = document.createElement("script");
+    const script = document.createElement('script');
     script.async = true;
     script.src = `${process.env.REACT_APP_GOOGLE_GEO_API}`;
     document.head.appendChild(script);
@@ -22,10 +23,7 @@ function App(props: Props) {
 
   return (
     <div className="App">
-      <Route
-        path="/"
-        render={() => <HomeContainer cookies={cookies} />}
-      />
+      <Route path="/" render={() => <HomeContainer cookies={cookies} />} />
     </div>
   );
 }

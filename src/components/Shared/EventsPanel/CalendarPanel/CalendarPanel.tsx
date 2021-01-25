@@ -1,11 +1,10 @@
 import React from "react";
+import { Calendar } from "react-big-calendar";
 import eventInterface from "../../../../store/interface/Event.interface";
 import CalendarEvent from "../interface/calendarEvent.interface";
 import EventsGenerator from "../../../Home/EventsPanel/functions/eventGenerator";
-import "./CalendarPanel.css";
 
 /* time format set up */
-import { Calendar } from "react-big-calendar";
 import Localizer from "../localizer/localizer";
 
 interface Props {

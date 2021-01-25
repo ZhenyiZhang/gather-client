@@ -29,6 +29,13 @@
     width: 50%;
 }
 
+.EditProfileFormGroup {
+    align-items: flex-start;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 .ButtonCancel {
     margin-left: 15px;
 }

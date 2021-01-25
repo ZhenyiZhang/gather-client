@@ -84,14 +84,16 @@ class ProfilePage extends Component<Props> {
       <div className="ProfilePageContainer">
         {!this.state.edit ? (
           <div className="ProfileContainer">
-            <h3>User/Group Name:</h3>
-            <h4>{this.props.organization.organizationName}</h4>
-            <h3>Registered Email</h3>
-            <h4>{this.props.organization.email}</h4>
-            <h3>Description:</h3>
-            <h4>{this.props.organization.description}</h4>
-            <h3>Share Events:</h3>
-            <h4>{this.props.organization.share ? 'Yes' : 'No'}</h4>
+            <h4>User/Group Name:</h4>
+            <h5>{this.props.organization.organizationName}</h5>
+            <h4>Registered Email</h4>
+            <h5>{this.props.organization.email}</h5>
+            <h4>Description:</h4>
+            <h5>{this.props.organization.description}</h5>
+            <h4>Share Events:</h4>
+            <h5>{this.props.organization.share ? 'Yes' : 'No'}</h5>
+            <h4>Link to share:</h4>
+            <h5>{this.state.link}</h5>
             <Row>
               <Button
                 className="ProfileEditBtn"
@@ -108,7 +110,7 @@ class ProfilePage extends Component<Props> {
                   onCopy={this.linkOnCopyHandler}
                 >
                   <Button className="LinkBadge" color="primary">
-                    Copy the link to share
+                    Copy short link
                   </Button>
                 </CopyToClipboard>
               )}
@@ -126,8 +128,8 @@ class ProfilePage extends Component<Props> {
         ) : (
           <div className="EditProfile">
             <Form>
-              <FormGroup>
-                <Label>User/Group Name</Label>
+              <FormGroup className="EditProfileFormGroup">
+                <h6>User/Group Name</h6>
                 <Input
                   value={this.state.organizationName}
                   onChange={(event) => {
@@ -138,8 +140,8 @@ class ProfilePage extends Component<Props> {
                   placeholder="User/Group name"
                 />
               </FormGroup>
-              <FormGroup>
-                <Label>Email</Label>
+              <FormGroup className="EditProfileFormGroup">
+                <h6>Email</h6>
                 <Input
                   value={this.state.email}
                   onChange={(event) => {
@@ -148,8 +150,8 @@ class ProfilePage extends Component<Props> {
                   placeholder="Email"
                 />
               </FormGroup>
-              <FormGroup>
-                <Label>Description</Label>
+              <FormGroup className="EditProfileFormGroup">
+                <h6>Description</h6>
                 <Input
                   type="textarea"
                   value={this.state.description}
@@ -160,7 +162,7 @@ class ProfilePage extends Component<Props> {
                 />
               </FormGroup>
               <FormGroup>
-                <Label>Share Events</Label>
+                <h6>Share Events</h6>
                 <br />
                 <Switch
                   checked={this.state.share}

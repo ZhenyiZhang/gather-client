@@ -1,17 +1,15 @@
-import React, { Component } from "react";
+import React from 'react';
 
-import { connect } from "react-redux";
-import Routes from "../../routes/routes";
+import { connect } from 'react-redux';
+import Routes from '../../routes/routes';
 
 interface Props {
   cookies: any;
-  children: any;
 }
-class Home extends Component<Props> {
-  render() {
-    return <Routes cookies={this.props.cookies} />;
-  }
-}
+const Home = (props: Props) => {
+  const { cookies } = props;
+  return <Routes cookies={cookies} />;
+};
 
 const mapStateToProps = (state: any, ownProps: any) => {
   return {

@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Redirect, Route, Switch } from "react-router-dom";
-import { Dispatch } from "redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import { Dispatch } from 'redux';
 import {
   Collapse,
   Nav,
@@ -11,16 +11,16 @@ import {
   NavbarToggler,
   NavItem,
   NavLink,
-} from "reactstrap";
-import TopPanel from "../../components/Home/TopPanel/TopPanel";
-import EventsPanel from "../../components/Home/EventsPanel/EventsPanel";
-import OrganizationStateInterface from "../../store/interface/OrganizationState.interface";
-import ProfilePage from "../profile/profilePage";
-import getProfileInstance from "../../lib/apisInstances/getProfile";
-import LogoutInstance from "../../lib/apisInstances/logout";
-import getProfileAction from "../../components/Home/TopPanel/actions/getProfileAction";
+} from 'reactstrap';
+import TopPanel from '../../components/Home/TopPanel/TopPanel';
+import EventsPanel from '../../components/Home/EventsPanel/EventsPanel';
+import OrganizationStateInterface from '../../store/interface/OrganizationState.interface';
+import ProfilePage from '../profile/profilePage';
+import getProfileInstance from '../../lib/apisInstances/getProfile';
+import LogoutInstance from '../../lib/apisInstances/logout';
+import getProfileAction from '../../components/Home/TopPanel/actions/getProfileAction';
 
-import "./home.css";
+import './home.css';
 
 interface Props {
   organization: OrganizationStateInterface;
@@ -37,43 +37,42 @@ class Home extends Component<Props> {
   /* get user profile data */
   componentDidMount(): void {
     /* if no AccessToken, redirect to login page */
-    if (!this.props.cookies.get("AccessToken")) {
-      window.location.href = "/login";
+    if (!this.props.cookies.get('AccessToken')) {
+      window.location.href = '/login';
       return;
     }
     /* request user profile data from server */
     getProfileInstance
-      .get("", {
+      .get('', {
         headers: {
-          Authorization: `Bearer ${this.props.cookies.get("AccessToken")}`,
+          Authorization: `Bearer ${this.props.cookies.get('AccessToken')}`,
         },
       })
       .then((res) => {
         const profile: OrganizationStateInterface = res.data;
-        console.log(profile);
         this.props.getProfileDispatch(profile);
       })
       .catch(() => {
-        this.props.cookies.remove("AccessToken");
+        this.props.cookies.remove('AccessToken');
         this.setState({ logOut: true });
-        window.location.href = "/login";
-        alert("failed to access user profile");
+        window.location.href = '/login';
+        alert('failed to access user profile');
       });
   }
 
   logOutHandler = async () => {
-    LogoutInstance.get("", {
+    LogoutInstance.get('', {
       headers: {
-        Authorization: `Bearer ${this.props.cookies.get("AccessToken")}`,
+        Authorization: `Bearer ${this.props.cookies.get('AccessToken')}`,
       },
     })
       .then(() => {
-        this.props.cookies.remove("AccessToken");
+        this.props.cookies.remove('AccessToken');
         this.setState({ logOut: true });
-        window.location.href = "/login";
+        window.location.href = '/login';
       })
       .catch((err) => {
-        window.location.href = "/login";
+        window.location.href = '/login';
         alert(err);
       });
   };
@@ -106,11 +105,11 @@ class Home extends Component<Props> {
         </Navbar>
         <Switch>
           <Route path="/home/profile" exact>
-            <ProfilePage AccessToken={this.props.cookies.get("AccessToken")} />
+            <ProfilePage AccessToken={this.props.cookies.get('AccessToken')} />
           </Route>
           <Route path="" exact>
             <TopPanel />
-            <EventsPanel AccessToken={this.props.cookies.get("AccessToken")} />
+            <EventsPanel AccessToken={this.props.cookies.get('AccessToken')} />
           </Route>
         </Switch>
       </div>
@@ -128,7 +127,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     getProfileDispatch: (organizationData: OrganizationStateInterface) => {
       const action: getProfileAction = {
-        type: "getProfile",
+        type: 'getProfile',
         organization: organizationData,
       };
       dispatch(action);

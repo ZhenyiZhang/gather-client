@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import eventInterface from "../../../store/interface/Event.interface";
-import CalendarEvent from "./interface/calendarEvent.interface";
-import EventClickPopUp from "./EventClickPopUp/EventClickPopUp";
-import CalendarPanel from "./CalendarPanel/CalendarPanel";
-import "../../Home/EventsPanel/CalenderPanel/CalendarPanel.css";
+import eventInterface from '../../../store/interface/Event.interface';
+import CalendarEvent from './interface/calendarEvent.interface';
+import EventClickPopUp from './EventClickPopUp/EventClickPopUp';
+import CalendarPanel from './CalendarPanel/CalendarPanel';
+import '../../Home/EventsPanel/CalenderPanel/CalendarPanel.css';
 
 /* component */
 interface Props {
@@ -17,16 +17,16 @@ class EventsPanel extends Component<Props> {
     popUp: false,
     /* content in the pop up modal */
     popUpEvent: {
-      name: "",
-      description: "",
+      name: '',
+      description: '',
       start: new Date(),
       end: new Date(),
-      repeat: "",
+      repeat: '',
       repeatEnds: new Date(),
       repeatNeverEnds: false,
-      _id: "",
-      Organization: "",
-      contacts: { email: "", link: "", phone: "", location: "" },
+      _id: '',
+      Organization: '',
+      contacts: { email: '', link: '', phone: '', location: '' },
     },
     /* the time range current calender view covers */
     calendarStart: new Date(Date.now()).setMonth(
@@ -37,7 +37,7 @@ class EventsPanel extends Component<Props> {
     ),
   };
 
-  onRangeChangeHandler = (start: Date, end: Date) => {
+  onRangeChangeHandler = (start: Date, end: Date): void => {
     this.setState({
       calendarStart: start,
       calendarEnd: end,

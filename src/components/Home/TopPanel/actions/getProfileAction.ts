@@ -1,6 +1,6 @@
-import OrganizationStateInterface from '../../../../store/interface/OrganizationState.interface'
+import OrganizationStateInterface from '../../../../store/interface/OrganizationState.interface';
 
 export default interface getProfileAction {
-    type: string,
-    organization: OrganizationStateInterface
+  type: string;
+  organization: OrganizationStateInterface;
 }

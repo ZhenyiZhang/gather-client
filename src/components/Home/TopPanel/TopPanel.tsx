@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Button, Collapse, CardBody, Card } from "reactstrap";
-import OrganizationStateInterface from "../../../store/interface/OrganizationState.interface";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Button, Collapse, CardBody, Card } from 'reactstrap';
+import OrganizationStateInterface from '../../../store/interface/OrganizationState.interface';
 
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./TopPanel.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './TopPanel.css';
 
 interface Props {
   name: string;

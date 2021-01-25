@@ -1,3 +1,4 @@
+import Cookies from 'universal-cookie';
 import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
 import { withCookies } from "react-cookie";
@@ -5,7 +6,12 @@ import HomeContainer from "./components/HomeContainer/HomeContainer";
 
 import "./App.css";
 
-function App(props: any) {
+interface Props {
+    cookies: Cookies;
+};
+
+function App(props: Props) {
+  const {cookies} = props;
   /* import google geo api for location searching */
   useEffect(() => {
     const script = document.createElement("script");
@@ -18,7 +24,7 @@ function App(props: any) {
     <div className="App">
       <Route
         path="/"
-        render={() => <HomeContainer cookies={props.cookies} />}
+        render={() => <HomeContainer cookies={cookies} />}
       />
     </div>
   );

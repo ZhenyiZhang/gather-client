@@ -108,10 +108,10 @@ class EventClickPopUp extends Component<Props> {
           ) : (
             <p>
               <strong className="label">
-                Event repeats
-                {this.props.event.repeat}
-                until
+                {' '}
+                {`Event repeats ${this.props.event.repeat} until`}
               </strong>
+              <br />
               {dateformat(
                 new Date(this.props.event.repeatEnds),
                 'dddd, mmmm dS, yyyy, h:MM TT'

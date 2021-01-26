@@ -33,7 +33,7 @@ interface Props {
 class EventsPanel extends Component<Props> {
   state = {
     alert: false,
-    copy: false,
+    copied: false,
     /* control whether event is clicked or not */
     popUp: false,
     /* controller for refreshing page */
@@ -64,6 +64,17 @@ class EventsPanel extends Component<Props> {
       new Date(Date.now()).getMonth() + 1
     ),
   };
+
+  componentDidMount() {
+    tinyUrlInstance
+      .post('', {
+        longURL: `${ClientURL}/shared/${this.props.userId}`,
+      })
+      .then((response) => {
+        const { shortURL } = response.data;
+        this.setState({ shareUrl: shortURL });
+      });
+  }
 
   /* update calendar time range state */
   onRangeChangeHandler = (start: Date, end: Date) => {
@@ -121,14 +132,14 @@ class EventsPanel extends Component<Props> {
   };
 
   linkOnCopyHandler = async () => {
-    const shareUrl = await tinyUrlInstance.post('', {
-      longURL: `${ClientURL}/shared/${this.props.userId}`,
-    });
-    this.setState({ shareUrl: shareUrl.data.shortURL });
+    this.setState({ copied: true });
+    setTimeout(() => {
+      this.setState({ alert: true });
+    }, 300);
     setTimeout(() => {
       this.setState({ alert: false });
-    }, 1000);
-    this.setState({ copy: true, alert: true });
+    }, 2000);
+    return this.state.copied;
   };
 
   slotOnClickHandler = (start: Date, end: Date) => {

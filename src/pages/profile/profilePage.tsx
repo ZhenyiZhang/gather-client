@@ -4,6 +4,7 @@ import Switch from 'react-switch';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Alert, Button, Form, FormGroup, Label, Input, Row } from 'reactstrap';
+import tinyUrlInstance from '../../lib/apisInstances/tinyURL';
 import OrganizationStateInterface from '../../store/interface/OrganizationState.interface';
 import ClientURL from '../../lib/apisInstances/clientURL';
 import updateProfileInstance from '../../lib/apisInstances/updateProfile';
@@ -26,26 +27,20 @@ class ProfilePage extends Component<Props> {
     email: this.props.organization.email,
     description: this.props.organization.description,
     share: this.props.organization.share,
-    copy: false,
+    copied: false,
     alert: false,
     link: '',
   };
 
-  componentWillReceiveProps(
-    nextProps: Readonly<Props>,
-    nextContext: any
-  ): void {
-    if (
-      nextProps.organization.organizationName !== this.state.organizationName
-    ) {
-      this.setState({
-        organizationName: nextProps.organization.organizationName,
-        description: nextProps.organization.description,
-        email: nextProps.organization.email,
-        share: nextProps.organization.share,
-        link: `${ClientURL}/shared/${nextProps.organization._id}`,
+  componentDidMount() {
+    tinyUrlInstance
+      .post('', {
+        longURL: `${ClientURL}/shared/${this.props.organization._id}`,
+      })
+      .then((response) => {
+        const { shortURL } = response.data;
+        this.setState({ link: shortURL });
       });
-    }
   }
 
   /* submit profile modification form */
@@ -72,11 +67,15 @@ class ProfilePage extends Component<Props> {
   };
 
   /* copy share link to clipboard */
-  linkOnCopyHandler = () => {
+  linkOnCopyHandler = (): boolean => {
+    this.setState({ copied: true });
+    setTimeout(() => {
+      this.setState({ alert: true });
+    }, 300);
     setTimeout(() => {
       this.setState({ alert: false });
-    }, 1000);
-    this.setState({ copy: true, alert: true });
+    }, 2000);
+    return this.state.copied;
   };
 
   render() {
@@ -93,7 +92,8 @@ class ProfilePage extends Component<Props> {
             <h4>Share Events:</h4>
             <h5>{this.props.organization.share ? 'Yes' : 'No'}</h5>
             <h4>Link to share:</h4>
-            <h5>{this.state.link}</h5>
+            <a href={this.state.link}>{this.state.link}</a>
+            <br />
             <Row>
               <Button
                 className="ProfileEditBtn"
@@ -107,10 +107,12 @@ class ProfilePage extends Component<Props> {
               {this.props.organization.share && (
                 <CopyToClipboard
                   text={this.state.link}
-                  onCopy={this.linkOnCopyHandler}
+                  onCopy={() => {
+                    this.linkOnCopyHandler();
+                  }}
                 >
                   <Button className="LinkBadge" color="primary">
-                    Copy short link
+                    Copy link
                   </Button>
                 </CopyToClipboard>
               )}

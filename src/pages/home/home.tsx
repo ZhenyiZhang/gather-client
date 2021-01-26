@@ -12,13 +12,12 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
-import TopPanel from '../../components/Home/TopPanel/TopPanel';
 import EventsPanel from '../../components/Home/EventsPanel/EventsPanel';
 import OrganizationStateInterface from '../../store/interface/OrganizationState.interface';
 import ProfilePage from '../profile/profilePage';
 import getProfileInstance from '../../lib/apisInstances/getProfile';
 import LogoutInstance from '../../lib/apisInstances/logout';
-import getProfileAction from '../../components/Home/TopPanel/actions/getProfileAction';
+import getProfileAction from '../../components/Home/EventsPanel/UserInfo/actions/getProfileAction';
 
 import './home.css';
 
@@ -108,7 +107,6 @@ class Home extends Component<Props> {
             <ProfilePage AccessToken={this.props.cookies.get('AccessToken')} />
           </Route>
           <Route path="" exact>
-            <TopPanel />
             <EventsPanel AccessToken={this.props.cookies.get('AccessToken')} />
           </Route>
         </Switch>

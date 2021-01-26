@@ -15,7 +15,7 @@ import {
 import OrganizationStateInterface from '../../../store/interface/OrganizationState.interface';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../Home/TopPanel/TopPanel.css';
+import '../../Home/EventsPanel/UserInfo/UserInfo.css';
 
 interface Props {
   organization: OrganizationStateInterface;

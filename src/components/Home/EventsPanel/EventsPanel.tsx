@@ -158,7 +158,7 @@ class EventsPanel extends Component<Props> {
           <UserInfo />
           <div className="ButtonsRow">
             <Button
-              className="TopControl-Button"
+              className="InfoButton"
               color="info"
               onClick={this.newEventHandler}
             >
@@ -169,7 +169,7 @@ class EventsPanel extends Component<Props> {
                 text={this.state.shareUrl}
                 onCopy={this.linkOnCopyHandler}
               >
-                <Button className="TopControl-Button" color="info">
+                <Button className="InfoButton" color="info">
                   Link to Share
                 </Button>
               </CopyToClipboard>

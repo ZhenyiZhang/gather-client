@@ -144,10 +144,15 @@ class EventClickPopUp extends Component<Props> {
           )}
         </ModalBody>
         <ModalFooter>
-          <Button color="info" onClick={this.editingToggle}>
+          <Button
+            className="InfoButton"
+            color="info"
+            onClick={this.editingToggle}
+          >
             Edit
           </Button>
           <Button
+            className="DangerButton"
             color="danger"
             onClick={() => {
               this.deleteEventHandler();
@@ -158,7 +163,7 @@ class EventClickPopUp extends Component<Props> {
           {this.props.event.repeat !== 'None' && (
             <div>
               <Button
-                className="ButtonSecondary"
+                className="DangerButton"
                 color="danger"
                 onClick={() => {
                   this.deleteOneTimeHandler();

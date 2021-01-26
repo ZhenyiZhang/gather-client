@@ -311,14 +311,14 @@ class NewEvent extends Component<Props> {
           </Form>
           <ModalFooter>
             <Button
-              className="NewEventSubmit"
+              className="InfoButton"
               color="info"
               onClick={this.submitEvent}
             >
               Submit
             </Button>
             <Button
-              className="NewEventCancel"
+              className="SecondaryButton"
               color="secondary"
               onClick={this.props.newEventHandler}
             >

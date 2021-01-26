@@ -312,7 +312,11 @@ class EventEditPanel extends Component<Props> {
             </Col>
           </Form>
           <ModalFooter>
-            <Button color="info" onClick={this.submitHandler}>
+            <Button
+              className="InfoButton"
+              color="info"
+              onClick={this.submitHandler}
+            >
               Submit
             </Button>
             {this.state.spinner ? <Spinner color="info" /> : null}

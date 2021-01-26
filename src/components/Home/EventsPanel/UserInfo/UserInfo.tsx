@@ -23,11 +23,11 @@ class UserInfo extends Component<Props> {
         <div className="UserInfoControl">
           <h2>{this.props.organizationName}</h2>
           <Button
+            className="PrimaryButton"
             color="primary"
             onClick={() => {
               this.setState({ dropdownOpen: !this.state.dropdownOpen });
             }}
-            className="ButtonAbout"
           >
             About
           </Button>

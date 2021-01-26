@@ -13,19 +13,6 @@
     font-family: 'Noto Sans JP', sans-serif;
 }
 
-.ButtonAbout {
-    background: none;
-    color: #007bff;
-    height: 38px;
-    margin-left: 10px;
-    border-radius: 10px;
-}
-
-.ButtonAbout:focus {
-    background: none;
-    color: #007bff;
-}
-
 .Collspse {
     width: 50vw;
     text-align: center;

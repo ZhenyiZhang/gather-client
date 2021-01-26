@@ -129,7 +129,7 @@ class ProfilePage extends Component<Props> {
             <br />
             <Row>
               <Button
-                className="ProfileEditBtn"
+                className="InfoButton"
                 onClick={() => {
                   this.setState({ edit: !this.state.edit });
                 }}
@@ -144,7 +144,7 @@ class ProfilePage extends Component<Props> {
                     this.linkOnCopyHandler();
                   }}
                 >
-                  <Button className="LinkBadge" color="primary">
+                  <Button className="PrimaryButton" color="primary">
                     Copy link
                   </Button>
                 </CopyToClipboard>
@@ -204,12 +204,16 @@ class ProfilePage extends Component<Props> {
                   onChange={() => this.setState({ share: !this.state.share })}
                 />
               </FormGroup>
-              <Button onClick={this.submitHandler} color="info">
+              <Button
+                className="InfoButton"
+                onClick={this.submitHandler}
+                color="info"
+              >
                 Submit
               </Button>
               <Button
+                className="SecondaryButton"
                 color="secondary"
-                className="ButtonCancel"
                 onClick={() => {
                   this.setState({ edit: !this.state.edit });
                 }}

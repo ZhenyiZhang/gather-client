@@ -1,11 +1,3 @@
-.TopControl-Button {
-    background: none;
-    color: #17a2b8;
-    border-radius:10px;
-    height: 38px;
-    margin-right: 10px;
-}
-
 .TopControl {
     align-items: flex-start;
     display: flex;

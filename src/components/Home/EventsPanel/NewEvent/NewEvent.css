@@ -1,5 +1,13 @@
-.submitButton {
-    background-color: #4CAF50;
+.NewEventSubmit {
+    background: none;
+    color: #17a2b8;
+    border-radius: 10px;
+}
+
+.NewEventCancel {
+    background: none;
+    color: #6c757d;
+    border-radius: 10px;
 }
 
 .submitButton :focus {
@@ -38,9 +46,9 @@
 }
 
 .CusModal {
+    top: 10vh;
     max-width: 1600px;
     width: 70%;
-    height: 100%;
     padding: 20px;
 }
 
@@ -117,6 +125,6 @@
 }
 @media screen and (min-width: 601px) and (max-width: 1199px) {
     .CusModal {
-        width: 90%;
+        width: 80%;
     }
 }

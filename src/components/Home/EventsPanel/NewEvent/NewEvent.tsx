@@ -310,10 +310,18 @@ class NewEvent extends Component<Props> {
             </Col>
           </Form>
           <ModalFooter>
-            <Button color="info" onClick={this.submitEvent}>
+            <Button
+              className="NewEventSubmit"
+              color="info"
+              onClick={this.submitEvent}
+            >
               Submit
             </Button>
-            <Button color="secondary" onClick={this.props.newEventHandler}>
+            <Button
+              className="NewEventCancel"
+              color="secondary"
+              onClick={this.props.newEventHandler}
+            >
               Cancel
             </Button>
             {this.state.spinner && <Spinner color="info" />}

@@ -549,14 +549,22 @@ button.rbc-input::-moz-focus-inner {
     width: 100%;
     border-top: 2px solid #DDD;
     overflow-y: auto;
-    position: relative; }
+    position: relative; 
+}
+
 .rbc-time-content > .rbc-time-gutter {
-    flex: none; }
+    flex: none; 
+}
+
 .rbc-time-content > * + * > * {
-    border-left: 1px solid #DDD; }
+    border-left: 1px solid #DDD; 
+}
+
 .rbc-rtl .rbc-time-content > * + * > * {
     border-left-width: 0;
-    border-right: 1px solid #DDD; }
+    border-right: 1px solid #DDD; 
+}
+
 .rbc-time-content > .rbc-day-slot {
     width: 100%;
     user-select: none;
@@ -569,11 +577,12 @@ button.rbc-input::-moz-focus-inner {
     right: 0;
     height: 1px;
     background-color: #74ad31;
-    pointer-events: none; }
+    pointer-events: none; 
+}
 
 .Calendar {
     margin: 10px;
-    height: 800px;
+    height: 700px;
 }
 
 button{
@@ -593,19 +602,13 @@ button{
 
 @media screen and (min-height: 1200px) {
     .Calendar {
-        height: 1000px;
-    }
-}
-
-@media screen and (min-height: 1200px) {
-    .Calendar {
-        height: 1000px;
+        height: 950px;
     }
 }
 
 @media screen and (min-height: 1000px) and (max-height:1199px){
     .Calendar {
-        height: 900px;
+        height: 800px;
     }
 }
 

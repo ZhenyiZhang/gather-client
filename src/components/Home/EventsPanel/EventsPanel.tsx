@@ -3,14 +3,15 @@ import React, { Component } from 'react';
 import { Dispatch } from 'redux';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { connect } from 'react-redux';
-import { Alert, Button } from 'reactstrap';
+import { Alert, Button, Row } from 'reactstrap';
 import eventInterface from '../../../store/interface/Event.interface';
 import CalendarEvent from './interface/calendarEvent.interface';
 import OrganizationStateInterface from '../../../store/interface/OrganizationState.interface';
 import EventClickPopUp from './EventClickPopUp/EventClickPopUp';
 import NewEvent from './NewEvent/NewEvent';
+import UserInfo from './UserInfo/UserInfo';
 import CalendarPanel from './CalenderPanel/CalendarPanel';
-import getProfileAction from '../TopPanel/actions/getProfileAction';
+import getProfileAction from './UserInfo/actions/getProfileAction';
 import ClientURL from '../../../lib/apisInstances/clientURL';
 import getProfileInstance from '../../../lib/apisInstances/getProfile';
 import tinyUrlInstance from '../../../lib/apisInstances/tinyURL';
@@ -154,31 +155,34 @@ class EventsPanel extends Component<Props> {
     return (
       <div>
         <div className="TopControl">
-          <Button
-            className="TopControl-Button"
-            color="info"
-            onClick={this.newEventHandler}
-          >
-            New Event
-          </Button>
-          {this.props.share && (
-            <CopyToClipboard
-              text={this.state.shareUrl}
-              onCopy={this.linkOnCopyHandler}
+          <UserInfo />
+          <div className="ButtonsRow">
+            <Button
+              className="TopControl-Button"
+              color="info"
+              onClick={this.newEventHandler}
             >
-              <Button className="TopControl-Button" color="info">
-                Link to Share
-              </Button>
-            </CopyToClipboard>
-          )}
-          <Alert
-            className="CopyAlert"
-            color="success"
-            isOpen={this.state.alert}
-            fade
-          >
-            Copied
-          </Alert>
+              New Event
+            </Button>
+            {this.props.share && (
+              <CopyToClipboard
+                text={this.state.shareUrl}
+                onCopy={this.linkOnCopyHandler}
+              >
+                <Button className="TopControl-Button" color="info">
+                  Link to Share
+                </Button>
+              </CopyToClipboard>
+            )}
+            <Alert
+              className="CopyAlert"
+              color="success"
+              isOpen={this.state.alert}
+              fade
+            >
+              Copied
+            </Alert>
+          </div>
         </div>
         <CalendarPanel
           startDate={new Date(this.state.calendarStart)}

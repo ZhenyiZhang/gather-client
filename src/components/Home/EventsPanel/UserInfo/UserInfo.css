@@ -1,12 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap');
 
-.TopPanelControl {
+.UserInfoContainer {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5vw;
+}
+
+.UserInfoControl {
     align-items: center;
     display: flex;
     justify-content: flex-start;
     font-family: 'Noto Sans JP', sans-serif;
-    width: 100vw;
-    margin-left: 5%;
 }
 
 .ButtonAbout {
@@ -23,8 +27,8 @@
 }
 
 .Collspse {
-    width: 70vw;
-    margin-left: 15vw;
+    width: 50vw;
+    text-align: center;
 }
 
 .Card {

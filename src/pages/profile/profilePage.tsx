@@ -9,7 +9,7 @@ import OrganizationStateInterface from '../../store/interface/OrganizationState.
 import ClientURL from '../../lib/apisInstances/clientURL';
 import updateProfileInstance from '../../lib/apisInstances/updateProfile';
 import getProfileInstance from '../../lib/apisInstances/getProfile';
-import getProfileAction from '../../components/Home/TopPanel/actions/getProfileAction';
+import getProfileAction from '../../components/Home/EventsPanel/UserInfo/actions/getProfileAction';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './profilePage.css';
@@ -20,17 +20,50 @@ interface Props {
   getProfileDispatch: (organizationData: OrganizationStateInterface) => void;
 }
 
+interface DerivedPropsState {
+  organizationName: string;
+  email: string;
+  description: string;
+  share: boolean;
+}
+
+interface State {
+  edit: boolean;
+  copied: boolean;
+  alert: boolean;
+  link: string;
+  organizationName: string;
+  email: string;
+  description: string;
+  share: boolean;
+}
+
 class ProfilePage extends Component<Props> {
   state = {
     edit: false,
-    organizationName: this.props.organization.organizationName,
-    email: this.props.organization.email,
-    description: this.props.organization.description,
-    share: this.props.organization.share,
+    organizationName: this.props.organization.organizationName || '',
+    email: this.props.organization.email || '',
+    description: this.props.organization.description || '',
+    share: this.props.organization.share || false,
     copied: false,
     alert: false,
     link: '',
   };
+
+  static getDerivedStateFromProps(
+    nextProps: Props,
+    prevState: State
+  ): DerivedPropsState | null {
+    if (prevState.organizationName === '') {
+      return {
+        organizationName: nextProps.organization.organizationName,
+        email: nextProps.organization.email,
+        description: nextProps.organization.description,
+        share: nextProps.organization.share,
+      };
+    }
+    return null;
+  }
 
   componentDidMount() {
     tinyUrlInstance

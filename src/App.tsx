@@ -6,6 +6,7 @@ import { withCookies } from 'react-cookie';
 import HomeContainer from './components/HomeContainer/HomeContainer';
 
 import './App.css';
+import './lib/styles/button.css';
 
 interface Props {
   cookies: Cookies;

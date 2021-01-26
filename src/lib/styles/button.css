@@ -1,0 +1,27 @@
+.SecondaryButton {
+    background: none;
+    border-radius: 10px;
+    color: #6c757d;
+    margin: 5px;
+}
+
+.InfoButton {
+    background: none;
+    border-radius: 10px;
+    color: #17a2b8;
+    margin: 5px;
+}
+
+.PrimaryButton {
+    background: none;
+    border-radius: 10px;
+    color: #007bff;
+    margin: 5px;
+}
+
+.DangerButton {
+    background: none;
+    border-radius: 10px;
+    color: #dc3545;
+    margin: 5px;
+}

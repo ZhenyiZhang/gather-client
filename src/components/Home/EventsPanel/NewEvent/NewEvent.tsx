@@ -65,9 +65,9 @@ class NewEvent extends Component<Props> {
   }
 
   componentWillUnmount(): void {
-    Array.from(document.querySelectorAll('input')).forEach(
-      (input) => (input.value = '')
-    );
+    Array.from(document.querySelectorAll('input')).forEach((input) => {
+      input.value = '';
+    });
   }
 
   /* update location state */
@@ -204,7 +204,8 @@ class NewEvent extends Component<Props> {
                     id="name"
                     placeholder="name"
                     onChange={(event) =>
-                      this.setState({ name: event.target.value })}
+                      this.setState({ name: event.target.value })
+                    }
                   />
                 </Col>
               </FormGroup>
@@ -219,7 +220,8 @@ class NewEvent extends Component<Props> {
                     id="description"
                     placeholder="description"
                     onChange={(event) =>
-                      this.setState({ description: event.target.value })}
+                      this.setState({ description: event.target.value })
+                    }
                   />
                 </Col>
               </FormGroup>
@@ -277,7 +279,8 @@ class NewEvent extends Component<Props> {
                     name="repeat"
                     id="repeat"
                     onChange={(event) =>
-                      this.setState({ repeat: event.target.value })}
+                      this.setState({ repeat: event.target.value })
+                    }
                   >
                     <option>None</option>
                     <option>Weekly</option>
@@ -302,7 +305,8 @@ class NewEvent extends Component<Props> {
                   </Label>
                   <Switch
                     onChange={(event: boolean) =>
-                      this.setState({ repeatNeverEnds: event })}
+                      this.setState({ repeatNeverEnds: event })
+                    }
                     checked={this.state.repeatNeverEnds}
                   />
                 </FormGroup>

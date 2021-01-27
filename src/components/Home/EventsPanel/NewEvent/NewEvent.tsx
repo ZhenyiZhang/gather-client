@@ -51,13 +51,17 @@ class NewEvent extends Component<Props> {
     spinner: false,
   };
 
-  componentWillReceiveProps(nextProps: Readonly<Props>): void {
-    if (nextProps.startSelected !== this.state.start) {
-      this.setState({
+  static getDerivedStateFromProps(
+    nextProps: Readonly<Props>,
+    state: any
+  ): { start: Date; end: Date } | null {
+    if (nextProps.startSelected !== state.start) {
+      return {
         start: nextProps.startSelected,
         end: nextProps.endSelected,
-      });
+      };
     }
+    return null;
   }
 
   componentWillUnmount(): void {
@@ -200,8 +204,7 @@ class NewEvent extends Component<Props> {
                     id="name"
                     placeholder="name"
                     onChange={(event) =>
-                      this.setState({ name: event.target.value })
-                    }
+                      this.setState({ name: event.target.value })}
                   />
                 </Col>
               </FormGroup>
@@ -216,8 +219,7 @@ class NewEvent extends Component<Props> {
                     id="description"
                     placeholder="description"
                     onChange={(event) =>
-                      this.setState({ description: event.target.value })
-                    }
+                      this.setState({ description: event.target.value })}
                   />
                 </Col>
               </FormGroup>
@@ -275,8 +277,7 @@ class NewEvent extends Component<Props> {
                     name="repeat"
                     id="repeat"
                     onChange={(event) =>
-                      this.setState({ repeat: event.target.value })
-                    }
+                      this.setState({ repeat: event.target.value })}
                   >
                     <option>None</option>
                     <option>Weekly</option>
@@ -301,8 +302,7 @@ class NewEvent extends Component<Props> {
                   </Label>
                   <Switch
                     onChange={(event: boolean) =>
-                      this.setState({ repeatNeverEnds: event })
-                    }
+                      this.setState({ repeatNeverEnds: event })}
                     checked={this.state.repeatNeverEnds}
                   />
                 </FormGroup>

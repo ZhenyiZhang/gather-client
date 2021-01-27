@@ -46,18 +46,20 @@ class EventEditPanel extends Component<Props> {
     warning: '',
   };
 
-  componentWillReceiveProps(nextProps: Readonly<Props>): void {
-    if (nextProps.event.name !== this.state.name) {
-      this.setState({
-        ...nextProps.event,
-      });
+  static getDerivedStateFromProps(
+    nextProps: Readonly<Props>,
+    state: any
+  ): EventInterface | null {
+    if (nextProps.event.name !== state.name) {
+      return { ...nextProps.event };
     }
+    return null;
   }
 
   componentWillUnmount(): void {
-    Array.from(document.querySelectorAll('input')).forEach(
-      (input) => (input.value = '')
-    );
+    Array.from(document.querySelectorAll('input')).forEach((input) => {
+      input.value = '';
+    });
   }
 
   /* submit event modification form */

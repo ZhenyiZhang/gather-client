@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import dateformat from 'dateformat';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import EventInterface from '../../../../store/interface/Event.interface';
+import PopUpEvent from './interface/PopUpEvent.interface';
 import deleteEventInstance from '../../../../lib/apisInstances/deleteEvent';
 import eventRepeatExceptionInstance from '../../../../lib/apisInstances/eventRepeatException';
 import EventEditPanel from './EventEditPanel/EventEditPanel';
@@ -11,7 +11,7 @@ import './EventClickPopUp.css';
 
 interface Props {
   popUp: boolean;
-  event: EventInterface;
+  event: PopUpEvent;
   AccessToken: string;
   popUpToggle: () => void;
   refreshHandler: () => void;
@@ -31,7 +31,7 @@ class EventClickPopUp extends Component<Props> {
   };
 
   /* toggle event editing option */
-  editingToggle = () => {
+  editingToggle = (): void => {
     this.setState({ editing: !this.state.editing });
   };
 
@@ -73,6 +73,7 @@ class EventClickPopUp extends Component<Props> {
   };
 
   render() {
+    const { contacts } = this.props.event;
     return (
       <Modal
         className="PopUpModal"
@@ -87,17 +88,11 @@ class EventClickPopUp extends Component<Props> {
           <p className="lead">{this.props.event.description}</p>
           <p className="label">Start Date:</p>
           <p>
-            {dateformat(
-              new Date(this.props.event.start),
-              'dddd, mmmm dS, yyyy, h:MM TT'
-            )}
+            {dateformat(this.props.event.start, 'dddd, mmmm dS, yyyy, h:MM TT')}
           </p>
           <p className="label">End Date:</p>
           <p>
-            {dateformat(
-              new Date(this.props.event.end),
-              'dddd, mmmm dS, yyyy, h:MM TT'
-            )}
+            {dateformat(this.props.event.end, 'dddd, mmmm dS, yyyy, h:MM TT')}
           </p>
           {this.props.event.repeat === 'None' &&
           this.props.event.repeatNeverEnds ? (
@@ -113,35 +108,22 @@ class EventClickPopUp extends Component<Props> {
               </strong>
               <br />
               {dateformat(
-                new Date(this.props.event.repeatEnds),
+                this.props.event.repeatEnds,
                 'dddd, mmmm dS, yyyy, h:MM TT'
               )}
             </p>
           )}
-          {this.props.event.contacts.email && (
-            <p>
-              <strong className="label">{'Email: '}</strong>
-              {this.props.event.contacts.email}
-            </p>
-          )}
-          {this.props.event.contacts.phone && (
-            <p>
-              <strong className="label">{'Phone: '}</strong>
-              {this.props.event.contacts.phone}
-            </p>
-          )}
-          {this.props.event.contacts.link && (
-            <p>
-              <strong className="label">{'Link: '}</strong>
-              {this.props.event.contacts.link}
-            </p>
-          )}
-          {this.props.event.contacts.location && (
-            <p>
-              <strong className="label">{'Location: '}</strong>
-              {this.props.event.contacts.location}
-            </p>
-          )}
+          {contacts !== undefined &&
+            Object.entries(contacts).map(([key, value]) => {
+              return (
+                value.length > 0 && (
+                  <p key={key}>
+                    <strong className="label">{`${key}: `}</strong>
+                    {value}
+                  </p>
+                )
+              );
+            })}
         </ModalBody>
         <ModalFooter>
           <Button

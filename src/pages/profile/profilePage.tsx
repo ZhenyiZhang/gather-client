@@ -38,7 +38,7 @@ interface State {
   share: boolean;
 }
 
-class ProfilePage extends Component<Props> {
+class ProfilePage extends Component<Props, State> {
   state = {
     edit: false,
     organizationName: this.props.organization.organizationName || '',
@@ -65,16 +65,23 @@ class ProfilePage extends Component<Props> {
     return null;
   }
 
-  componentDidMount() {
+  componentDidUpdate(prevProps: Props, prevState: State): void {
+    const { _id } = this.props.organization;
+    if (prevState.link === '' && _id) {
+      this.getTinyURL(_id);
+    }
+  }
+
+  getTinyURL = (id: string) => {
     tinyUrlInstance
       .post('', {
-        longURL: `${ClientURL}/shared/${this.props.organization._id}`,
+        longURL: `${ClientURL}/shared/${id}`,
       })
       .then((response) => {
         const { shortURL } = response.data;
         this.setState({ link: shortURL });
       });
-  }
+  };
 
   /* submit profile modification form */
   submitHandler = () => {
@@ -124,8 +131,12 @@ class ProfilePage extends Component<Props> {
             <h5>{this.props.organization.description}</h5>
             <h4>Share Events:</h4>
             <h5>{this.props.organization.share ? 'Yes' : 'No'}</h5>
-            <h4>Link to share:</h4>
-            <a href={this.state.link}>{this.state.link}</a>
+            {this.props.organization.share && (
+              <>
+                <h4>Link to share:</h4>
+                <a href={`http://${this.state.link}`}>{this.state.link}</a>
+              </>
+            )}
             <br />
             <Row>
               <Button

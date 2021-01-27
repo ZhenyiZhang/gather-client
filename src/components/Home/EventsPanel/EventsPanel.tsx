@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Alert, Button, Row } from 'reactstrap';
 import eventInterface from '../../../store/interface/Event.interface';
 import CalendarEvent from './interface/calendarEvent.interface';
+import PopUpEvent from './EventClickPopUp/interface/PopUpEvent.interface';
 import OrganizationStateInterface from '../../../store/interface/OrganizationState.interface';
 import EventClickPopUp from './EventClickPopUp/EventClickPopUp';
 import NewEvent from './NewEvent/NewEvent';
@@ -29,39 +30,14 @@ interface Props {
   getProfileDispatch: (organizationData: OrganizationStateInterface) => void;
 }
 
-interface Contact {
-  email: string;
-  link: string;
-  phone: string;
-  location: string;
-}
-
-interface PopUpEvent {
-  name: string;
-  description: string;
-  start: Date;
-  end: Date;
-  repeat: string;
-  repeatEnds: Date;
-  repeatNeverEnds: boolean;
-  _id: string;
-  Organization: string;
-  contacts: Contact;
-}
-
 class EventsPanel extends Component<Props> {
   state = {
     alert: false,
     copied: false,
-    /* control whether event is clicked or not */
     popUp: false,
-    /* controller for refreshing page */
     refresh: false,
-    /* content in the pop up modal */
     shareUrl: '',
-    // TODO make this state prop a interface
     popUpEvent: {} as PopUpEvent,
-    /* new event modal controller */
     newEvent: false,
     newEventSelectedStart: new Date(Date.now()),
     newEventSelectedEnd: new Date(Date.now()),
@@ -213,7 +189,7 @@ class EventsPanel extends Component<Props> {
           slotOnClickHandler={this.slotOnClickHandler}
         />
         <EventClickPopUp
-          event={this.state.popUpEvent}
+          event={{ ...this.state.popUpEvent }}
           popUp={this.state.popUp}
           popUpToggle={this.popUpToggle}
           refreshHandler={this.refreshHandler}

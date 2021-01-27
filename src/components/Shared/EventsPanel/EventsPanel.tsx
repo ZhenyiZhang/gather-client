@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, { Component } from 'react';
 
 import eventInterface from '../../../store/interface/Event.interface';

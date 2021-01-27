@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React from 'react';
 import { Calendar } from 'react-big-calendar';
 import eventInterface from '../../../../store/interface/Event.interface';

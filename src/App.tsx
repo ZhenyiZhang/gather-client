@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, { useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import { Route } from 'react-router-dom';

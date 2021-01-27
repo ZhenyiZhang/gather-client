@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, { Component } from 'react';
 import dateformat from 'dateformat';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';

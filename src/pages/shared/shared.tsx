@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, { Component } from 'react';
 import OrganizationStateInterface from '../../store/interface/OrganizationState.interface';
 import TopPanel from '../../components/Shared/TopPanel/TopPanel';

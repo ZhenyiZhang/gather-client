@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, { Component } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import Switch from 'react-switch';

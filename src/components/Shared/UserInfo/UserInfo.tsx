@@ -1,6 +1,6 @@
+// eslint-disable-next-line
 import React, { Component } from 'react';
 import { Button, Collapse, CardBody, Card } from 'reactstrap';
-import OrganizationStateInterface from '../../../store/interface/OrganizationState.interface';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../Home/EventsPanel/UserInfo/UserInfo.css';

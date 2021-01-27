@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Collapse, CardBody, Card } from 'reactstrap';

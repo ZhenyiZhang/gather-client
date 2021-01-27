@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+// eslint-disable-next-line
+import React from 'react';
 import dateformat from 'dateformat';
 import ICalendarLink from 'react-icalendar-link';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
@@ -12,113 +13,92 @@ interface Props {
   event: EventInterface;
   popUpToggle: () => void;
 }
-
-class EventClickPopUp extends Component<Props> {
-  state = {
-    startTimeReformat: dateformat(
-      this.props.event.start,
-      'dddd, mmmm dS, yyyy, h:MM:ss TT'
-    ),
-    endTimeReformat: dateformat(
-      this.props.event.end,
-      'dddd, mmmm dS, yyyy, h:MM:ss TT'
-    ),
-  };
-
-  render() {
-    return (
-      <Modal
-        isOpen={this.props.popUp}
-        toggle={this.props.popUpToggle}
-        modalTransition={{ timeout: 300 }}
-      >
-        <ModalHeader className="lead" toggle={this.props.popUpToggle}>
-          {this.props.event.name}
-        </ModalHeader>
-        <ModalBody>
-          <p className="lead">{this.props.event.description}</p>
-          <p className="label">Start Date:</p>
+const EventClickPopUp = (props: Props): any => {
+  return (
+    <Modal
+      isOpen={props.popUp}
+      toggle={props.popUpToggle}
+      modalTransition={{ timeout: 300 }}
+    >
+      <ModalHeader className="lead" toggle={props.popUpToggle}>
+        {props.event.name}
+      </ModalHeader>
+      <ModalBody>
+        <p className="lead">{props.event.description}</p>
+        <p className="label">Start Date:</p>
+        <p>
+          {dateformat(
+            new Date(props.event.start),
+            'dddd, mmmm dS, yyyy, h:MM TT'
+          )}
+        </p>
+        <p className="label">End Date:</p>
+        <p>
+          {dateformat(
+            new Date(props.event.end),
+            'dddd, mmmm dS, yyyy, h:MM TT'
+          )}
+        </p>
+        {props.event.repeat !== 'none' && props.event.repeatNeverEnds ? (
           <p>
+            <strong className="label">Repeat:</strong>
+            Never Ends
+          </p>
+        ) : (
+          <p>
+            <strong className="label">
+              Event repeats
+              {props.event.repeat}
+              until
+            </strong>
             {dateformat(
-              new Date(this.props.event.start),
+              new Date(props.event.repeatEnds),
               'dddd, mmmm dS, yyyy, h:MM TT'
             )}
           </p>
-          <p className="label">End Date:</p>
+        )}
+        {props.event.contacts.email && (
           <p>
-            {dateformat(
-              new Date(this.props.event.end),
-              'dddd, mmmm dS, yyyy, h:MM TT'
-            )}
+            <strong className="label">{'Email: '}</strong>
+            {props.event.contacts.email}
           </p>
-          {this.props.event.repeat !== 'none' &&
-          this.props.event.repeatNeverEnds ? (
-            <p>
-              <strong className="label">Repeat:</strong>
-              Never Ends
-            </p>
-          ) : (
-            <p>
-              <strong className="label">
-                Event repeats
-                {this.props.event.repeat}
-                until
-              </strong>
-              {dateformat(
-                new Date(this.props.event.repeatEnds),
-                'dddd, mmmm dS, yyyy, h:MM TT'
-              )}
-            </p>
-          )}
-          {this.props.event.contacts.email && (
-            <p>
-              <strong className="label">{'Email: '}</strong>
-              {this.props.event.contacts.email}
-            </p>
-          )}
-          {this.props.event.contacts.phone && (
-            <p>
-              <strong className="label">{'Phone: '}</strong>
-              {this.props.event.contacts.phone}
-            </p>
-          )}
-          {this.props.event.contacts.link && (
-            <p>
-              <strong className="label">{'Link: '}</strong>
-              {this.props.event.contacts.link}
-            </p>
-          )}
-          {this.props.event.contacts.location && (
-            <p>
-              <strong className="label">{'Location: '}</strong>
-              {this.props.event.contacts.location}
-            </p>
-          )}
-        </ModalBody>
-        <ModalFooter>
-          {this.props.popUp && (
-            <ICalendarLink
-              event={{
-                title: this.props.event.name,
-                description: this.props.event.description,
-                startTime: dateformat(
-                  this.props.event.start,
-                  "yyyy-mm-dd'T'HH:MM:ss"
-                ),
-                endTime: dateformat(
-                  this.props.event.end,
-                  "yyyy-mm-dd'T'HH:MM:ss"
-                ),
-                location: this.props.event.contacts.location,
-              }}
-            >
-              Download Event File
-            </ICalendarLink>
-          )}
-        </ModalFooter>
-      </Modal>
-    );
-  }
-}
+        )}
+        {props.event.contacts.phone && (
+          <p>
+            <strong className="label">{'Phone: '}</strong>
+            {props.event.contacts.phone}
+          </p>
+        )}
+        {props.event.contacts.link && (
+          <p>
+            <strong className="label">{'Link: '}</strong>
+            {props.event.contacts.link}
+          </p>
+        )}
+        {props.event.contacts.location && (
+          <p>
+            <strong className="label">{'Location: '}</strong>
+            {props.event.contacts.location}
+          </p>
+        )}
+      </ModalBody>
+      <ModalFooter>
+        {props.popUp && (
+          <ICalendarLink
+            event={{
+              title: props.event.name,
+              description: props.event.description,
+              startTime: dateformat(props.event.start, "yyyy-mm-dd'T'HH:MM:ss"),
+              endTime: dateformat(props.event.end, "yyyy-mm-dd'T'HH:MM:ss"),
+              location: props.event.contacts.location,
+            }}
+          >
+            Download Event File
+          </ICalendarLink>
+        )}
+      </ModalFooter>
+    </Modal>
+  );
+};
 
 export default EventClickPopUp;

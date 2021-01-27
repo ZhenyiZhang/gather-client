@@ -3,7 +3,7 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import Switch from 'react-switch';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { Alert, Button, Form, FormGroup, Label, Input, Row } from 'reactstrap';
+import { Alert, Button, Form, FormGroup, Input, Row } from 'reactstrap';
 import tinyUrlInstance from '../../lib/apisInstances/tinyURL';
 import OrganizationStateInterface from '../../store/interface/OrganizationState.interface';
 import ClientURL from '../../lib/apisInstances/clientURL';

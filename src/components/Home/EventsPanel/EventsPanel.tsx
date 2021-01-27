@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Dispatch } from 'redux';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { connect } from 'react-redux';
-import { Alert, Button, Row } from 'reactstrap';
+import { Alert, Button } from 'reactstrap';
 import eventInterface from '../../../store/interface/Event.interface';
 import CalendarEvent from './interface/calendarEvent.interface';
 import PopUpEvent from './EventClickPopUp/interface/PopUpEvent.interface';

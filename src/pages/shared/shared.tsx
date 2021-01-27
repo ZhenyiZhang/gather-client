@@ -8,6 +8,7 @@ class Shared extends Component<any> {
   state = {
     organizationData: {} as OrganizationStateInterface,
     showPage: false,
+    pageError: false,
   };
 
   componentDidMount() {
@@ -21,22 +22,22 @@ class Shared extends Component<any> {
         });
       })
       .catch(() => {
-        this.setState({
-          invalidPage: (
-            <p>The page does not exist or the user profile is not shared </p>
-          ),
-        });
+        this.setState({ pageError: true });
       });
   }
 
   render() {
     return (
       <div>
-        {this.state.showPage && (
+        {this.state.showPage ? (
           <div>
             <TopPanel organization={this.state.organizationData} />
             <EventsPanel events={this.state.organizationData.events} />
           </div>
+        ) : (
+          this.state.pageError && (
+            <p>The page does not exist or the user is not sharing</p>
+          )
         )}
       </div>
     );

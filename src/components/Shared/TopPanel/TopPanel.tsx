@@ -8,12 +8,10 @@ import {
   NavLink,
   Collapse,
   NavbarToggler,
-  Button,
-  Card,
-  CardBody,
 } from 'reactstrap';
 import OrganizationStateInterface from '../../../store/interface/OrganizationState.interface';
 
+import UserInfo from '../UserInfo/UserInfo';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../Home/EventsPanel/UserInfo/UserInfo.css';
 
@@ -51,25 +49,10 @@ class TopPanel extends Component<Props> {
             </Nav>
           </Collapse>
         </Navbar>
-        <div>
-          <div className="TopPanelControl">
-            <h2>{this.props.organization.organizationName}</h2>
-            <Button
-              color="primary"
-              onClick={() => {
-                this.setState({ dropdownOpen: !this.state.dropdownOpen });
-              }}
-              className="ButtonAbout"
-            >
-              About
-            </Button>
-            <Collapse className="Collspse" isOpen={this.state.dropdownOpen}>
-              <Card className="Card">
-                <CardBody>{this.props.organization.description}</CardBody>
-              </Card>
-            </Collapse>
-          </div>
-        </div>
+        <UserInfo
+          organizationName={this.props.organization.name}
+          description={this.props.organization.description}
+        />
       </div>
     );
   }

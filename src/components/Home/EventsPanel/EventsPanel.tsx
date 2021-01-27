@@ -16,8 +16,6 @@ import ClientURL from '../../../lib/apisInstances/clientURL';
 import getProfileInstance from '../../../lib/apisInstances/getProfile';
 import tinyUrlInstance from '../../../lib/apisInstances/tinyURL';
 
-/* Redux */
-
 /* Style */
 import './CalenderPanel/CalendarPanel.css';
 import './EventsPanel.css';
@@ -31,6 +29,26 @@ interface Props {
   getProfileDispatch: (organizationData: OrganizationStateInterface) => void;
 }
 
+interface Contact {
+  email: string;
+  link: string;
+  phone: string;
+  location: string;
+}
+
+interface PopUpEvent {
+  name: string;
+  description: string;
+  start: Date;
+  end: Date;
+  repeat: string;
+  repeatEnds: Date;
+  repeatNeverEnds: boolean;
+  _id: string;
+  Organization: string;
+  contacts: Contact;
+}
+
 class EventsPanel extends Component<Props> {
   state = {
     alert: false,
@@ -41,18 +59,8 @@ class EventsPanel extends Component<Props> {
     refresh: false,
     /* content in the pop up modal */
     shareUrl: '',
-    popUpEvent: {
-      name: '',
-      description: '',
-      start: new Date(),
-      end: new Date(),
-      repeat: '',
-      repeatEnds: new Date(),
-      repeatNeverEnds: false,
-      _id: '',
-      Organization: '',
-      contacts: { email: '', link: '', phone: '', location: '' },
-    },
+    // TODO make this state prop a interface
+    popUpEvent: {} as PopUpEvent,
     /* new event modal controller */
     newEvent: false,
     newEventSelectedStart: new Date(Date.now()),
@@ -66,16 +74,23 @@ class EventsPanel extends Component<Props> {
     ),
   };
 
-  componentDidMount() {
+  componentDidUpdate(prevProps: Props, prevState: any): void {
+    const { userId } = this.props;
+    if (prevState.shareUrl === '' && userId) {
+      this.getTinyURL(userId);
+    }
+  }
+
+  getTinyURL = (id: string) => {
     tinyUrlInstance
       .post('', {
-        longURL: `${ClientURL}/shared/${this.props.userId}`,
+        longURL: `${ClientURL}/shared/${id}`,
       })
       .then((response) => {
         const { shortURL } = response.data;
         this.setState({ shareUrl: shortURL });
       });
-  }
+  };
 
   /* update calendar time range state */
   onRangeChangeHandler = (start: Date, end: Date) => {
@@ -132,15 +147,19 @@ class EventsPanel extends Component<Props> {
     });
   };
 
-  linkOnCopyHandler = async () => {
-    this.setState({ copied: true });
-    setTimeout(() => {
-      this.setState({ alert: true });
-    }, 300);
-    setTimeout(() => {
-      this.setState({ alert: false });
-    }, 2000);
-    return this.state.copied;
+  linkOnCopyHandler = (): void => {
+    tinyUrlInstance
+      .post('', {
+        longURL: `${ClientURL}/shared/${this.props.userId}`,
+      })
+      .then((res) => {
+        const { shortURL } = res.data;
+        this.setState({ shareUrl: shortURL });
+        this.setState({ copied: true });
+        setTimeout(() => {
+          this.setState({ copied: false });
+        }, 2000);
+      });
   };
 
   slotOnClickHandler = (start: Date, end: Date) => {
@@ -165,11 +184,12 @@ class EventsPanel extends Component<Props> {
               New Event
             </Button>
             {this.props.share && (
-              <CopyToClipboard
-                text={this.state.shareUrl}
-                onCopy={this.linkOnCopyHandler}
-              >
-                <Button className="InfoButton" color="info">
+              <CopyToClipboard text={this.state.shareUrl}>
+                <Button
+                  className="InfoButton"
+                  color="info"
+                  onClick={this.linkOnCopyHandler}
+                >
                   Link to Share
                 </Button>
               </CopyToClipboard>
@@ -177,7 +197,7 @@ class EventsPanel extends Component<Props> {
             <Alert
               className="CopyAlert"
               color="success"
-              isOpen={this.state.alert}
+              isOpen={this.state.copied}
               fade
             >
               Copied

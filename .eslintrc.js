@@ -24,7 +24,6 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
   ],
   rules: {
-    '@typescript-eslint/react/state-in-constructor': 'off',
     'import/extensions': [
       'error',
       'ignorePackages',
@@ -35,10 +34,12 @@ module.exports = {
         tsx: 'never',
       },
     ],
-    'prettier/prettier': 'error',
+    'prettier/prettier': 'warn',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
-    '@typescript-eslint/no-use-before-define': 'off',
+    'react/state-in-constructor': 'off',
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': ['error'],
     'react/jsx-filename-extension': [
       1,
       {

@@ -39,6 +39,7 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'off',
     'react/state-in-constructor': 'off',
     'no-use-before-define': 'off',
+    'react/destructuring-assignment': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
     'react/jsx-filename-extension': [
       1,

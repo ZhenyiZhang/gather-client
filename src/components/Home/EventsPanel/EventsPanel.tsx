@@ -40,8 +40,8 @@ class EventsPanel extends Component<Props> {
     shareUrl: '',
     popUpEvent: {} as PopUpEvent,
     newEvent: false,
-    newEventSelectedStart: new Date(Date.now()),
-    newEventSelectedEnd: new Date(Date.now()),
+    newEventSelectedStart: new Date(),
+    newEventSelectedEnd: new Date(),
     /* the time range current calender view covers */
     calendarStart: new Date(Date.now()).setMonth(
       new Date(Date.now()).getMonth() - 1

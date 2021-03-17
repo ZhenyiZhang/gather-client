@@ -36,6 +36,7 @@ interface Props {
 class NewEvent extends Component<Props> {
   state = {
     name: '',
+    initial: true,
     start: new Date(this.props.startSelected),
     end: new Date(this.props.endSelected),
     repeatEnds: new Date(),
@@ -55,11 +56,12 @@ class NewEvent extends Component<Props> {
   static getDerivedStateFromProps(
     nextProps: Readonly<Props>,
     state: any
-  ): { start: Date; end: Date } | null {
-    if (nextProps.startSelected !== state.start) {
+  ): { start: Date; end: Date; initial: boolean } | null {
+    if (state.initial) {
       return {
         start: nextProps.startSelected,
         end: nextProps.endSelected,
+        initial: false,
       };
     }
     return null;
